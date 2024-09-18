@@ -12,6 +12,11 @@ My website is for gamers who want to subscribe to a boardgame club. It will be p
 
 What I want:
 
+MVP1: Events features: crud and subscription to an event
+MVP2: Subscribe a club and members management
+MVP3: Manage boardgame Library
+MVP4: Create and subscribe to a game session
+
 
 ## Getting Started
 
