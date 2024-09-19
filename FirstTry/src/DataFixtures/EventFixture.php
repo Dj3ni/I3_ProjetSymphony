@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Event;
+use App\Enum\EventType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -20,6 +21,7 @@ class EventFixture extends Fixture
                 "description" => $faker->paragraph(),
                 "fee"=>$faker->randomFloat(2,0,100),
             ]);
+            $event->setEventType(EventType::BOARDGAMES_DEMO);
             $manager->persist($event);
         }
 

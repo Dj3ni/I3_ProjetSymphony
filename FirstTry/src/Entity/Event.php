@@ -6,6 +6,7 @@ use App\HydrateTrait\HydrateTrait;
 use App\Repository\EventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Enum\EventType;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -31,6 +32,10 @@ class Event
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $fee = null;
+
+    //We need to instruct Doctrine that we have an Enum otherwise, it doesn't understand
+    #[ORM\Column(type: 'string', enumType: EventType::class)] 
+    private EventType $eventType;
 
     public function __construct(array $init = [])
     {
@@ -98,6 +103,18 @@ class Event
     public function setFee(string $fee): static
     {
         $this->fee = $fee;
+
+        return $this;
+    }
+
+    public function getEventType(): eventType
+    {
+        return $this->eventType;
+    }
+
+    public function setEventType(eventType $eventType): self
+    {
+        $this->eventType = $eventType;
 
         return $this;
     }
