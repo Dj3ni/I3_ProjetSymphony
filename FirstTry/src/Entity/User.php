@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\HydrateTrait\HydrateTrait;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -11,6 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    use HydrateTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -39,6 +42,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $phoneNumber = null;
+
+    public function __construct(array $init = [])
+    {
+        $this->hydrate($init);
+    }
 
     public function getId(): ?int
     {
