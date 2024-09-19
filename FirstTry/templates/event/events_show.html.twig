@@ -3,6 +3,12 @@
 {% block title %}Hello EventController!{% endblock %}
 
 {% block body %}
+
+{# {% if is_granted() %}
+{% endif %} #}
+<a href="{{ path ('create_event')}}">Create event</a>
+
+
 <h1>All the events are here</h1>
 
 
