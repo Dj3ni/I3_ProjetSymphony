@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EventController!{% endblock %}
+
+{% block body %}
+<h1>All the events are here</h1>
+
+
+<ul>
+    {% for event in events %}
+    <li>
+    <a href="{{ path ('event',{id:event.id})}}">{{event.title}}</a>
+    </li>
+        
+    {% endfor %}
+
+</ul>
+
+{% endblock %}

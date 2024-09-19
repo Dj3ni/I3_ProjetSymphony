@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EventController!{% endblock %}
+
+{% block body %}
+<h1>{{event.title}}</h1>
+
+<h3>Good to know</h3>
+    <div>
+        <p>Starts: {{event.dateStart | date("d/m/y H:i")}}</p>
+        <p>Ends: {{event.dateEnd | date("d/m/y H:i")}}</p>
+        <p>Fee: {{event.fee}}</p>
+    </div>
+    <h3>About the event</h3>
+    <div>
+        <p>{{event.description}}</p>
+    </div>
+
+
+
+
+{% endblock %}
