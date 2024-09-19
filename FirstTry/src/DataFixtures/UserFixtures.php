@@ -30,7 +30,7 @@ class UserFixtures extends Fixture
                 "phoneNumber" => $faker->phoneNumber(),
                 "email"=> "user". $i . "@mail.com",
             ]);
-            $pwdHashed =$this->pwdHasher->hashPassword($user,$faker->word());
+            $pwdHashed =$this->pwdHasher->hashPassword($user,"Password");
             $user->setPassword($pwdHashed);
             $manager->persist($user);
         }
