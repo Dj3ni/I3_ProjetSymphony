@@ -4,9 +4,12 @@
 
 {% block body %}
 
+
+
 {% if is_granted ("ROLE_ADMIN") %}
 <a href="{{ path ('create_event')}}">Create event</a>
 {% endif %}
+
 
 
 

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+
+    <h1>Subscribe to an event</h1>
+
+    {{ form_errors(form) }}
+
+    {{ form_start(form) }}
+        {# {{ form_row(form.title) }}
+        {{ form_row(form.dateStart) }}
+        {{ form_row(form.dateEnd) }}
+        {{ form_row(form.eventType) }}
+        {{ form_row(form.fee)}}
+        {{ form_row(form.description) }} #}
+
+
+        <button type="submit" class="btn">Create</button>
+    {{ form_end(form) }}
+{% endblock %}

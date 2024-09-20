@@ -3,6 +3,10 @@
 {% block title %}Hello EventController!{% endblock %}
 
 {% block body %}
+
+<a href="{{ path ('event_subscription', {id:event.id})}}" >Subscribe</a>
+
+
 <h1>{{event.title}}</h1>
 
 <h3>Good to know</h3>
