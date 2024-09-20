@@ -23,6 +23,7 @@ class UserFixtures extends Fixture
     {
         $faker = \Faker\Factory::create("fr_BE");
         
+        // user
         for ($i=0; $i < 10; $i++) { 
             $user = new User([
                 "firstname" => $faker->firstName(),
@@ -33,6 +34,20 @@ class UserFixtures extends Fixture
             $pwdHashed =$this->pwdHasher->hashPassword($user,"Password");
             $user->setPassword($pwdHashed);
             $manager->persist($user);
+        }
+
+        // admin
+        for ($i=0; $i < 10; $i++) { 
+            $admin = new User([
+                "firstname" => $faker->firstName(),
+                "lastname" => $faker->lastName(),
+                "phoneNumber" => $faker->phoneNumber(),
+                "email"=> "admin". $i . "@mail.com",
+            ]);
+            $pwdHashed =$this->pwdHasher->hashPassword($user,"Password");
+            $admin->setPassword($pwdHashed);
+            $manager->persist($admin);
+            $admin->setRoles(["ROLE_ADMIN"]);
         }
         $manager->flush();
     }

@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 class EventController extends AbstractController
 {
     public ManagerRegistry $doctrine;
+    public function __construct(ManagerRegistry $doctrine){
+        $this->doctrine = $doctrine;
+    }
     
     // Show all the events 
 
@@ -52,13 +55,13 @@ class EventController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+            // dd($form);
             // 3.Send in DB
             $em = $this->doctrine->getManager();
             $em->persist($event);
             $em->flush();
         }
 
-        // dd($form);
         
         return $this->render('event/event_create_form.html.twig', [
             'form' => $form,
