@@ -19,6 +19,12 @@ class EventSubscription
     #[ORM\Column]
     private ?\DateTimeImmutable $subscriptionDate = null;
 
+    #[ORM\ManyToOne(inversedBy: 'eventSubscriptions')]
+    private ?User $userSubscriptor = null;
+
+    #[ORM\ManyToOne(inversedBy: 'Subscriptions')]
+    private ?Event $eventSubscripted = null;
+
     public function __construct(array $init =[]){
         $this->hydrate($init);
     }
@@ -37,6 +43,30 @@ class EventSubscription
     public function setSubscriptionDate(\DateTimeImmutable $subscriptionDate): static
     {
         $this->subscriptionDate = $subscriptionDate;
+
+        return $this;
+    }
+
+    public function getUserSubscriptor(): ?User
+    {
+        return $this->userSubscriptor;
+    }
+
+    public function setUserSubscriptor(?User $userSubscriptor): static
+    {
+        $this->userSubscriptor = $userSubscriptor;
+
+        return $this;
+    }
+
+    public function getEventSubscripted(): ?Event
+    {
+        return $this->eventSubscripted;
+    }
+
+    public function setEventSubscripted(?Event $eventSubscripted): static
+    {
+        $this->eventSubscripted = $eventSubscripted;
 
         return $this;
     }

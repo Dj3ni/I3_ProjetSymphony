@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\HydrateTrait\HydrateTrait;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -45,9 +47,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $phoneNumber = null;
 
+    /**
+     * @var Collection<int, EventSubscription>
+     */
+    #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'userSubscriptor')]
+    private Collection $eventSubscriptions;
+
     public function __construct(array $init = [])
     {
         $this->hydrate($init);
+        $this->eventSubscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -157,6 +166,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhoneNumber(?string $phoneNumber): static
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventSubscription>
+     */
+    public function getEventSubscriptions(): Collection
+    {
+        return $this->eventSubscriptions;
+    }
+
+    public function addEventSubscription(EventSubscription $eventSubscription): static
+    {
+        if (!$this->eventSubscriptions->contains($eventSubscription)) {
+            $this->eventSubscriptions->add($eventSubscription);
+            $eventSubscription->setUserSubscriptor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventSubscription(EventSubscription $eventSubscription): static
+    {
+        if ($this->eventSubscriptions->removeElement($eventSubscription)) {
+            // set the owning side to null (unless already changed)
+            if ($eventSubscription->getUserSubscriptor() === $this) {
+                $eventSubscription->setUserSubscriptor(null);
+            }
+        }
 
         return $this;
     }

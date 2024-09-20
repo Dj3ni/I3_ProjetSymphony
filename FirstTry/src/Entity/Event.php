@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\HydrateTrait\HydrateTrait;
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Enum\EventType;
@@ -37,9 +39,16 @@ class Event
     #[ORM\Column(type: 'string', enumType: EventType::class)] 
     private EventType $eventType;
 
+    /**
+     * @var Collection<int, EventSubscription>
+     */
+    #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'eventSubscripted')]
+    private Collection $Subscriptions;
+
     public function __construct(array $init = [])
     {
         $this->hydrate($init);
+        $this->Subscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -115,6 +124,36 @@ class Event
     public function setEventType(eventType $eventType): self
     {
         $this->eventType = $eventType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventSubscription>
+     */
+    public function getSubscriptions(): Collection
+    {
+        return $this->Subscriptions;
+    }
+
+    public function addSubscription(EventSubscription $subscription): static
+    {
+        if (!$this->Subscriptions->contains($subscription)) {
+            $this->Subscriptions->add($subscription);
+            $subscription->setEventSubscripted($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscription(EventSubscription $subscription): static
+    {
+        if ($this->Subscriptions->removeElement($subscription)) {
+            // set the owning side to null (unless already changed)
+            if ($subscription->getEventSubscripted() === $this) {
+                $subscription->setEventSubscripted(null);
+            }
+        }
 
         return $this;
     }
