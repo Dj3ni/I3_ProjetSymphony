@@ -8,7 +8,21 @@
 <h1>Bienvenue {{app.user.firstname}}</h1>
 {% else %}
     <h1>Bienvenue</h1>
+{% endif %} 
 
-{% endif %}
+
+
+<div>
+    <ul>
+    {% for event in lastEvents %}
+        <li>{{ event.title}}</li>
+        
+    {% endfor %}
+
+    </ul>
+
+</div>
+
+
 
 {% endblock %}
