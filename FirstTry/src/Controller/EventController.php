@@ -33,7 +33,7 @@ class EventController extends AbstractController
 
     // Show the Event Informations
 
-    #[Route('/event{id}', name: 'event')]
+    #[Route('/event/{id}', name: 'event')]
     public function showEvent(int $id, EventRepository $rep): Response
     {
         $event = $rep ->find($id);

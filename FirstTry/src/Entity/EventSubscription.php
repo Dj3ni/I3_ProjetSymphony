@@ -25,6 +25,9 @@ class EventSubscription
     #[ORM\ManyToOne(inversedBy: 'Subscriptions')]
     private ?Event $eventSubscripted = null;
 
+    #[ORM\Column]
+    private ?int $numberParticipants = null;
+
     public function __construct(array $init =[]){
         $this->hydrate($init);
     }
@@ -67,6 +70,18 @@ class EventSubscription
     public function setEventSubscripted(?Event $eventSubscripted): static
     {
         $this->eventSubscripted = $eventSubscripted;
+
+        return $this;
+    }
+
+    public function getNumberParticipants(): ?int
+    {
+        return $this->numberParticipants;
+    }
+
+    public function setNumberParticipants(int $numberParticipants): static
+    {
+        $this->numberParticipants = $numberParticipants;
 
         return $this;
     }

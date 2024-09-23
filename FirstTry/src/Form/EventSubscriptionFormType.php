@@ -17,17 +17,17 @@ class EventSubscriptionFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('subscriptionDate', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('userSubscriptor', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
-            ->add('eventSubscripted', EntityType::class, [
-                'class' => Event::class,
-                'choice_label' => 'id',
-            ])
+            // ->add('subscriptionDate', null, [
+            //     'widget' => 'single_text',
+            // ])
+            // ->add('userSubscriptor', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'id',
+            // ])
+            // ->add('eventSubscripted', EntityType::class, [
+            //     'class' => Event::class,
+            //     'choice_label' => 'id',
+            // ])
             ->add("numberParticipants",NumberType::class )
             ->add('save', SubmitType::class, ['label' => 'Subscribe']);
         ;
