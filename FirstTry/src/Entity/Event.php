@@ -6,6 +6,7 @@ use App\Enum\EventType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\EventSubscription;
+use App\Enum\RecurrenceType;
 use App\HydrateTrait\HydrateTrait;
 use App\Repository\EventRepository;
 use Doctrine\Common\Collections\Collection;
@@ -31,6 +32,15 @@ class Event
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateEnd = null;
+
+    #[ORM\Column(type: 'string', enumType: RecurrenceType::class)] 
+    private RecurrenceType $recurrenceType;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $recurrenceEnd = null; // Date à laquelle la récurrence se termine
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $recurrenceCount = null; // Nombre d'occurrences
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
@@ -168,6 +178,60 @@ class Event
                 $subscription->setEventSubscripted(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of recurrenceType
+     */
+    public function getRecurrenceType(): RecurrenceType
+    {
+        return $this->recurrenceType;
+    }
+
+    /**
+     * Set the value of recurrenceType
+     */
+    public function setRecurrenceType(RecurrenceType $recurrenceType): self
+    {
+        $this->recurrenceType = $recurrenceType;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of recurrenceEnd
+     */
+    public function getRecurrenceEnd(): ?\DateTimeInterface
+    {
+        return $this->recurrenceEnd;
+    }
+
+    /**
+     * Set the value of recurrenceEnd
+     */
+    public function setRecurrenceEnd(?\DateTimeInterface $recurrenceEnd): self
+    {
+        $this->recurrenceEnd = $recurrenceEnd;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of recurrenceCount
+     */
+    public function getRecurrenceCount(): ?int
+    {
+        return $this->recurrenceCount;
+    }
+
+    /**
+     * Set the value of recurrenceCount
+     */
+    public function setRecurrenceCount(?int $recurrenceCount): self
+    {
+        $this->recurrenceCount = $recurrenceCount;
 
         return $this;
     }
