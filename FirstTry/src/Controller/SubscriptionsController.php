@@ -27,41 +27,29 @@ class SubscriptionsController extends AbstractController
     #[Route('/event_subscription/{id}', name: 'event_subscription')]
     public function eventSubscription(Event $event, Request $request): Response
     {   
+        // 1. Get user
         $user = $this->getUser();
         // dd($user);
+        
+        // 2. Create new subscription form
+        $es = new EventSubscription();
+        $form = $this->createForm(EventSubscriptionFormType::class, $es);
+        $form->handleRequest($request);
 
-        if ($user === null){
-            // redirect to loginPage, then come back here
+        // 3. Link the event and the user and set de Date of Subscription
+        $es ->setEventSubscripted($event);
+        $es ->setUserSubscriptor($user);
+        $es ->setSubscriptionDate(new DateTimeImmutable());
 
-            return $this->redirectToRoute("app_login", [
-                "redirect"=> $this->generateUrl('event_subscription', ['id' => $event->getId()])
-            ]);
+        // 4. Send to DB
+        if ($form->isSubmitted() && $form->isValid()){
+            // dd($es);
+            $em = $this->doctrine->getManager();
+            $em->persist($es);
+            $em->flush();
+            return $this->redirectToRoute("events_show");
         }
 
-        else{
-            // Cfréate the form
-            $es = new EventSubscription();
-            
-            $form = $this->createForm(EventSubscriptionFormType::class, $es);
-            
-            $form->handleRequest($request);
-    
-            // Link the event and the user and set de Date of Subscription
-            $es ->setEventSubscripted($event);
-            $es ->setUserSubscriptor($user);
-            $es ->setSubscriptionDate(new DateTimeImmutable());
-    
-            if ($form->isSubmitted() && $form->isValid()){
-                // dd($es);
-                $em = $this->doctrine->getManager();
-                $em->persist($es);
-                $em->flush();
-                return $this->redirectToRoute("events_show");
-            }
-        }
-
-
-        // $form=$this->createForm(EventSubscriptionFormType::class,$event);
         return $this->render('event/event_subscription.html.twig',[
             "form"=>$form,
         ]);
