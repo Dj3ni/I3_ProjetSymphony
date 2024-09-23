@@ -19,6 +19,13 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+    
+    App\EventOccurrenceGenerator:
+        class: App\EventOccurrenceGenerator
+        arguments: #parameters construct of class Event generator
+            $test : "hello"
+        public: true
+        
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

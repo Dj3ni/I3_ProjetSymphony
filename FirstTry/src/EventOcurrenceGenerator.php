@@ -1,12 +1,21 @@
 <?php
 
+namespace App;
+
 use App\Entity\Event;
 
 class EventOccurrenceGenerator
 {
-    public function generateOcurrences(Event $event):array
+    public function __construct($test)
     {
-        $ocurrences = [];
+        // dd($test);
+        // Pas de dépendances à injecter pour l'instant
+    }
+
+    public function generateOccurrences(Event $event):array
+    {
+        dd($event);
+        $occurrences = [];
 
         // Get start date and OcurrenceType
         $dateStart = $event->getDateStart();
@@ -37,6 +46,8 @@ class EventOccurrenceGenerator
                     break;
                 case 'yearly':
                     $currentDate->modify('+1 year');
+                    break;
+                case "none":
                     break;
                 default:
                     throw new \InvalidArgumentException('Type de récurrence inconnu.');

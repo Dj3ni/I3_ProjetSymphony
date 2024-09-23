@@ -1,0 +1,7 @@
+<h1>Occurrences de l'événement: {{ event.title }}</h1>
+
+<ul>
+    {% for occurrence in occurrences %}
+        <li>{{ occurrence|date('Y-m-d H:i') }}</li>
+    {% endfor %}
+</ul>

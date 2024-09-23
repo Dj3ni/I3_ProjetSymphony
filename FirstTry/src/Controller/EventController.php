@@ -2,21 +2,49 @@
 
 namespace App\Controller;
 
+use App\Demo;
 use App\Entity\Event;
+use App\EventOccurrenceGenerator;
 use App\Form\CreateEventFormType;
 use App\Repository\EventRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class EventController extends AbstractController
 {
-    public ManagerRegistry $doctrine;
-    public function __construct(ManagerRegistry $doctrine){
+    private ManagerRegistry $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine ){
         $this->doctrine = $doctrine;
+        // $this->occurrenceGenerator = $occurrenceGenerator;
     }
+
+    #[Route("/demo/{id}")]
+
+    // public function demo(EventOccurrenceGenerator $demo){
+    //     dd($demo) // Ici ça marche
+    // }
+
+    // Event $event, 
+    public function showEventOccurrences( EventOccurrenceGenerator $occurrenceGenerator, int $id, EventRepository $rep):Response
+    {
+        $event = $rep->find($id);
+        // Init Event Occurrences
+        $occurrences = $this->$occurrenceGenerator->generateOccurrences($event);
+
+        return $this->render("event/occurrences.html.twig", [
+            "event"=>$event,
+            "occurrences"=>$occurrences
+        ]);
+    }
+
+
+
+
     
     // Show all the events 
 
