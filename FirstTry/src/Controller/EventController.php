@@ -54,9 +54,9 @@ class EventController extends AbstractController
         $form = $this->createForm(CreateEventFormType::class, $event);
         $form->handleRequest($request);
         
+        // 3.Send in DB
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($form);
-            // 3.Send in DB
             $em = $this->doctrine->getManager();
             $em->persist($event);
             $em->flush();
@@ -90,6 +90,25 @@ class EventController extends AbstractController
         return $this->render('event/event_update_form.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    // Delete Event Form
+    #[Route('/delete_event/{id}', name: 'delete_event')]
+    public function deleteEvent(int $id, EventRepository $rep, Request $request): Response
+    {
+        // 1. Create new empty object
+        $event = $rep->find($id);
+        // dd($event);
+
+        // 2. Remove
+        $em = $this->doctrine->getManager();
+        $em->remove($event);
+        
+        // 3.Sync in DB
+        $em->flush();
+
+        // 4. Redirect
+        return $this->redirectToRoute("events_show");
     }
 
 }

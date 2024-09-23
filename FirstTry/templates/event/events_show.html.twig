@@ -20,6 +20,7 @@
     <a href="{{ path ('event',{id:event.id})}}">{{event.title}}</a>
     {% if is_granted("ROLE_ADMIN") %}
     <a href="{{ path ('update_event', {id:event.id})}}">Update</a>
+    <a href="{{ path ('delete_event', {id:event.id})}}">Delete</a>
     {% endif %}
 
     </li>

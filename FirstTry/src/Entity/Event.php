@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
-use App\HydrateTrait\HydrateTrait;
-use App\Repository\EventRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Enum\EventType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Enum\EventType;
+use App\Entity\EventSubscription;
+use App\HydrateTrait\HydrateTrait;
+use App\Repository\EventRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -33,7 +36,7 @@ class Event
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $fee = null;
+    private ?string $fee = "0.00";
 
     //We need to instruct Doctrine that we have an Enum otherwise, it doesn't understand
     #[ORM\Column(type: 'string', enumType: EventType::class)] 
@@ -49,6 +52,17 @@ class Event
     {
         $this->hydrate($init);
         $this->Subscriptions = new ArrayCollection();
+    }
+
+    #[Assert\Callback] //will be called when entity validated
+    public function isDatesValid(ExecutionContextInterface $context): void
+    {
+        // Context let us send a persinalized msg and will be checked with isValid in form
+        if($this->dateEnd < $this->dateStart){
+            $context->buildViolation("Date End must me after Date start")
+                    ->atPath("dateEnd") //error field
+                    ->addViolation();
+        }
     }
 
     public function getId(): ?int

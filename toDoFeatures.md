@@ -20,7 +20,7 @@ MVP4: Create and subscribe to a game session
 
 To do:
 - finish wireframe 
-- endEvent must be later than startEvent
+- endEvent must be later than startEvent -> ok
 - add occurency for events
 - add default value for fee = free
 - events search
@@ -32,4 +32,14 @@ To do:
 ## MVP2 features
 
 - create/update and search a Club
+- user can subscribe to a club
 - club can create an event?
+
+## MVP3 Features
+
+- CRUD boardgame Library
+- link a library to a club
+
+## MVP4 Features
+
+- select a game in a library and create and subscribe to a game session
