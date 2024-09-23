@@ -7,7 +7,6 @@ MVP2: Subscribe a club and members management
 MVP3: Manage boardgame Library
 MVP4: Create and subscribe to a game session
 
-----------
 
 ## MVP1 features
 - Login / Logout / Sign up -> ok
@@ -17,6 +16,7 @@ MVP4: Create and subscribe to a game session
 - Subscribe to an event if logged-in -> ok
 - if admin: update and create event + redirect when send ->ok
 - contact page + contact form
+- address
 
 To do:
 - finish wireframe 
@@ -24,6 +24,7 @@ To do:
 - add occurency for events
 - add default value for fee = free
 - events search
+- create address entity and link it with User and Gaming Place
 - manage users + user access for admin
 - message when form submitted
 - contact page
