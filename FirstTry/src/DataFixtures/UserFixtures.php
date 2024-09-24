@@ -33,6 +33,7 @@ class UserFixtures extends Fixture
             ]);
             $pwdHashed =$this->pwdHasher->hashPassword($user,"Password");
             $user->setPassword($pwdHashed);
+            // $user->setAddress();
             $manager->persist($user);
         }
 

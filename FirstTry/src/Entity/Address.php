@@ -35,6 +35,9 @@ class Address
     #[ORM\Column(length: 255)]
     private ?string $country = null;
 
+    #[ORM\OneToOne(inversedBy: 'address', cascade: ['persist', 'remove'])]
+    private ?User $userAddress = null;
+
     public function __construct(array $init){
         $this->hydrate($init);
     }
@@ -113,6 +116,18 @@ class Address
     public function setCountry(string $country): static
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getUserAddress(): ?User
+    {
+        return $this->userAddress;
+    }
+
+    public function setUserAddress(?User $userAddress): static
+    {
+        $this->userAddress = $userAddress;
 
         return $this;
     }
