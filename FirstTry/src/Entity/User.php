@@ -53,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'userSubscriptor')]
     private Collection $eventSubscriptions;
 
-    #[ORM\OneToOne(mappedBy: 'userAddress', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Address $address = null;
 
     public function __construct(array $init = [])
@@ -210,18 +210,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setAddress(?Address $address): static
     {
-        // unset the owning side of the relation if necessary
-        if ($address === null && $this->address !== null) {
-            $this->address->setUserAddress(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($address !== null && $address->getUserAddress() !== $this) {
-            $address->setUserAddress($this);
-        }
-
         $this->address = $address;
 
         return $this;
     }
+
+    
 }

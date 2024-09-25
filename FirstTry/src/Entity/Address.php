@@ -35,8 +35,8 @@ class Address
     #[ORM\Column(length: 255)]
     private ?string $country = null;
 
-    #[ORM\OneToOne(inversedBy: 'address', cascade: ['persist', 'remove'])]
-    private ?User $userAddress = null;
+    #[ORM\OneToOne(mappedBy: 'address', cascade: ['persist', 'remove'])]
+    private ?User $user = null;
 
     public function __construct(array $init){
         $this->hydrate($init);
@@ -120,15 +120,26 @@ class Address
         return $this;
     }
 
-    public function getUserAddress(): ?User
+    public function getUser(): ?User
     {
-        return $this->userAddress;
+        return $this->user;
     }
 
-    public function setUserAddress(?User $userAddress): static
+    public function setUser(?User $user): static
     {
-        $this->userAddress = $userAddress;
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setAddress(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getAddress() !== $this) {
+            $user->setAddress($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }
+
 }
