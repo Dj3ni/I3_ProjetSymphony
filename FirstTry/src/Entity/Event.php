@@ -69,7 +69,10 @@ class Event
     #[ORM\OneToMany(targetEntity: EventPlace::class, mappedBy: 'event')]
     private Collection $eventPlaces;
 
-    
+    #[ORM\ManyToOne(inversedBy: 'eventsOrganized')]
+    private ?User $userOrganisator = null;
+
+
 #####################  Functions #########################################
     
     public function __construct(array $init = [])
@@ -277,6 +280,18 @@ class Event
     public function setRecurrenceCount(?int $recurrenceCount): self
     {
         $this->recurrenceCount = $recurrenceCount;
+
+        return $this;
+    }
+
+    public function getUserOrganisator(): ?User
+    {
+        return $this->userOrganisator;
+    }
+
+    public function setUserOrganisator(?User $userOrganisator): static
+    {
+        $this->userOrganisator = $userOrganisator;
 
         return $this;
     }

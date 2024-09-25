@@ -35,11 +35,14 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ]);
             $pwdHashed =$this->pwdHasher->hashPassword($user,"Password");
             $user->setPassword($pwdHashed);
-            // Get the refered address
 
+            // Get the refered address ( before persist)
             $user->setAddress($this->getReference('address'.$i));
             
             $manager->persist($user);
+
+            // add reference for event (after persist)
+            $this->addReference("user$i", $user);
         }
 
         // admin

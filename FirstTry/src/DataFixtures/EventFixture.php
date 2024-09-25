@@ -3,13 +3,15 @@
 namespace App\DataFixtures;
 
 use App\Entity\Event;
-use App\Entity\GamingPlace;
 use App\Enum\EventType;
+use App\Entity\GamingPlace;
 use App\Enum\RecurrenceType;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\DataFixtures\UserFixtures;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class EventFixture extends Fixture
+class EventFixture extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -24,18 +26,28 @@ class EventFixture extends Fixture
                 "recurrenceCount"=> 3,
                 "description" => $faker->paragraph(),
                 "fee"=>$faker->randomFloat(2,0,100),
-
+                
             ]);
+            $organisator = $this->getReference("user$i");
             
             $event->setEventType(EventType::BOARDGAMES_DEMO);
             
             $event->setRecurrenceType(RecurrenceType::WEEKLY);
+            $event->setUserOrganisator($organisator);
             
             $manager->persist($event);
+
             // Références
             $this->addReference("event$i", $event);
         }
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return([
+            UserFixtures::class,
+        ]);
     }
 }
