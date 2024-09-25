@@ -22,6 +22,9 @@ class GamingPlaceFixture extends Fixture implements DependentFixtureInterface
             ]);
             $manager->persist($gamingPlace);
             $gamingPlace->setAddress($this->getReference("address$i"));
+            // References
+            $this->addReference("gamingPlace$i", $gamingPlace);
+
         }
 
         $manager->flush();
