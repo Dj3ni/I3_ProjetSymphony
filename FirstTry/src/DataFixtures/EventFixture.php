@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Event;
+use App\Entity\GamingPlace;
 use App\Enum\EventType;
 use App\Enum\RecurrenceType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -25,7 +26,13 @@ class EventFixture extends Fixture
                 "fee"=>$faker->randomFloat(2,0,100),
 
             ]);
+            for ($j = 0; $j < 2; $j++) { 
+                
+            }
             $event->setEventType(EventType::BOARDGAMES_DEMO);
+            
+
+
             $event->setRecurrenceType(RecurrenceType::WEEKLY);
 
             $manager->persist($event);

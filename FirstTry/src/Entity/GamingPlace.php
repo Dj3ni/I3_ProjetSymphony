@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\HydrateTrait\HydrateTrait;
 use App\Repository\GamingPlaceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,8 +38,11 @@ class GamingPlace
     #[ORM\OneToOne(inversedBy: 'gamingPlace', cascade: ['persist', 'remove'])]
     private ?Address $Address = null;
 
-    #[ORM\ManyToOne(inversedBy: 'places')]
-    private ?Event $event = null;
+    /**
+     * @var Collection<int, EventPlace>
+     */
+    #[ORM\OneToMany(targetEntity: EventPlace::class, mappedBy: 'gamingPlace')]
+    private Collection $eventPlaces;
 
 #####################  Functions #########################################
 
@@ -45,6 +50,7 @@ class GamingPlace
     public function __construct(array $init)
     {
         $this->hydrate($init);
+        $this->eventPlaces = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,14 +118,32 @@ class GamingPlace
         return $this;
     }
 
-    public function getEvent(): ?Event
+    /**
+     * @return Collection<int, EventPlace>
+     */
+    public function getEventPlaces(): Collection
     {
-        return $this->event;
+        return $this->eventPlaces;
     }
 
-    public function setEvent(?Event $event): static
+    public function addEventPlace(EventPlace $eventPlace): static
     {
-        $this->event = $event;
+        if (!$this->eventPlaces->contains($eventPlace)) {
+            $this->eventPlaces->add($eventPlace);
+            $eventPlace->setGamingPlace($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventPlace(EventPlace $eventPlace): static
+    {
+        if ($this->eventPlaces->removeElement($eventPlace)) {
+            // set the owning side to null (unless already changed)
+            if ($eventPlace->getGamingPlace() === $this) {
+                $eventPlace->setGamingPlace(null);
+            }
+        }
 
         return $this;
     }

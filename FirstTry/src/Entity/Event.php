@@ -61,13 +61,13 @@ class Event
      * @var Collection<int, EventSubscription>
      */
     #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'eventSubscripted')]
-    private Collection $Subscriptions;
+    private Collection $subscriptions;
 
     /**
-     * @var Collection<int, GamingPlace>
+     * @var Collection<int, EventPlace>
      */
-    #[ORM\OneToMany(targetEntity: GamingPlace::class, mappedBy: 'event')]
-    private Collection $places;
+    #[ORM\OneToMany(targetEntity: EventPlace::class, mappedBy: 'event')]
+    private Collection $eventPlaces;
 
     
 #####################  Functions #########################################
@@ -75,8 +75,9 @@ class Event
     public function __construct(array $init = [])
     {
         $this->hydrate($init);
-        $this->Subscriptions = new ArrayCollection();
-        $this->places = new ArrayCollection();
+        $this->subscriptions = new ArrayCollection();
+        $this->eventPlaces = new ArrayCollection();
+        
     }
     #[Assert\Callback] //will be called when entity validated
     public function isDatesValid(ExecutionContextInterface $context): void
@@ -171,13 +172,13 @@ class Event
      */
     public function getSubscriptions(): Collection
     {
-        return $this->Subscriptions;
+        return $this->subscriptions;
     }
 
     public function addSubscription(EventSubscription $subscription): static
     {
-        if (!$this->Subscriptions->contains($subscription)) {
-            $this->Subscriptions->add($subscription);
+        if (!$this->subscriptions->contains($subscription)) {
+            $this->subscriptions->add($subscription);
             $subscription->setEventSubscripted($this);
         }
 
@@ -186,10 +187,40 @@ class Event
 
     public function removeSubscription(EventSubscription $subscription): static
     {
-        if ($this->Subscriptions->removeElement($subscription)) {
+        if ($this->subscriptions->removeElement($subscription)) {
             // set the owning side to null (unless already changed)
             if ($subscription->getEventSubscripted() === $this) {
                 $subscription->setEventSubscripted(null);
+            }
+        }
+        
+        return $this;
+    }
+    
+    /**
+     * @return Collection<int, EventPlace>
+     */
+    public function getEventPlaces(): Collection
+    {
+        return $this->eventPlaces;
+    }
+
+    public function addEventPlace(EventPlace $eventPlace): static
+    {
+        if (!$this->eventPlaces->contains($eventPlace)) {
+            $this->eventPlaces->add($eventPlace);
+            $eventPlace->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventPlace(EventPlace $eventPlace): static
+    {
+        if ($this->eventPlaces->removeElement($eventPlace)) {
+            // set the owning side to null (unless already changed)
+            if ($eventPlace->getEvent() === $this) {
+                $eventPlace->setEvent(null);
             }
         }
 
@@ -250,33 +281,4 @@ class Event
         return $this;
     }
 
-    /**
-     * @return Collection<int, GamingPlace>
-     */
-    public function getPlaces(): Collection
-    {
-        return $this->places;
-    }
-
-    public function addPlace(GamingPlace $place): static
-    {
-        if (!$this->places->contains($place)) {
-            $this->places->add($place);
-            $place->setEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removePlace(GamingPlace $place): static
-    {
-        if ($this->places->removeElement($place)) {
-            // set the owning side to null (unless already changed)
-            if ($place->getEvent() === $this) {
-                $place->setEvent(null);
-            }
-        }
-
-        return $this;
-    }
 }
