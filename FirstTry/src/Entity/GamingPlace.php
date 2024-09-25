@@ -41,7 +41,7 @@ class GamingPlace
     /**
      * @var Collection<int, EventPlace>
      */
-    #[ORM\OneToMany(targetEntity: EventPlace::class, mappedBy: 'gamingPlace')]
+    #[ORM\OneToMany(targetEntity: EventPlace::class, mappedBy: 'gamingPlace', cascade:['persist', 'remove'])]
     private Collection $eventPlaces;
 
 #####################  Functions #########################################

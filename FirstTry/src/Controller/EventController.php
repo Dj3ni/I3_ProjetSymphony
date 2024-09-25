@@ -92,6 +92,7 @@ class EventController extends AbstractController
         ]);
     }
 
+
     // Delete Event Form
     #[Route('/delete_event/{id}', name: 'delete_event')]
     public function deleteEvent(int $id, EventRepository $rep, Request $request): Response
@@ -100,14 +101,24 @@ class EventController extends AbstractController
         $event = $rep->find($id);
         // dd($event);
 
-        // 2. Remove
+        // 2. Get linked entities and remove them
+
+        $eventPlaces = $event->getEventPlaces();
+        // dd($eventPlaces);
+
         $em = $this->doctrine->getManager();
+        
+        foreach($eventPlaces as $eventPlace){
+            $em->remove($eventPlace);
+        }
+        
+        // 3. Remove Event
         $em->remove($event);
         
-        // 3.Sync in DB
+        // 4.Sync in DB
         $em->flush();
 
-        // 4. Redirect
+        // 5. Redirect
         return $this->redirectToRoute("events_show");
     }
 
