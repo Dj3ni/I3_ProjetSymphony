@@ -179,13 +179,13 @@
             <mxPoint x="40" y="20" as="targetPoint" />
             <mxPoint x="-40" y="32" as="offset" />
             <Array as="points">
-              <mxPoint x="460" y="20" />
+              <mxPoint x="470" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="KXV9Pzhh_ANMu6KU807g-20" value="0..1" style="resizable=0;align=left;verticalAlign=bottom;labelBackgroundColor=none;fontSize=12;" parent="KXV9Pzhh_ANMu6KU807g-19" connectable="0" vertex="1">
           <mxGeometry x="-1" relative="1" as="geometry">
-            <mxPoint x="-30" y="-40" as="offset" />
+            <mxPoint x="10" y="-50" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="KXV9Pzhh_ANMu6KU807g-21" value="1" style="resizable=0;align=right;verticalAlign=bottom;labelBackgroundColor=none;fontSize=12;" parent="KXV9Pzhh_ANMu6KU807g-19" connectable="0" vertex="1">
@@ -328,7 +328,7 @@
         </mxCell>
         <mxCell id="jXClvfBUN3f1fJXmHD22-15" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="jXClvfBUN3f1fJXmHD22-11" vertex="1" connectable="0">
           <mxGeometry x="-0.9542" y="-3" relative="1" as="geometry">
-            <mxPoint x="17" as="offset" />
+            <mxPoint x="24" y="-92" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="jXClvfBUN3f1fJXmHD22-16" value="*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="jXClvfBUN3f1fJXmHD22-11" vertex="1" connectable="0">
@@ -758,6 +758,27 @@
         </mxCell>
         <mxCell id="L0uaYLzmE7jyQXVmUCjH-32" value="If enough time, instead of using enum We can put another entity" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="1465" y="65" width="290" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="L0uaYLzmE7jyQXVmUCjH-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="zkfFHV4jXpPFQw0GAbJ--0" target="KXV9Pzhh_ANMu6KU807g-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="40" />
+              <mxPoint x="900" y="40" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="L0uaYLzmE7jyQXVmUCjH-46" value="*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="L0uaYLzmE7jyQXVmUCjH-43">
+          <mxGeometry x="-0.8328" y="-2" relative="1" as="geometry">
+            <mxPoint y="-12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="L0uaYLzmE7jyQXVmUCjH-47" value="*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="L0uaYLzmE7jyQXVmUCjH-43">
+          <mxGeometry x="0.7538" relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="L0uaYLzmE7jyQXVmUCjH-44" value="Manages" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="575" y="38" width="70" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
