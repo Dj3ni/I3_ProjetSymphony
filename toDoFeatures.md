@@ -22,12 +22,16 @@ To do:
 - finish wireframe 
 - endEvent must be later than startEvent -> ok
 - add occurency for events
-- add default value for fee = free
+- add default value for fee = free -> ok
 - events search
-- create address entity and link it with User and Gaming Place
+- create address entity and link it with User and Gaming Place -> ok
 - manage users + user access for admin
 - message when form submitted
 - contact page
+
+### Comments
+- All entities, fixtures and relations for MVP1 ok
+
 
 ## MVP2 features
 
