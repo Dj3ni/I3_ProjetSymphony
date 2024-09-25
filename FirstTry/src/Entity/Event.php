@@ -17,8 +17,11 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
 {
+########################## Imports #########################################
     use HydrateTrait;
 
+########################## Properties #########################################
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -52,18 +55,29 @@ class Event
     #[ORM\Column(type: 'string', enumType: EventType::class)] 
     private EventType $eventType;
 
+#################### Relations ###################################################
+
     /**
      * @var Collection<int, EventSubscription>
      */
     #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'eventSubscripted')]
     private Collection $Subscriptions;
 
+    /**
+     * @var Collection<int, GamingPlace>
+     */
+    #[ORM\OneToMany(targetEntity: GamingPlace::class, mappedBy: 'event')]
+    private Collection $places;
+
+    
+#####################  Functions #########################################
+    
     public function __construct(array $init = [])
     {
         $this->hydrate($init);
         $this->Subscriptions = new ArrayCollection();
+        $this->places = new ArrayCollection();
     }
-
     #[Assert\Callback] //will be called when entity validated
     public function isDatesValid(ExecutionContextInterface $context): void
     {
@@ -232,6 +246,36 @@ class Event
     public function setRecurrenceCount(?int $recurrenceCount): self
     {
         $this->recurrenceCount = $recurrenceCount;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, GamingPlace>
+     */
+    public function getPlaces(): Collection
+    {
+        return $this->places;
+    }
+
+    public function addPlace(GamingPlace $place): static
+    {
+        if (!$this->places->contains($place)) {
+            $this->places->add($place);
+            $place->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlace(GamingPlace $place): static
+    {
+        if ($this->places->removeElement($place)) {
+            // set the owning side to null (unless already changed)
+            if ($place->getEvent() === $this) {
+                $place->setEvent(null);
+            }
+        }
 
         return $this;
     }

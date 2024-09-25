@@ -38,6 +38,9 @@ class Address
     #[ORM\OneToOne(mappedBy: 'address', cascade: ['persist', 'remove'])]
     private ?User $user = null;
 
+    #[ORM\OneToOne(mappedBy: 'Address', cascade: ['persist', 'remove'])]
+    private ?GamingPlace $gamingPlace = null;
+
     public function __construct(array $init){
         $this->hydrate($init);
     }
@@ -138,6 +141,28 @@ class Address
         }
 
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getGamingPlace(): ?GamingPlace
+    {
+        return $this->gamingPlace;
+    }
+
+    public function setGamingPlace(?GamingPlace $gamingPlace): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($gamingPlace === null && $this->gamingPlace !== null) {
+            $this->gamingPlace->setAddress(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($gamingPlace !== null && $gamingPlace->getAddress() !== $this) {
+            $gamingPlace->setAddress($this);
+        }
+
+        $this->gamingPlace = $gamingPlace;
 
         return $this;
     }

@@ -12,7 +12,7 @@ class AddressFixture extends Fixture
     {
         $faker = \Faker\Factory::create("fr_BE");
         
-        for ($i = 0; $i < 30; $i++) { 
+        for ($i = 0; $i < 100; $i++) { 
             $address = new Address([
                 "street" => $faker->streetName(),
                 "number" => $faker->buildingNumber(),

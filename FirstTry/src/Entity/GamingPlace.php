@@ -12,6 +12,8 @@ class GamingPlace
 {
     use HydrateTrait;
 
+########################## Properties #########################################
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -28,6 +30,17 @@ class GamingPlace
 
     #[ORM\Column]
     private ?int $placeMax = null;
+
+#################### Relations ###################################################
+
+    #[ORM\OneToOne(inversedBy: 'gamingPlace', cascade: ['persist', 'remove'])]
+    private ?Address $Address = null;
+
+    #[ORM\ManyToOne(inversedBy: 'places')]
+    private ?Event $event = null;
+
+#####################  Functions #########################################
+
 
     public function __construct(array $init)
     {
@@ -86,4 +99,29 @@ class GamingPlace
 
         return $this;
     }
+
+    public function getAddress(): ?Address
+    {
+        return $this->Address;
+    }
+
+    public function setAddress(?Address $Address): static
+    {
+        $this->Address = $Address;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): static
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
 }
