@@ -4,6 +4,23 @@
 
 {% block body %}
 
+{% for message in app.flashes("login_success") %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+{% for message in app.flashes("logout_success") %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+{% for message in app.flashes("signUp_success") %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+
+
 {% if app.user %}
 <h1>Bienvenue {{app.user.firstname}}</h1>
 {% else %}

@@ -4,6 +4,17 @@
 
 {% block body %}
 
+{% for message in app.flashes("subscription_success") %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+{% for message in app.flashes("event_update_success") %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+
 
 
 

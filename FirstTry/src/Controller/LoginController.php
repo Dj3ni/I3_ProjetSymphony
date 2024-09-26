@@ -11,7 +11,7 @@ class LoginController extends AbstractController
     #[Route('/login', name: 'app_login')]
     public function index(): Response
     {
-        
+        $this->addFlash("login_success", "Welcome back! We missed you!");
         return $this->render('login/index.html.twig', [
             'controller_name' => 'LoginController',
         ]);

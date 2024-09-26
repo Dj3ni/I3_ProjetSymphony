@@ -26,7 +26,7 @@ To do:
 - events search
 - create address entity and link it with User and Gaming Place -> ok
 - manage users + user access for admin
-- message when form submitted
+- message when form submitted ->ok
 - contact page
 
 ### Comments

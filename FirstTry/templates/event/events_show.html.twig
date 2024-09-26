@@ -4,6 +4,26 @@
 
 {% block body %}
 
+{% for message in app.flashes("subscription_success") %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+{% for message in app.flashes("event_delete_success") %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+{% for message in app.flashes("event_update_success") %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+{% for message in app.flashes("event_create_success") %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
 
 
 {% if is_granted ("ROLE_ADMIN") %}

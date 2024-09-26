@@ -75,8 +75,12 @@ class SubscriptionsController extends AbstractController
                 $em->persist($subscription);
             }
             $em->flush();
+            
+            // message to inform the user
+            $this->addFlash("subscription_success", "Subscription sent!");
             return $this->redirectToRoute("events_show");
         }
+
 
         return $this->render('event/event_subscription.html.twig',[
             "form"=>$form,

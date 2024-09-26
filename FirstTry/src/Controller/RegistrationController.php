@@ -32,7 +32,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // do anything else you need here, like send an email
-
+            $this->addFlash("signUp_success", "Welcome young padawan, have fun!");
             return $security->login($user, 'form_login', 'main');
         }
 

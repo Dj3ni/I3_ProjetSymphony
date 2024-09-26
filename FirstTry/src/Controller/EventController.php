@@ -72,6 +72,7 @@ class EventController extends AbstractController
             $em = $this->doctrine->getManager();
             $em->persist($event);
             $em->flush();
+            $this->addFlash("event_create_success", "Event successfully created!");
             return $this->redirectToRoute("events_show");
         }
         return $this->render('event/event_create_form.html.twig', [
@@ -97,6 +98,7 @@ class EventController extends AbstractController
             $em = $this->doctrine->getManager();
             
             $em->flush();
+            $this->addFlash("event_update_success", "Your event is now up-to-date");
             return $this->redirectToRoute("events_show");
         }
         
@@ -131,7 +133,8 @@ class EventController extends AbstractController
         // 4.Sync in DB
         $em->flush();
         
-        // 5. Redirect
+        // 5. Redirect with message
+        $this->addFlash("event_delete_success", "Your event was successfully removed!");
         return $this->redirectToRoute("events_show");
     }
     
