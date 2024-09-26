@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Enum\EventType;
+use App\Enum\RecurrenceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -25,6 +26,9 @@ class CreateEventFormType extends AbstractType
             ])
             ->add('dateEnd', null, [
                 'widget' => 'single_text',
+            ])
+            ->add("recurrenceType", EnumType::class ,[
+                "class"=>RecurrenceType::class,
             ])
             ->add('description', TextareaType::class)
             ->add('fee', MoneyType::class)

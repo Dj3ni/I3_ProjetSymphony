@@ -241,7 +241,7 @@ class Event
     /**
      * Set the value of recurrenceType
      */
-    public function setRecurrenceType(RecurrenceType $recurrenceType): self
+    public function setRecurrenceType(RecurrenceType $recurrenceType = RecurrenceType::None) : self
     {
         $this->recurrenceType = $recurrenceType;
 

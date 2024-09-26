@@ -8,4 +8,5 @@ enum RecurrenceType:string
     case WEEKLY = "Weekly";
     case MONTHLY = "Monthly";
     case YEARLY = "Yearly";
+    case None = "None";
 }
