@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
+
 {
 ########################## Imports #########################################
     use HydrateTrait;

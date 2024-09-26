@@ -13,39 +13,71 @@ class EventOccurrenceGenerator
         // Pas de dépendances à injecter pour l'instant
     }
 
+############## For each event occurence, I create a "child" event
+
+    public function createEventOccurrence(Event $event, \DateTimeInterface $newStartDate, \DateTimeInterface $newEndDate) : Event{
+        
+        // 1. Clone original event
+        $occurrence = clone $event;
+
+        // 2. Modify Dates
+        $occurrence->setDateStart($newStartDate)
+                    ->setDateEnd($newEndDate);
+        
+        return $occurrence;
+    }
+
+############# Switch case for the recurrenceType
+
+    public function switchCasesOccurrences($recurrenceType, $currentStartDate, $currentEndDate ){
+        switch ($recurrenceType) {
+            case RecurrenceType::DAILY:
+                $currentStartDate->modify('+1 day');
+                $currentEndDate->modify('+1 day');
+                break;
+            case RecurrenceType::WEEKLY:
+                $currentStartDate->modify('+1 week');
+                $currentEndDate->modify('+1 week');
+                break;
+            case RecurrenceType::MONTHLY:
+                $currentStartDate->modify('+1 month');
+                $currentEndDate->modify('+1 month');
+                break;
+            case RecurrenceType::YEARLY:
+                $currentStartDate->modify('+1 year');
+                $currentEndDate->modify('+1 year');
+                break;
+            default:
+                throw new \InvalidArgumentException('Type de récurrence inconnu.');
+        }
+    }
+
+############## I create as many date occurrences as asked for an event
+
     public function generateOccurrences(Event $event):array
     {
+        //for debug
         // dd($event);
-
+        
         // $occurrences = [
         //     new \DateTime('2024-01-01 10:00'),
         //     new \DateTime('2024-01-02 10:00'),
         //     new \DateTime('2024-01-03 10:00'),
         // ];
 
-        // return $occurrences; //for debug
+        // return $occurrences; 
 
-        $occurrences = [];
         $occurrencesWithEnd = [];
-
-        // Get start date and OcurrenceType
+        // Get start date and OcurrenceType from Form
         $dateStart = $event->getDateStart();
         $dateEnd = $event->getDateEnd();
         $recurrenceType = $event->getRecurrenceType();
         $recurrenceEnd = $event->getRecurrenceEnd();
         $recurrenceCount = $event->getRecurrenceCount();
-
+        
         // Manage nbr ocurrencies
         $currentStartDate = clone $dateStart;
         $currentEndDate = clone $dateEnd;
-
-        // if ($currentStartDate instanceof \DateTime) {
-        //     $currentStartDate->modify('+1 day'); // Cette ligne ne devrait pas poser problème
-        // } else {
-        //     throw new \Exception('currentDate is not an instance of \DateTime');
-        // }
-
-        // dd($recurrenceEnd);
         $count = 0;
 
         // Case 1: If no endDate selected:
@@ -61,26 +93,8 @@ class EventOccurrenceGenerator
 
             while($tempStartDate <= $recurrenceEnd){
                 // Increment Date
-                switch ($recurrenceType) {
-                    case RecurrenceType::DAILY:
-                        $tempStartDate->modify('+1 day');
-                        $tempEndDate->modify('+1 day');
-                        break;
-                    case RecurrenceType::WEEKLY:
-                        $tempStartDate->modify('+1 week');
-                        $tempEndDate->modify('+1 week');
-                        break;
-                    case RecurrenceType::MONTHLY:
-                        $tempStartDate->modify('+1 month');
-                        $tempEndDate->modify('+1 month');
-                        break;
-                    case RecurrenceType::YEARLY:
-                        $tempStartDate->modify('+1 year');
-                        $tempEndDate->modify('+1 year');
-                        break;
-                    default:
-                        throw new \InvalidArgumentException('Type de récurrence inconnu.');
-                }
+                $this->switchCasesOccurrences($recurrenceType, $tempStartDate, $tempEndDate);
+                
                 // Increment $recurrenceCount
                 $recurrenceCount++;
             }
@@ -89,8 +103,7 @@ class EventOccurrenceGenerator
 
         // Case 3: Iterate until end occurrenceCount or Date
         if ($recurrenceType === RecurrenceType::NONE){ // what to do if case == none
-            // $occurrences[] = clone $currentStartDate;
-            // $occurrences[] = clone $currentEndDate;
+
             $occurrencesWithEnd[] = [
                 "startDate" => $currentStartDate,
                 "endDate" => $currentEndDate,
@@ -106,35 +119,13 @@ class EventOccurrenceGenerator
                     }
 
                 // Ajouter l'occurrence actuelle
-                // $occurrences[] = clone $currentStartDate;
-                // $occurrences[] = clone $currentEndDate;
                 $occurrencesWithEnd[] = [
                     "startDate" => clone $currentStartDate,
                     "endDate" => clone $currentEndDate,
                 ];
-    
-                // Incrémenter la date en fonction du type de récurrence
-                switch ($recurrenceType) {
-                    case RecurrenceType::DAILY:
-                        $currentStartDate->modify('+1 day');
-                        $currentEndDate->modify('+1 day');
-                        break;
-                    case RecurrenceType::WEEKLY:
-                        $currentStartDate->modify('+1 week');
-                        $currentEndDate->modify('+1 week');
-                        break;
-                    case RecurrenceType::MONTHLY:
-                        $currentStartDate->modify('+1 month');
-                        $currentEndDate->modify('+1 month');
-                        break;
-                    case RecurrenceType::YEARLY:
-                        $currentStartDate->modify('+1 year');
-                        $currentEndDate->modify('+1 year');
-                        break;
-                    default:
-                        throw new \InvalidArgumentException('Type de récurrence inconnu.');
-                }
-    
+
+                $this->switchCasesOccurrences($recurrenceType, $currentStartDate, $currentEndDate);
+
                 // Incrémenter le compteur d'occurrences
                 $count++;
             }
@@ -143,7 +134,5 @@ class EventOccurrenceGenerator
         return $occurrencesWithEnd;
 
     }
-
-
 
 }

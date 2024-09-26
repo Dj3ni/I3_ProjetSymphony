@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\HydrateTrait\HydrateTrait;
 use App\Repository\EventSubscriptionRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EventSubscriptionRepository::class)]
@@ -27,6 +28,9 @@ class EventSubscription
     #[ORM\Column]
     private ?int $numberParticipants = null;
 
+    #[ORM\Column]
+    private array $occurrenceDates = [];
+
 #################### Relations ###################################################
 
     #[ORM\ManyToOne(inversedBy: 'eventSubscriptions')]
@@ -34,7 +38,6 @@ class EventSubscription
 
     #[ORM\ManyToOne(inversedBy: 'Subscriptions')]
     private ?Event $eventSubscripted = null;
-
 
 #####################  Functions #########################################
 
@@ -96,4 +99,18 @@ class EventSubscription
 
         return $this;
     }
+
+    public function getOccurrenceDates(): array
+    {
+        return $this->occurrenceDates;
+    }
+
+    public function setOccurrenceDates(array $occurrenceDates): static
+    {
+        $this->occurrenceDates = $occurrenceDates;
+
+        return $this;
+    }
+
+
 }

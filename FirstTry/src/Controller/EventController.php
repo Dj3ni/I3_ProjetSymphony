@@ -24,35 +24,10 @@ class EventController extends AbstractController
         $this->occurrenceGenerator = $occurrenceGenerator;
     }
 
-    // #[Route("/demo/{id}")]
-
-    // public function demo(EventOccurrenceGenerator $demo){
-    //     dd($demo) // Ici ça marche
-    // }
-
-    #[Route("/event/{id}/occurrences")]
-    public function showEventOccurrences( Event $event, int $id, EventRepository $rep):Response
-    {
-        // $event = $rep->find($id);
-        // Init Event Occurrences
-
-        if (!$event) {
-            throw $this->createNotFoundException('Event not found');
-        }
-        $occurrences = $this->occurrenceGenerator->generateOccurrences($event);
-
-        return $this->render("event/occurrences.html.twig", [
-            "event"=>$event,
-            "occurrences"=>$occurrences,
-        ]);
-    }
-
-
-
 
     
-    // Show all the events 
-
+############  Show all the events in DB
+    
     #[Route('/events', name: 'events_show')]
     public function showAllEvents(EventRepository $rep): Response
     {
@@ -63,21 +38,25 @@ class EventController extends AbstractController
             'events' => $events,
         ]);
     }
-
-    // Show the Event Informations
-
+    
+############# Show the Event Informations
+    
     #[Route('/event/{id}', name: 'event')]
-    public function showEvent(int $id, EventRepository $rep): Response
+    public function showEvent(Event $event): Response
     {
-        $event = $rep ->find($id);
         // dd($event);
-        
+
+        // Init occurrences
+        $occurrences = $this->occurrenceGenerator->generateOccurrences($event);
+
         return $this->render('event/event_info.html.twig', [
             'event' => $event,
+            "occurrences"=> $occurrences,
         ]);
     }
+    
+############# Creation Event Form
 
-    // Creation Event Form
     #[Route('/create_event', name: 'create_event')]
     public function createEvent(Request $request): Response
     {
@@ -99,8 +78,9 @@ class EventController extends AbstractController
             'form' => $form,
         ]);
     }
+    
+############### Update Event Form
 
-    // Update Event Form
     #[Route('/update_event/{id}', name: 'update_event')]
     public function updateEvent(int $id, EventRepository $rep, Request $request): Response
     {
@@ -124,21 +104,21 @@ class EventController extends AbstractController
             'form' => $form,
         ]);
     }
+    
+################## Delete Event Form
 
-
-    // Delete Event Form
     #[Route('/delete_event/{id}', name: 'delete_event')]
     public function deleteEvent(int $id, EventRepository $rep, Request $request): Response
     {
         // 1. Create new empty object
         $event = $rep->find($id);
         // dd($event);
-
+        
         // 2. Get linked entities and remove them
-
+        
         $eventPlaces = $event->getEventPlaces();
         // dd($eventPlaces);
-
+        
         $em = $this->doctrine->getManager();
         
         foreach($eventPlaces as $eventPlace){
@@ -150,9 +130,29 @@ class EventController extends AbstractController
         
         // 4.Sync in DB
         $em->flush();
-
+        
         // 5. Redirect
         return $this->redirectToRoute("events_show");
     }
+    
+    
+    // For debug event occurences service
 
-}
+    // #[Route("/event/{id}/occurrences")]
+    // public function showEventOccurrences( Event $event):Response
+    // {
+
+        // Init Event Occurrences
+    
+    //     if (!$event) {
+        //         throw $this->createNotFoundException('Event not found');
+        //     }
+        //     $occurrences = $this->occurrenceGenerator->generateOccurrences($event);
+        
+        //     return $this->render("event/occurrences.html.twig", [
+            //         "event"=>$event,
+            //         "occurrences"=>$occurrences,
+            //     ]);
+            // }
+            
+        }
