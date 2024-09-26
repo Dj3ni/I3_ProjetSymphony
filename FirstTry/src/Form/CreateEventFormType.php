@@ -28,6 +28,12 @@ class CreateEventFormType extends AbstractType
             ->add('dateEnd', null, [
                 'widget' => 'single_text',
             ])
+            ->add('recurrenceType', EnumType::class, [
+                "class"=>RecurrenceType::class,
+            ])
+            ->add('recurrenceEnd', null, [
+                'widget' => 'single_text',
+            ])
             ->add('description', TextareaType::class)
             ->add('fee', MoneyType::class)
             ->add('eventType', EnumType::class, [

@@ -17,28 +17,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class EventController extends AbstractController
 {
     private ManagerRegistry $doctrine;
+    private EventOccurrenceGenerator $occurrenceGenerator;
 
-    public function __construct(ManagerRegistry $doctrine ){
+    public function __construct(ManagerRegistry $doctrine, EventOccurrenceGenerator $occurrenceGenerator ){
         $this->doctrine = $doctrine;
-        // $this->occurrenceGenerator = $occurrenceGenerator;
+        $this->occurrenceGenerator = $occurrenceGenerator;
     }
 
-    #[Route("/demo/{id}")]
+    // #[Route("/demo/{id}")]
 
     // public function demo(EventOccurrenceGenerator $demo){
     //     dd($demo) // Ici ça marche
     // }
 
-    // Event $event, 
-    public function showEventOccurrences( EventOccurrenceGenerator $occurrenceGenerator, int $id, EventRepository $rep):Response
+    #[Route("/event/{id}/occurrences")]
+    public function showEventOccurrences( Event $event, int $id, EventRepository $rep):Response
     {
-        $event = $rep->find($id);
+        // $event = $rep->find($id);
         // Init Event Occurrences
-        $occurrences = $this->$occurrenceGenerator->generateOccurrences($event);
+
+        if (!$event) {
+            throw $this->createNotFoundException('Event not found');
+        }
+        $occurrences = $this->occurrenceGenerator->generateOccurrences($event);
 
         return $this->render("event/occurrences.html.twig", [
             "event"=>$event,
-            "occurrences"=>$occurrences
+            "occurrences"=>$occurrences,
         ]);
     }
 
