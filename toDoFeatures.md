@@ -21,7 +21,7 @@ MVP4: Create and subscribe to a game session
 To do:
 - finish wireframe 
 - endEvent must be later than startEvent -> ok
-- add occurency for events
+- add occurency for events -> ok
 - add default value for fee = free -> ok
 - events search
 - create address entity and link it with User and Gaming Place -> ok

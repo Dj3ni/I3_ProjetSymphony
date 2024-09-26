@@ -81,7 +81,6 @@ class SubscriptionsController extends AbstractController
             return $this->redirectToRoute("events_show");
         }
 
-
         return $this->render('event/event_subscription.html.twig',[
             "form"=>$form,
         ]);
