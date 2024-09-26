@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\HydrateTrait\HydrateTrait;
 use App\Repository\GamingPlaceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 class GamingPlace
 {
     use HydrateTrait;
+
+########################## Properties #########################################
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -29,9 +33,23 @@ class GamingPlace
     #[ORM\Column]
     private ?int $placeMax = null;
 
+#################### Relations ###################################################
+
+    #[ORM\OneToOne(inversedBy: 'gamingPlace', cascade: ['persist', 'remove'])]
+    private ?Address $Address = null;
+
+    /**
+     * @var Collection<int, EventPlace>
+     */
+    #[ORM\OneToMany(targetEntity: EventPlace::class, mappedBy: 'gamingPlace', cascade:['persist', 'remove'])]
+    private Collection $eventPlaces;
+
+#####################  Functions #########################################
+
     public function __construct(array $init)
     {
         $this->hydrate($init);
+        $this->eventPlaces = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -86,4 +104,47 @@ class GamingPlace
 
         return $this;
     }
+
+    public function getAddress(): ?Address
+    {
+        return $this->Address;
+    }
+
+    public function setAddress(?Address $Address): static
+    {
+        $this->Address = $Address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventPlace>
+     */
+    public function getEventPlaces(): Collection
+    {
+        return $this->eventPlaces;
+    }
+
+    public function addEventPlace(EventPlace $eventPlace): static
+    {
+        if (!$this->eventPlaces->contains($eventPlace)) {
+            $this->eventPlaces->add($eventPlace);
+            $eventPlace->setGamingPlace($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventPlace(EventPlace $eventPlace): static
+    {
+        if ($this->eventPlaces->removeElement($eventPlace)) {
+            // set the owning side to null (unless already changed)
+            if ($eventPlace->getGamingPlace() === $this) {
+                $eventPlace->setGamingPlace(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

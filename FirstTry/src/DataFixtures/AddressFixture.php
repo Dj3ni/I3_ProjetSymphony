@@ -12,15 +12,18 @@ class AddressFixture extends Fixture
     {
         $faker = \Faker\Factory::create("fr_BE");
         
-        for ($i=0; $i < 10; $i++) { 
+        for ($i = 0; $i < 100; $i++) { 
             $address = new Address([
                 "street" => $faker->streetName(),
                 "number" => $faker->buildingNumber(),
                 "postCode" => $faker->postcode(),
                 "city"=>$faker->city(),
-                "country"=> "Belgium"
+                "country"=> "Belgium",
             ]);
             $manager->persist($address);
+
+            // addReference, always after persist (it must be known by doctrine to make the reference)
+            $this->addReference("address$i" ,$address);
         }
 
         $manager->flush();

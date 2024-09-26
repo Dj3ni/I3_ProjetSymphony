@@ -35,6 +35,18 @@ class Address
     #[ORM\Column(length: 255)]
     private ?string $country = null;
 
+#################### Relations ###################################################
+
+
+    #[ORM\OneToOne(mappedBy: 'address', cascade: ['persist', 'remove'])]
+    private ?User $user = null;
+
+    #[ORM\OneToOne(mappedBy: 'Address', cascade: ['persist', 'remove'])]
+    private ?GamingPlace $gamingPlace = null;
+
+#####################  Functions #########################################
+
+
     public function __construct(array $init){
         $this->hydrate($init);
     }
@@ -116,4 +128,49 @@ class Address
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setAddress(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getAddress() !== $this) {
+            $user->setAddress($this);
+        }
+
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getGamingPlace(): ?GamingPlace
+    {
+        return $this->gamingPlace;
+    }
+
+    public function setGamingPlace(?GamingPlace $gamingPlace): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($gamingPlace === null && $this->gamingPlace !== null) {
+            $this->gamingPlace->setAddress(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($gamingPlace !== null && $gamingPlace->getAddress() !== $this) {
+            $gamingPlace->setAddress($this);
+        }
+
+        $this->gamingPlace = $gamingPlace;
+
+        return $this;
+    }
+
 }

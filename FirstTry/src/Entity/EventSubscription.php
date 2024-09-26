@@ -9,7 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: EventSubscriptionRepository::class)]
 class EventSubscription
 {
+
+########################## Imports #########################################
+
     use HydrateTrait;
+
+########################## Properties #########################################
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,6 +23,11 @@ class EventSubscription
 
     #[ORM\Column]
     private ?\DateTimeImmutable $subscriptionDate = null;
+    
+    #[ORM\Column]
+    private ?int $numberParticipants = null;
+
+#################### Relations ###################################################
 
     #[ORM\ManyToOne(inversedBy: 'eventSubscriptions')]
     private ?User $userSubscriptor = null;
@@ -25,8 +35,9 @@ class EventSubscription
     #[ORM\ManyToOne(inversedBy: 'Subscriptions')]
     private ?Event $eventSubscripted = null;
 
-    #[ORM\Column]
-    private ?int $numberParticipants = null;
+
+#####################  Functions #########################################
+
 
     public function __construct(array $init =[]){
         $this->hydrate($init);
