@@ -1,10 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Update{% endblock %}
 
 {% block body %}
 
-    <h1>Update an Event</h1>
+
+    <header>
+        <h1>Update: {{event.title}} </h1>
+    </header>
 
     {{ form_errors(form) }}
 

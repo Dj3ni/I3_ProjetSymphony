@@ -104,6 +104,7 @@ class EventController extends AbstractController
         
         return $this->render('event/event_update_form.html.twig', [
             'form' => $form,
+            "event"=> $event,
         ]);
     }
     

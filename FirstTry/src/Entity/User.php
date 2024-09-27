@@ -65,6 +65,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Event::class, mappedBy: 'userOrganisator')]
     private Collection $eventsOrganized;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $avatar = null;
+
 #####################  Functions #########################################
 
     public function __construct(array $init = [])
@@ -253,6 +256,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $eventsOrganized->setUserOrganisator(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): static
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

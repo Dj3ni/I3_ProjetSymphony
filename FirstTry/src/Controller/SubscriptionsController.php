@@ -83,6 +83,7 @@ class SubscriptionsController extends AbstractController
 
         return $this->render('event/event_subscription.html.twig',[
             "form"=>$form,
+            "event"=>$event,
         ]);
     }
 

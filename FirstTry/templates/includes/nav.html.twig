@@ -2,23 +2,45 @@
     <body>
         <nav>
             <div class ="logo">
-                <img src="" alt="">
+                <a href="{{ path ('home')}}">
+                    <img src="images/game.png" alt="logo_gameboards">
+                    {# <a href="https://www.flaticon.com/free-icons/playing" title="playing icons">Playing icons created by Leremy - Flaticon</a> #}
+                </a>
             </div>
-            <div class="navbar navbar-expand-lg navbar-dark navbar-bg {{ app.session.flashbag.peek('success')|length > 0 ? '' : 'mb-5' }}">
+            <div class="navbar">
                 <a href="{{ path ('home')}}">Home</a>
                 <a href="{{ path ('events_show')}}">Events</a>
-                <a href=""></a>
-                <a href=""></a>
-                {% if app.user %}
-                    <a href="{{ path ('app_logout')}}">Logout</a>
-                    <div class = "avatar">
-
-                    </div>
-                {% else %}
-                    <a href="{{ path ('app_login')}}">Login</a>
-                    <a href="{{ path ('register')}}">Sign up</a>
-                {% endif %}
+                <a href="{{ path ('contact')}}">Contact</a>
+                <a href="{{ path ('app_login')}}">Login</a>
+                <a href="{{ path ('app_logout')}}">Logout</a>
+            </div>
+            <div class="avatar dropdown-menu">
+                <div class="avatar-container">
+                    {% if app.user and app.user.avatar is not null %}
+                        <img src="" alt="avatar">
+                    {% else %}
+                        <img src="/images/defaultAvatar.jpg" alt="defaultAvatar">
+                    {% endif %}
+                </div>
                 
+                <div class="user-name">
+                    <button class = "dropBtn">
+                        {% if app.user %}
+                            {{app.user.firstname}}
+                        {% else %}
+                            Guest
+                        {% endif %}
+                        <i class = "arrow"></i>
+                    </button>
+                </div>
+                <div class="dropdown-content">
+                    {% if app.user %}
+                        <a href="{{ path ('app_logout')}}">Logout</a>
+                    {% else %}
+                        <a href="{{ path ('app_login')}}">Login</a>
+                        <a href="{{ path ('register')}}">Sign up</a>
+                    {% endif %}
+                </div>
             </div>
         </nav>
         

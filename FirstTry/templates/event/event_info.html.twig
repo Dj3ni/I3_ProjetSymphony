@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EventController!{% endblock %}
+{% block title %}Event infos{% endblock %}
 
 {% block body %}
 
@@ -15,15 +15,16 @@
     </div>
 {% endfor %}
 
+<header>
+    <h1>
+        {{event.title}}
+    </h1>
+</header>
 
-
-
-<h1>{{event.title}}
 {% if is_granted("ROLE_ADMIN") %}
     <a href="{{ path ('update_event', {id:event.id})}}">✏️</a>
-    <a href="{{ path ('delete_event', {id:event.id})}}">🪦</a>
+    <a href="{{ path ('delete_event', {id:event.id})}}">❌</a>
 {% endif %}
-</h1>
 
 <div>
 <h3>Practical informations</h3>
@@ -37,7 +38,11 @@
     <div>
         <p>{{event.description}}</p>
 
-<a href="{{ path ('event_subscription', {id:event.id})}}" >Subscribe</a></div>
+    <button>
+        <a href="{{ path ('event_subscription', {id:event.id})}}" >Subscribe</a>
+    </button>
+    </div>
+
 </div>
 
 <div>

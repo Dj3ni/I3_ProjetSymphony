@@ -26,13 +26,16 @@
 {% endfor %}
 
 
+
+<header>
+    <h1>All the events are here</h1>
+</header>
+
 {% if is_granted ("ROLE_ADMIN") %}
 <a href="{{ path ('create_event')}}">Create new event</a>
 {# Page to search the event to update it#}
 {# <a href="{{ path ('update_events')}}">Update an event</a> #}
 {% endif %}
-
-<h1>All the events are here</h1>
 
 <ul>
     {% for event in events %}
