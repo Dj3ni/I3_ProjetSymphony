@@ -15,11 +15,11 @@ MVP4: Create and subscribe to a game session
 - search for an event with filters
 - Subscribe to an event if logged-in -> ok
 - if admin: update and create event + redirect when send ->ok
-- contact page + contact form
-- address
+- contact page + contact form -> ok
+- address ->ok
 
 To do:
-- finish wireframe 
+- finish wireframe -> ok
 - endEvent must be later than startEvent -> ok
 - add occurency for events -> ok
 - add default value for fee = free -> ok
@@ -28,10 +28,15 @@ To do:
 - manage users + user access for admin
 - message when form submitted ->ok
 - contact page
+- create validation rules for forms (email,pwd,...)
 
 ### Comments
 - All entities, fixtures and relations for MVP1 ok
 
+### Bugs known
+- Impossible to delete child event
+- possible to send a mail even if email fiel not correct
+- no message when logged-out
 
 ## MVP2 features
 
