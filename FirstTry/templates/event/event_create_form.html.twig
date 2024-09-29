@@ -9,9 +9,13 @@
     </header>
 
     {{ form_errors(form) }}
-
+<div class="login-block">
     {{ form_start(form) }}
-        {{ form_row(form.title) }}
+
+        <div class="form-group">
+            {{ form_widget(form.title) }}
+        </div>
+        <hr class="hr-xs">
         {{ form_row(form.dateStart) }}
         {{ form_row(form.dateEnd) }}
         {{ form_row(form.recurrenceType) }}
@@ -19,7 +23,10 @@
         {{ form_row(form.eventType) }}
         {{ form_row(form.fee)}}
         {{ form_row(form.description) }}
+        <hr class="hr-xs">
+        <br>
 
-        <button type="submit" class="btn">Create Event</button>
+        
     {{ form_end(form) }}
+</div>
 {% endblock %}

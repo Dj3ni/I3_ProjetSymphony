@@ -10,7 +10,7 @@
     </header>
 
     {{ form_errors(form) }}
-
+<div class="login-block">
     {{ form_start(form) }}
         {{ form_row(form.title) }}
         {{ form_row(form.dateStart) }}
@@ -22,6 +22,7 @@
         {{ form_row(form.description) }}
 
 
-        <button type="submit" class="btn">Update</button>
+        {# <button type="submit" class="btn">Update</button> #}
     {{ form_end(form) }}
+</div>
 {% endblock %}

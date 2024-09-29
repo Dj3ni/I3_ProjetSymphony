@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +22,11 @@ class CreateEventFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class)
+            ->add('title', TextType::class, [
+                "attr" =>[
+                    "placeholder" => "Event Title"
+                ]
+            ])
             ->add('dateStart', null, [
                 'widget' => 'single_text',
             ])
@@ -34,10 +39,18 @@ class CreateEventFormType extends AbstractType
             ->add('recurrenceEnd', null, [
                 'widget' => 'single_text',
             ])
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, [
+                "attr" => [
+                    "placeholder" => "Describe your event here",
+                    
+                ]
+            ])
             ->add('fee', MoneyType::class)
             ->add('eventType', EnumType::class, [
                 "class"=>EventType::class,
+            ])
+            ->add("save", SubmitType::class, [
+                "label"=> "Save this event"
             ])
         ;
     }
