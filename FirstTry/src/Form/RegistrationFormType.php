@@ -2,27 +2,53 @@
 
 namespace App\Form;
 
+use Assert\Email;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Required;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Webmozart\Assert\Assert;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add("firstName", TextType::class)
-            ->add("lastName", TextType::class)
-            ->add('phoneNumber', TextType::class)
-            ->add('email')
+            ->add("firstName", TextType::class, [
+                "attr" => [ 
+                    "placeholder" =>"Your Firstname",
+                    ]
+            ])
+            ->add("lastName", TextType::class, [
+                "attr" => [ 
+                    "placeholder" =>"Your Last Name",
+                    ]
+            ])
+            ->add('phoneNumber', TextType::class, [
+                "attr" => [ 
+                    "placeholder" =>"Your Phone Number",
+                    ]
+            ])
+            ->add('email',null, [
+                "attr" => [ 
+                    "placeholder" =>"Your email",
+                    "pattern" => '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                ],
+                // 'constraints' => [
+                //     new Email([
+                //     'message' => 'L\'adresse email "{{ value }}" n\'est pas valide.',
+                //     'mode' => 'strict' // Optionnel : stricte vérification (recommandée)
+                //     ])
+                // ]
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -35,7 +61,10 @@ class RegistrationFormType extends AbstractType
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                    "placeholder" =>"Your password",
+                    ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -48,6 +77,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add("save", SubmitType::class,['label' => 'Register'])
         ;
     }
 

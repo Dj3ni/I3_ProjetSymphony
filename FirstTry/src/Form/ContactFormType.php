@@ -19,17 +19,26 @@ class ContactFormType extends AbstractType
             ->add("name", TextType::class,[
                 "required" => true,
                 "empty_data" => "",
+                "attr"=>[
+                    "placeholder" => "Your name"
+                ],
                 // 'constraints' => NotBlank::CLASS_CONSTRAINT,
 
             ])
             ->add("email", TextType::class,[
                 "required" => true,
                 "empty_data" => "",
+                "attr"=>[
+                    "placeholder" => "Your email"
+                ],
                 // 'constraints' => NotBlank::CLASS_CONSTRAINT,
             ])
             ->add("message", TextareaType::class,[
                 "required" => true,
                 "empty_data" => "",
+                "attr"=>[
+                    "placeholder" => "Write your message here"
+                ],
                 // 'constraints' => NotBlank::CLASS_CONSTRAINT,
             ] )
             ->add("save", SubmitType::class, [

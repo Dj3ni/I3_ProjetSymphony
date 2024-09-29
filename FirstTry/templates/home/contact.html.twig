@@ -13,14 +13,25 @@
     <h1>Contact us</h1>
 </header>
 
-    <p>For further informations, you may contact us:</p>
+<div class="login-block">
+    <h1>For further informations, please contact us:</h1>
 
     {{ form_errors(form) }}
 
     {{ form_start(form) }}
-    
-        {{ form_widget(form) }}
-    
+    <div class="form-group">
+        {{ form_widget(form.name) }}
+    </div>
+    <hr class = "hr-xs">
+    <div class="form-group">
+        {{ form_widget(form.email) }}
+    </div>
+    <hr class = "hr-xs">
+    <div class="form-group">
+        {{ form_widget(form.message) }}
+    </div>
+    <hr class = "hr-xs">
+    <br>
     {{ form_end(form) }}
-    
+</div>   
 {% endblock %}
