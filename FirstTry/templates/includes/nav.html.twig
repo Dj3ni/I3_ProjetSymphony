@@ -1,48 +1,73 @@
 <html>
     <body>
-        <nav>
-            <div class ="logo">
-                <a href="{{ path ('home')}}">
-                    <img src="images/game.png" alt="logo_gameboards">
-                    {# <a href="https://www.flaticon.com/free-icons/playing" title="playing icons">Playing icons created by Leremy - Flaticon</a> #}
-                </a>
-            </div>
-            <div class="navbar">
-                <a href="{{ path ('home')}}">Home</a>
-                <a href="{{ path ('events_show')}}">Events</a>
-                <a href="{{ path ('contact')}}">Contact</a>
-                <a href="{{ path ('app_login')}}">Login</a>
-                <a href="{{ path ('app_logout')}}">Logout</a>
-            </div>
-            <div class="avatar dropdown-menu">
-                <div class="avatar-container">
+        <div class="header-nav">
+            <nav>
+                <div class ="logo">
+                    <a href="{{ path ('home')}}">
+                        <img src="images/logoipsum.svg" alt="logoipsum">
+                        {# <a href="https://www.flaticon.com/free-icons/playing" title="playing icons">Playing icons created by Leremy - Flaticon</a> #}
+                    </a>
+                </div>
+                <div class="navbar">
+                    <a href="{{ path ('home')}}">Home</a>
+                    <a href="{{ path ('events_show')}}">Events</a>
+                    <a href="{{ path ('contact')}}">Contact</a>
+                    {# For debug subMenu #}
+                    {# <a href="{{ path ('app_login')}}">Login</a>
+                    <a href="{{ path ('app_logout')}}">Logout</a> #}
+                </div>
+                <div class="avatar">
                     {% if app.user and app.user.avatar is not null %}
                         <img src="" alt="avatar">
                     {% else %}
                         <img src="/images/defaultAvatar.jpg" alt="defaultAvatar">
                     {% endif %}
-                </div>
-                
-                <div class="user-name">
-                    <button class = "dropBtn">
-                        {% if app.user %}
-                            {{app.user.firstname}}
-                        {% else %}
-                            Guest
-                        {% endif %}
-                        <i class = "arrow"></i>
-                    </button>
-                </div>
-                <div class="dropdown-content">
                     {% if app.user %}
-                        <a href="{{ path ('app_logout')}}">Logout</a>
+                        <p>{{app.user.firstname}}</p>
                     {% else %}
-                        <a href="{{ path ('app_login')}}">Login</a>
-                        <a href="{{ path ('register')}}">Sign up</a>
+                        <p>Guest</p>
                     {% endif %}
                 </div>
-            </div>
-        </nav>
+                <div class="sub-menu-wrap" id= "subMenu">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                            {% if app.user and app.user.avatar is not null %}
+                                <img src="" alt="avatar">
+                            {% else %}
+                                <img src="/images/defaultAvatar.jpg" alt="defaultAvatar">
+                            {% endif %}
+                            {% if app.user %}
+                                <p>{{app.user.firstname}}</p>
+                            {% else %}
+                                <h3>Guest</h3>
+                            {% endif %}
+                        </div>
+                        <hr>
+                        
+                        {% if app.user %}
+                            <a href="{{ path ('app_logout')}}" class = "sub-menu-link">
+                                <img src="images/logout.png" alt="logout">
+                                <p>Logout</p>
+                                <span>></span>
+                            </a>
+                        {% else %}
+                        <a href="{{ path ('app_login')}}" class = "sub-menu-link">
+                            <img src="images/logout.png" alt="login">
+                            <p>Login</p>
+                            <span>></span>
+                        </a>
+                        <a href="{{ path ('register')}}" class = "sub-menu-link">
+                            <img src="images/logout.png" alt="logout">
+                            <p>Sign Up</p>
+                            <span>></span>
+                        </a>
+                        {% endif %}
+                        
+                    </div>
+                </div>
+                
+            </nav>
+        </div>
         
     </body>
 </html>
