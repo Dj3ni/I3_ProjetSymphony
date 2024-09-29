@@ -78,6 +78,7 @@ nav {
     max-height: 0px ;
     overflow: hidden;
     transition: max-height 0.5s;
+    box-shadow: 5px 5px 15px rgba(52,52,52,0.25);
     /* To hide submenu: add max-height: 0 and overflow: hidden , to make it visible, max-height: 400 px, and transition*/
 }
 
