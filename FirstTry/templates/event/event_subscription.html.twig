@@ -7,11 +7,12 @@
     <header>
         <h1>Subscribe to: {{event.title}}</h1>
     </header>
-
+{# <div class="login-block"> #}
     {{ form_errors(form) }}
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
     
-{{ form_end(form) }}
+    {{ form_end(form) }}
+</div>
 {% endblock %}

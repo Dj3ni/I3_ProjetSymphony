@@ -7,6 +7,15 @@ main {
     padding: 15px;
 }
 
+.btn a{
+    color:#fff;
+    text-decoration: none;
+    margin:15px;
+}
+.btn{
+    margin:15px;
+}
+
 header {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     text-align: center;
@@ -45,6 +54,12 @@ nav {
     margin: 0 10px;
     text-decoration: none;
     color: #fff;
+}
+
+.navbar a:hover {
+    background: #525252;
+    padding: 5px 10px;
+    border-radius: 20px;
 }
 
 /* logo */
