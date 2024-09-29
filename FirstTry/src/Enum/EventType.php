@@ -8,6 +8,6 @@ enum EventType:string
     case ROLE_PLAY = "Role_Play";
     case FESTIVAL = "Festival";
     case GAMING_SALES = "Gaming_Sales";
-    case TOURNAMENT = "TOURNAMENT";
+    case TOURNAMENT = "Tournament";
     
 }

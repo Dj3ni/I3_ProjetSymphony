@@ -1,5 +1,6 @@
 body {
     margin:0;
+    font-family: "Poppins", sans-serif;
 }
 
 main {
@@ -204,4 +205,33 @@ nav {
 {
     margin-top:5px;
     margin-bottom:5px
+}
+
+/******************* Bootstrap cards *********************/
+
+.card-section{
+    max-width: 90%;
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin: 15px;
+    height: 320px;
+    overflow: hidden;
+}
+
+.card-link {
+    text-decoration: none;
+    color: #525252;
+}
+
+.card-link:hover {
+    background: #1a1a1a;
+    padding: 0 5px;
+    border-radius: 20px;
 }

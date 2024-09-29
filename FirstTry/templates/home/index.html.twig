@@ -33,14 +33,22 @@
 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, nisi laborum. Numquam sit ipsa delectus nostrum, consectetur quibusdam eius voluptate quos, consequuntur, veritatis minima laudantium magni facere! Excepturi, iusto minima!
 Accusamus hic sapiente deserunt sequi ex repellat magni quas obcaecati! Blanditiis sapiente enim nisi quae accusamus reprehenderit ut architecto aut alias in soluta ipsum vero, esse ipsa doloremque inventore maiores.</p>
 
-<div>
-    <ul>
+<div class = "card-section">
+    
     {% for event in lastEvents %}
-        <li>{{ event.title}}</li>
-        
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{event.title}}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{event.eventType.value}}</h6>
+            <hr class="hr-xs">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="{{path ("event", {id: event.id})}}" class="card-link">More info</a>
+            <a href="{{ path ("event_subscription", {id:event.id})}}" class="card-link">Subscribe</a>
+        </div>
+    </div>
     {% endfor %}
 
-    </ul>
+
 </div>
 
 
