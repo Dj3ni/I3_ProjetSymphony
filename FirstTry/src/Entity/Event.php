@@ -77,7 +77,7 @@ class Event
      * @var Collection<int, EventOccurrence>
      */
     #[ORM\OneToMany(targetEntity: EventOccurrence::class, mappedBy: 'event')]
-    private Collection $Occurrences;
+    private Collection $occurrences;
 
 
 #####################  Functions #########################################
@@ -87,7 +87,7 @@ class Event
         $this->hydrate($init);
         $this->subscriptions = new ArrayCollection();
         $this->eventPlaces = new ArrayCollection();
-        $this->Occurrences = new ArrayCollection();
+        $this->occurrences = new ArrayCollection();
         
     }
     #[Assert\Callback] //will be called when entity validated
@@ -309,22 +309,22 @@ class Event
      */
     public function getOccurrences(): Collection
     {
-        return $this->Occurrences;
+        return $this->occurrences;
     }
 
-    public function addOccurrence(EventOccurrence $occurrence): static
+    public function addOccurrence(EventOccurrence $occurrence): self
     {
-        if (!$this->Occurrences->contains($occurrence)) {
-            $this->Occurrences->add($occurrence);
+        if (!$this->occurrences->contains($occurrence)) {
+            $this->occurrences[] = $occurrence;
             $occurrence->setEvent($this);
         }
 
         return $this;
     }
 
-    public function removeOccurrence(EventOccurrence $occurrence): static
+    public function removeOccurrence(EventOccurrence $occurrence): self
     {
-        if ($this->Occurrences->removeElement($occurrence)) {
+        if ($this->occurrences->removeElement($occurrence)) {
             // set the owning side to null (unless already changed)
             if ($occurrence->getEvent() === $this) {
                 $occurrence->setEvent(null);

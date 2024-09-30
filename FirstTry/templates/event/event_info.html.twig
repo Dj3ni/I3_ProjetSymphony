@@ -58,7 +58,7 @@
     <h3>All the dates for this event</h3>
     <ul>
         {% for occurrence in occurrences %}
-            <li>{{ occurrence.startDate|date('d-m-Y H:i') }} - {{ occurrence.endDate|date('d-m-Y H:i') }}</li>
+            <li>{{ occurrence.dateStart|date('d-m-Y H:i') }} - {{ occurrence.dateEnd|date('d-m-Y H:i') }}</li>
         {% endfor %}
     </ul>
 </div>

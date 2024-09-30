@@ -11,8 +11,17 @@
     {{ form_errors(form) }}
 
     {{ form_start(form) }}
-        {{ form_row(form.occurrenceDates) }}
-        {{ form_row(form.numberParticipants) }}
+    {# <div class="occurrences"> #}
+    {% for occurrence in form.vars.occurrences %}
+        {# <div class="form-group"> #}
+            {{ form_row(form["occurrence_"~ occurrence.id]) }}
+            {{ occurrence.dateStart|date('d-m-Y H:i')}}
+        </div>
+    {% endfor %}
+        {# <div class="form-group"> #}
+            {{ form_row(form.numberParticipants) }}
+        </div>        
+    </div>
     <div class="div-btn">
         {{ form_widget(form.save) }}
     </div>

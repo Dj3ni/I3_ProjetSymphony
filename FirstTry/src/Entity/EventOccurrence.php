@@ -30,11 +30,11 @@ class EventOccurrence
 
     ####################### Functions
 
-    public function __construct(array $init)
+    public function __construct(array $init = [])
     {
         $this->hydrate($init);
     }
-    
+
     public function getId(): ?int
     {
         return $this->id;

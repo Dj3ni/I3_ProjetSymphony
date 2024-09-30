@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Entity\Event;
+use App\Entity\EventOccurrence;
 use App\Enum\RecurrenceType;
 
 class EventOccurrenceGenerator
@@ -15,15 +16,12 @@ class EventOccurrenceGenerator
 
 ############## For each event occurence, I create a "child" event
 
-    public function createEventOccurrence(Event $event, \DateTimeInterface $newStartDate, \DateTimeInterface $newEndDate) : Event{
-        
-        // 1. Clone original event
-        $occurrence = clone $event;
+    public function createEventOccurrence(Event $event, \DateTimeInterface $newStartDate, \DateTimeInterface $newEndDate) : EventOccurrence{
 
-        // 2. Modify Dates
-        $occurrence->setDateStart($newStartDate)
+        $occurrence = new EventOccurrence();
+        $occurrence->setEvent($event)
+                    ->setDateStart($newStartDate)
                     ->setDateEnd($newEndDate);
-        
         return $occurrence;
     }
 
@@ -68,6 +66,7 @@ class EventOccurrenceGenerator
         // return $occurrences; 
 
         $occurrencesWithEnd = [];
+
         // Get start date and OcurrenceType from Form
         $dateStart = $event->getDateStart();
         $dateEnd = $event->getDateEnd();
@@ -118,11 +117,13 @@ class EventOccurrenceGenerator
                         throw new \Exception('currentDate is not an instance of \DateTime inside the loop');
                     }
 
-                // Ajouter l'occurrence actuelle
-                $occurrencesWithEnd[] = [
-                    "startDate" => clone $currentStartDate,
-                    "endDate" => clone $currentEndDate,
-                ];
+                // Create new occurrence
+                $occurrence = $this->createEventOccurrence($event, clone $currentStartDate, clone $currentEndDate);
+                $occurrences[] = $occurrence;
+                // $occurrencesWithEnd[] = [
+                //     "startDate" => clone $currentStartDate,
+                //     "endDate" => clone $currentEndDate,
+                // ];
 
                 $this->switchCasesOccurrences($recurrenceType, $currentStartDate, $currentEndDate);
 

@@ -6,6 +6,7 @@ use App\Demo;
 use App\Entity\Event;
 use App\EventOccurrenceGenerator;
 use App\Form\CreateEventFormType;
+use App\Repository\EventOccurrenceRepository;
 use App\Repository\EventRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,21 +24,6 @@ class EventController extends AbstractController
         $this->doctrine = $doctrine;
         $this->occurrenceGenerator = $occurrenceGenerator;
     }
-
-
-    
-############  Show all the events in DB now managed by events/search
-    
-    // #[Route('/events', name: 'events_show')]
-    // public function showAllEvents(EventRepository $rep): Response
-    // {
-    //     $events = $rep ->findAll();
-    //     // dd($events);
-        
-    //     return $this->render('event/events_show.html.twig', [
-    //         'events' => $events,
-    //     ]);
-    // }
     
 ############# Show the Event Informations
     
@@ -45,9 +31,8 @@ class EventController extends AbstractController
     public function showEvent(Event $event): Response
     {
         // dd($event);
-
         // Init occurrences
-        $occurrences = $this->occurrenceGenerator->generateOccurrences($event);
+        $occurrences = $event->getOccurrences();
 
         return $this->render('event/event_info.html.twig', [
             'event' => $event,
