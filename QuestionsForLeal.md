@@ -12,4 +12,4 @@ J'ai créé un simple formulaire, non lié à une entité. Cependant, dans les t
 
 ==> Quelle est la meilleure approche et pourquoi?
 
-## 3. 
+## 3. Pourquoi pour certaines pages, les images ne sont pas accessibles?

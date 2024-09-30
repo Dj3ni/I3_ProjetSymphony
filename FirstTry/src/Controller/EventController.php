@@ -26,18 +26,18 @@ class EventController extends AbstractController
 
 
     
-############  Show all the events in DB
+############  Show all the events in DB now managed by events/search
     
-    #[Route('/events', name: 'events_show')]
-    public function showAllEvents(EventRepository $rep): Response
-    {
-        $events = $rep ->findAll();
-        // dd($events);
+    // #[Route('/events', name: 'events_show')]
+    // public function showAllEvents(EventRepository $rep): Response
+    // {
+    //     $events = $rep ->findAll();
+    //     // dd($events);
         
-        return $this->render('event/events_show.html.twig', [
-            'events' => $events,
-        ]);
-    }
+    //     return $this->render('event/events_show.html.twig', [
+    //         'events' => $events,
+    //     ]);
+    // }
     
 ############# Show the Event Informations
     
@@ -73,7 +73,7 @@ class EventController extends AbstractController
             $em->persist($event);
             $em->flush();
             $this->addFlash("event_create_success", "Event successfully created!");
-            return $this->redirectToRoute("events_show");
+            return $this->redirectToRoute("event_search");
         }
         return $this->render('event/event_create_form.html.twig', [
             'form' => $form,
@@ -99,7 +99,7 @@ class EventController extends AbstractController
             
             $em->flush();
             $this->addFlash("event_update_success", "Your event is now up-to-date");
-            return $this->redirectToRoute("events_show");
+            return $this->redirectToRoute("event_search");
         }
         
         return $this->render('event/event_update_form.html.twig', [
@@ -136,7 +136,7 @@ class EventController extends AbstractController
         
         // 5. Redirect with message
         $this->addFlash("event_delete_success", "Your event was successfully removed!");
-        return $this->redirectToRoute("events_show");
+        return $this->redirectToRoute("event_search");
     }
     
     

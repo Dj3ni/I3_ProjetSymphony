@@ -78,7 +78,7 @@ class SubscriptionsController extends AbstractController
             
             // message to inform the user
             $this->addFlash("subscription_success", "Subscription sent!");
-            return $this->redirectToRoute("events_show");
+            return $this->redirectToRoute("event_search");
         }
 
         return $this->render('event/event_subscription.html.twig',[
@@ -86,7 +86,5 @@ class SubscriptionsController extends AbstractController
             "event"=>$event,
         ]);
     }
-
-
 
 }
