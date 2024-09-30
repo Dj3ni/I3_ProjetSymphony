@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\HydrateTrait\HydrateTrait;
 use App\Repository\EventOccurrenceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: EventOccurrenceRepository::class)]
 class EventOccurrence
 {
+    use HydrateTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -20,9 +23,18 @@ class EventOccurrence
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateEnd = null;
 
+    ###################### Relations
+
     #[ORM\ManyToOne(inversedBy: 'Occurrences')]
     private ?Event $event = null;
 
+    ####################### Functions
+
+    public function __construct(array $init)
+    {
+        $this->hydrate($init);
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
