@@ -11,5 +11,9 @@ Ensuite, via le EventSubscriptionForm, je génère une liste avec les différent
 J'ai créé un simple formulaire, non lié à une entité. Cependant, dans les tutos, ils le lient à une entité. Quand je demande à Chat GPT, il me dit que les 2 approches sont bonnes.
 
 ==> Quelle est la meilleure approche et pourquoi?
+->ok
 
 ## 3. Pourquoi pour certaines pages, les images ne sont pas accessibles?
+->Attention à bien toujours mettre le "/" avant le chemin pour forcer à démarrer de la racine
+
+## 4. 

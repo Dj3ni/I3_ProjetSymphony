@@ -21,11 +21,6 @@
     </h1>
 </header>
 
-{% if is_granted("ROLE_ADMIN") %}
-    <a href="{{ path ('update_event', {id:event.id})}}">✏️</a>
-    <a href="{{ path ('delete_event', {id:event.id})}}">❌</a>
-{% endif %}
-
 <div>
 <h3>Practical informations</h3>
     <div>
@@ -38,12 +33,26 @@
     <div>
         <p>{{event.description}}</p>
 
-    <button class ="btn btn-primary btn-block">
-        <a href="{{ path ('event_subscription', {id:event.id})}}" >Subscribe</a>
-    </button>
+        <div class="div-btn">
+            <button class ="btn btn-primary btn-block">
+                <a href="{{ path ('event_subscription', {id:event.id})}}" >Subscribe</a>
+            </button>
+            {% if is_granted("ROLE_ADMIN") %}
+                <button class="btn btn-primary btn-block">
+                    <a href="{{ path ('update_event', {id:event.id})}}">
+                        ✏️ Update this event
+                    </a>
+                </button>
+                <button class="btn btn-primary btn-block">
+                    <a href="{{ path ('delete_event', {id:event.id})}}">
+                        ❌ Delete this event
+                    </a>
+                </button>
+            {% endif %}
+        </div>
     </div>
-
 </div>
+<br>
 
 <div>
     <h3>All the dates for this event</h3>

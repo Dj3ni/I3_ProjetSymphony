@@ -13,7 +13,13 @@ main {
     margin:15px;
 }
 .btn{
-    margin:15px;
+    margin: 15px;
+}
+
+.div-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 header {
@@ -31,7 +37,6 @@ header {
     color: #525252;
     
 }
-
 
 nav {
     background: #1a1a1a;
@@ -229,6 +234,7 @@ nav {
     margin: auto;
     padding: 20px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
@@ -238,6 +244,7 @@ nav {
     margin: 15px;
     height: 320px;
     overflow: hidden;
+    width: 350px;
 }
 
 .card-link {
@@ -250,3 +257,10 @@ nav {
     padding: 0 5px;
     border-radius: 20px;
 }
+
+.card-title a {
+    text-decoration: none;
+    color: #1a1a1a;
+}
+
+/*********************  ***************************************/

@@ -11,8 +11,11 @@
     {{ form_errors(form) }}
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    
+        {{ form_row(form.occurrenceDates) }}
+        {{ form_row(form.numberParticipants) }}
+    <div class="div-btn">
+        {{ form_widget(form.save) }}
+    </div>
     {{ form_end(form) }}
 </div>
 {% endblock %}
