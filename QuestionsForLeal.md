@@ -16,4 +16,4 @@ J'ai créé un simple formulaire, non lié à une entité. Cependant, dans les t
 ## 3. Pourquoi pour certaines pages, les images ne sont pas accessibles?
 ->Attention à bien toujours mettre le "/" avant le chemin pour forcer à démarrer de la racine
 
-## 4. 
+## 4. Le toggle ne persiste pas 
