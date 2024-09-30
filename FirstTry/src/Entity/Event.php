@@ -73,6 +73,12 @@ class Event
     #[ORM\ManyToOne(inversedBy: 'eventsOrganized')]
     private ?User $userOrganisator = null;
 
+    /**
+     * @var Collection<int, EventOccurrence>
+     */
+    #[ORM\OneToMany(targetEntity: EventOccurrence::class, mappedBy: 'event')]
+    private Collection $Occurrences;
+
 
 #####################  Functions #########################################
     
@@ -81,6 +87,7 @@ class Event
         $this->hydrate($init);
         $this->subscriptions = new ArrayCollection();
         $this->eventPlaces = new ArrayCollection();
+        $this->Occurrences = new ArrayCollection();
         
     }
     #[Assert\Callback] //will be called when entity validated
@@ -293,6 +300,36 @@ class Event
     public function setUserOrganisator(?User $userOrganisator): static
     {
         $this->userOrganisator = $userOrganisator;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventOccurrence>
+     */
+    public function getOccurrences(): Collection
+    {
+        return $this->Occurrences;
+    }
+
+    public function addOccurrence(EventOccurrence $occurrence): static
+    {
+        if (!$this->Occurrences->contains($occurrence)) {
+            $this->Occurrences->add($occurrence);
+            $occurrence->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOccurrence(EventOccurrence $occurrence): static
+    {
+        if ($this->Occurrences->removeElement($occurrence)) {
+            // set the owning side to null (unless already changed)
+            if ($occurrence->getEvent() === $this) {
+                $occurrence->setEvent(null);
+            }
+        }
 
         return $this;
     }

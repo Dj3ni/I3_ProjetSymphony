@@ -23,11 +23,11 @@ To do:
 - endEvent must be later than startEvent -> ok
 - add occurency for events -> ok
 - add default value for fee = free -> ok
-- events search
+- events search -> Ajax search ok, search with filters to do
 - create address entity and link it with User and Gaming Place -> ok
 - manage users + user access for admin
 - message when form submitted ->ok
-- contact page
+- contact page ->ok
 - create validation rules for forms (email,pwd,...)
 
 ### Comments
@@ -35,7 +35,7 @@ To do:
 
 ### Bugs known
 - Impossible to delete child event
-- possible to send a mail even if email fiel not correct
+- improve email constraints, no error message appears when errors in all forms (except dateEnd)
 - no message when logged-out
 
 ## MVP2 features
