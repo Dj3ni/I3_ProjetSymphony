@@ -62,3 +62,15 @@ SEARCH_FORM.addEventListener("input", function(){
         DIV_RESULT.appendChild(ul);
     })
 })
+
+
+/****************** */
+// // Components
+// import { Calendar } from '@fullcalendar/core';
+// import interactionPlugin from '@fullcalendar/interaction';
+// import dayGridPlugin from '@fullcalendar/daygrid';
+// import timeGridPlugin from '@fullcalendar/timegrid';
+// import listPlugin from '@fullcalendar/list';
+
+// // Css
+// import "./styles/calendar.css";

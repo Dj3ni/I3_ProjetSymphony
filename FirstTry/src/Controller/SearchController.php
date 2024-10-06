@@ -35,7 +35,7 @@ class SearchController extends AbstractController
             // dd($data);
             $events = $rep->findEventByTitles($data);
             $eventsJson = $serializerInterface->serialize ($events,"json", [
-                AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator"]
+                AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "occurrences"]
             ]);
             
             return new Response($eventsJson);
