@@ -2,6 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Address;
+use App\Entity\Event;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -38,12 +41,20 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Cauldron Overflow Admin');
+            // ->setTitle('Cauldron Overflow Admin')
+            ->setTitle("<img src = '/images/logoipsum.svg'>")
+            ->setFaviconPath('/images/logoipsum.svg');
+
+
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::linkToCrud('Users', 'fa fa-user-list', User::class);
+        yield MenuItem::linkToCrud('Address', 'fa fa-address-list', Address::class);
+
+        yield MenuItem::linkToCrud('Events', 'fa fa-event-list', Event::class);
+
     }
 }

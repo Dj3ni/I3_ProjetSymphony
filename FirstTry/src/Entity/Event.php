@@ -53,8 +53,8 @@ class Event
     private ?string $fee = "0.00";
 
     //We need to instruct Doctrine that we have an Enum otherwise, it doesn't understand
-    #[ORM\Column(type: 'string', enumType: EventType::class)] 
-    private EventType $eventType;
+    #[ORM\Column(type: Types::STRING, enumType: EventType::class)] 
+    private string $eventType = "none";
 
 #################### Relations ###################################################
 
@@ -166,7 +166,7 @@ class Event
         return $this;
     }
 
-    public function getEventType(): eventType
+    public function getEventType(): string
     {
         return $this->eventType;
     }
@@ -249,7 +249,7 @@ class Event
     /**
      * Set the value of recurrenceType
      */
-    public function setRecurrenceType(RecurrenceType $recurrenceType = RecurrenceType::None) : self
+    public function setRecurrenceType(RecurrenceType $recurrenceType = RecurrenceType::NONE) : self
     {
         $this->recurrenceType = $recurrenceType;
 
