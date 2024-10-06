@@ -30,9 +30,9 @@ class EventFixture extends Fixture implements DependentFixtureInterface
             ]);
             $organisator = $this->getReference("user$i");
             
-            $event->setEventType(EventType::BOARDGAMES_DEMO);
+            $event->setEventType(EventType::cases()[rand(0,4)]);
             
-            $event->setRecurrenceType(RecurrenceType::WEEKLY);
+            $event->setRecurrenceType(RecurrenceType::cases()[rand(0,4)]);
             $event->setUserOrganisator($organisator);
             
             $manager->persist($event);

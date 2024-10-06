@@ -53,8 +53,8 @@ class Event
     private ?string $fee = "0.00";
 
     //We need to instruct Doctrine that we have an Enum otherwise, it doesn't understand
-    #[ORM\Column(type: Types::STRING, enumType: EventType::class)] 
-    private string $eventType = "none";
+    #[ORM\Column(type: "string", enumType: EventType::class)] 
+    private EventType $eventType;
 
 #################### Relations ###################################################
 
@@ -166,7 +166,7 @@ class Event
         return $this;
     }
 
-    public function getEventType(): string
+    public function getEventType(): EventType
     {
         return $this->eventType;
     }
