@@ -37,6 +37,7 @@ security:
     access_control:
         - { path: /event_subscription/, roles: ROLE_USER }
         - { path: /update_event, roles: ROLE_ADMIN }
+        - { path: /admin, roles: ROLE_ADMIN }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
     
