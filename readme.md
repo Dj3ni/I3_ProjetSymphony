@@ -18,7 +18,8 @@ MVP2: Subscribe a club and members management
 MVP3: Manage boardgame Library
 MVP4: Create and subscribe to a game session
 
-
+## Needs
+- enable php intl and php zip in php.ini
 <!-- 
 ## Getting Started
 
