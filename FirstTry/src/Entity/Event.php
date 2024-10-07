@@ -3,15 +3,16 @@
 namespace App\Entity;
 
 use App\Enum\EventType;
+use App\Enum\RecurrenceType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\EventSubscription;
-use App\Enum\RecurrenceType;
 use App\HydrateTrait\HydrateTrait;
 use App\Repository\EventRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
@@ -32,9 +33,12 @@ class Event
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[SerializedName("start")]
     private ?\DateTimeInterface $dateStart = null;
 
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[SerializedName("end")]
     private ?\DateTimeInterface $dateEnd = null;
 
     #[ORM\Column(type: 'string', enumType: RecurrenceType::class)] 
@@ -249,7 +253,7 @@ class Event
     /**
      * Set the value of recurrenceType
      */
-    public function setRecurrenceType(RecurrenceType $recurrenceType = RecurrenceType::None) : self
+    public function setRecurrenceType(RecurrenceType $recurrenceType = RecurrenceType::NONE) : self
     {
         $this->recurrenceType = $recurrenceType;
 

@@ -9,15 +9,19 @@ import listPlugin from '@fullcalendar/list';
 // Css
 import "./styles/calendar.css";
 
-// Script
+// Script generate url
 
+
+
+// Script Calendar
 document.addEventListener("DOMContentLoaded", () =>{
-
+    
     // 1. on obtient les événements du controller, on les stocke dans le data-calendrier du div  
     // console.log (document.getElementById ('calendrier').dataset.calendrier);
     let evenementsJSONJS = document.getElementById('calendrier').dataset.calendrier;
     // 2. On transforme le JSON en array d'objets JS
     let evenementsJSONJSArray = JSON.parse(evenementsJSONJS);
+    // console.log(evenementsJSONJS);
     
     // console.log(evenementsJSONJSArray);
 
@@ -28,24 +32,25 @@ document.addEventListener("DOMContentLoaded", () =>{
     // initilialisation du calendrier
     // et définition du comportement du click
     var calendar = new Calendar(calendarEl, {
+        // example to see if plugin works :
         // events:[
-        // exemple :
         // {
-        //   title: "",
-        //   start: "2022-03-20",
-        //    etc...
-        // },
+        //   title: "coconut",
+        //   start: "2024-10-07",
+        //   end: "2024-10-09"
+
+        // }
         // ],
         // nous avons notre array déjà en format js (on la crée plus haut)
         events: evenementsJSONJSArray,
-    
+        // url: data-events-url,
         displayEventTime: false, // cacher l'heure
         initialView: "dayGridMonth",
         initialDate: new Date(), // aujourd'hui
         headerToolbar: {
         left: "prev,next today",
         center: "title",
-        right: "dayGridMonth,timeGridWeek,timeGridDay",
+        right: "dayGridMonth,dayGridWeek,dayGridDay",
         },
 
         // nous allons utiliser cet evenement pour
@@ -54,13 +59,14 @@ document.addEventListener("DOMContentLoaded", () =>{
         // Nous devons choisir quoi faire quand on clique. 
         // Ici on va juste rajouter un evenement à chaque click qui dure toute la journée.
         // Pour l'effacer, on va gérer la situation avec EventClick
-        let nouvelEvenement =
-        {
-            title: "nouveau",
-            start: info.dateStr,
-            allDay: true 
-            // on rajoute ce qu'on veut ici!
-        } 
+        // let nouvelEvenement =
+        // {
+        //     title: "nouveau",
+        //     start: info.dateStr,
+        //     allDay: true,
+        //     path : "event", {"id" : evenement.id }
+        //     // on rajoute ce qu'on veut ici!
+        // } 
 
         // OPTIONNEL: éviter doublons: Obtenir tous les Evenements du calendrier et chercher 
         // un événement ayant 
@@ -122,32 +128,4 @@ document.addEventListener("DOMContentLoaded", () =>{
     // Affichage
     calendar.render();
 
-
-
-    // const CALENDAR_Event= document.getElementById("calendar");
-    // const {eventURL} = CALENDAR_Event.dataset;
-    // const CALENDAR = new Calendar(CALENDAR_Event, {
-    //     initialView: 'dayGridMonth',
-    // editable: true,
-    // eventSources: [
-    //     {
-    //     url: eventsUrl,
-    //     method: 'POST',
-    //     extraParams: {
-    //       filters: JSON.stringify({}) // pass your parameters to the subscriber
-    //     },
-    //     failure: () => {
-    //       // alert('There was an error while fetching FullCalendar!');
-    //     },
-    //     },
-    // ],
-    // headerToolbar: {
-    //     left: 'prev,next today',
-    //     center: 'title',
-    //     right: 'dayGridMonth,timeGridWeek,timeGridDay',
-    // },
-    // timeZone: 'UTC',
-    // plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
-    // });
-    // calendar.render();
 })

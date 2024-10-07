@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Muli:400,900&display=swap');
 
+#calendrier {
+    margin: auto;
+    width: 90%;
+    height: auto;
+    box-shadow:rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 20px;
+}
+
 #calendar-holder {
     font-family: 'Muli', sans-serif;
-    width: 800px;
+    /* width: 800px; */
     margin: 0 auto;
 }
 

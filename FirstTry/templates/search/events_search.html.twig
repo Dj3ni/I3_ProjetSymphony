@@ -39,6 +39,17 @@
 </div>
 <br>
 
+{# calendrier #}
+
+<div id="calendrier" data-calendrier="{{ eventsJson }}" class="calendar" {% for event in events %}
+    data-events-url="{{ path('event',{"id":event.id}) }}"
+{% endfor %}>
+
+</div
+
+{# {{ dump(eventsJson) }} #}
+
+
 <div class = "div-btn">
     {% if is_granted ("ROLE_ADMIN") %}
         <button class ="btn btn-primary btn-block">
@@ -82,3 +93,14 @@
 
 
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('calendar') }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('calendar') }}
+{% endblock %}
+
