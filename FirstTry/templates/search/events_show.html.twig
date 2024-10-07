@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Events search{% endblock %}
+{% block title %}Hello EventController!{% endblock %}
 
 {% block body %}
 
@@ -25,32 +25,15 @@
     </div>
 {% endfor %}
 
+
+
 <header>
-    <h1>All the events are here</h1>
+    <h1>Your search results</h1>
 </header>
-
-
-{{ form_errors(form) }}
-<div class="login-block">
-    <h1>Search your events here</h1>
-    {{ form_start(form, {"attr" : {"id": "SearchForm"}}) }}
-    {{form_widget(form.search)}}
-    {{ form_end(form) }}
-</div>
-<br>
-
-{# calendrier #}
-
-<div id="calendrier" data-calendrier="{{ eventsJson }}" class="calendar" {% for event in events %}
-    data-events-url="{{ path('event',{"id":event.id}) }}"
-{% endfor %}>
-
-</div>
-
-{# {{ dump(eventsJson) }} #}
-
-
 <div class = "div-btn">
+    <button class ="btn btn-primary btn-block">
+            <a href="{{ path ('event_search')}}">Return to all events</a>
+    </button>
     {% if is_granted ("ROLE_ADMIN") %}
         <button class ="btn btn-primary btn-block">
             <a href="{{ path ('create_event')}}">Create new event</a>
@@ -59,12 +42,12 @@
     {# <a href="{{ path ('update_events')}}">Update an event</a> #}
     {% endif %}
 </div>
-<br>
+
 <div id ="SearchResult" class = "card-section">
 {# In controller: if no research put all the events #}
     
-        {% for event in events %}
-        <div class="card" style="width: 18rem;">
+    {% for event in events %}
+    <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">
                 <a href="{{ path ('event',{id:event.id})}}">
@@ -82,19 +65,10 @@
             {% endif %}
         </div>
     </div>
-        {% endfor %}
+    {% endfor %}
 </div>
 
 
-{% endblock %}
 
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('calendar') }}
-{% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('calendar') }}
 {% endblock %}
-

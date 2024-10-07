@@ -40,7 +40,10 @@ class SearchController extends AbstractController
             $eventsJson = $serializerInterface->serialize ($events,"json", [
                 AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "occurrences"],
             ]);
-            return new Response($eventsJson);
+            return $this->render('search/events_show.html.twig', [
+                "events" => $events,
+                "eventsJson" => $eventsJson,
+            ]); ;
         }
         else {
             $events = $rep->findAll();
