@@ -13,7 +13,7 @@ import "./styles/calendar.css";
 // Script Calendar
 document.addEventListener("DOMContentLoaded", () =>{
     
-    // 1. on obtient les événements du controller, on les stocke dans le data-calendrier du div  
+    // 1. We get events Data from controller via div 
     // console.log (document.getElementById ('calendrier').dataset.calendrier);
     let eventsJSONJS = document.getElementById('calendrier').dataset.calendrier;
     // 2. On transforme le JSON en array d'objets JS
@@ -21,11 +21,9 @@ document.addEventListener("DOMContentLoaded", () =>{
     // console.log(eventsJSONJS);
     // console.log(eventsJSONJSArray);
 
-    // 3. On crée le calendrier, associé au div
+    // 3. Calendar Creation, settings and events on click
     let calendarEl = document.getElementById("calendrier");
 
-    // initilialisation du calendrier
-    // et définition du comportement du click
     var calendar = new Calendar(calendarEl, {
         // example to see if plugin works :
         // events:[
@@ -36,18 +34,47 @@ document.addEventListener("DOMContentLoaded", () =>{
 
             // }
         // ],
-        // nous avons notre array déjà en format js (on la crée plus haut)
-        events: eventsJSONJSArray,
-        // url: data-events-url, // when url property in event entity
-        displayEventTime: false, // cacher l'heure
+        events: eventsJSONJSArray, //We sent array Json as a value
+        // url: data-events-url, //use  when url property in event entity
+        displayEventTime: true, // display hours or not
         initialView: "dayGridMonth",
         initialDate: new Date(), // aujourd'hui
-        firstDay: 1,
-        eventRender : function (info){
-            switch (info.event.extendedProps.type){
-                case EventType.FESTIVAL:
-                    info.el.style.backgroundColor = "red";
-                    info.el.style.borderColor = "red"
+        firstDay: 1, //week starts on Monday 
+        dayMaxEventRows: 3,// max visible on a row
+        // themeSystem: "bootstrap5",
+        eventDidMount : function (info){
+            // console.log(info.event);
+            // console.log(info.event.extendedProps.eventType);
+            let eventType = info.event.extendedProps.eventType;
+            console.log(eventType);
+            switch (eventType){
+                case "Festival":
+                    info.el.style.backgroundColor = "#fb8500";
+                    info.el.style.borderColor = "#fb8500"
+                break;
+                case "Tournament":
+                    info.el.style.backgroundColor = "#ffb703";
+                    info.el.style.borderColor = "#ffb703"
+                break;
+                case "Boardgames_Demo":
+                    info.el.style.backgroundColor = "#023047";
+                    info.el.style.borderColor = "#023047";
+                    info.el.style.color = "#fff";
+                break;
+                case "Role_Play":
+                    info.el.style.backgroundColor = "#219ebc";
+                    info.el.style.borderColor = "#219ebc";
+
+                break;
+                case "Gaming_Sales":
+                    info.el.style.backgroundColor = "#8ecae6";
+                    info.el.style.borderColor = "#y8ecae6";
+                    // info.el.style.color = "blue";
+
+                break;
+                default:
+                    info.el.style.backgroundColor = "blue";
+                    info.el.style.borderColor = "blue"
                 break;
             }
         },
@@ -55,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         headerToolbar: {
         left: "prev,next today",
         center: "title",
-        right: "dayGridMonth,dayGridWeek,dayGridDay",
+        right: "dayGridMonth,dayGridWeek,timeGridDay,listWeek",
         },
 
         // other events for our listener:
@@ -109,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         },
 
         // plugin list
-        plugins: [interactionPlugin, dayGridPlugin],
+        plugins: [interactionPlugin, dayGridPlugin, listPlugin, timeGridPlugin],
     });
 
     // Affichage
