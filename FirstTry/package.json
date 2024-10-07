@@ -26,6 +26,7 @@
         "@fullcalendar/interaction": "^6.1.15",
         "@fullcalendar/list": "^6.1.15",
         "@fullcalendar/timegrid": "^6.1.15",
+        "axios": "^1.7.7",
         "bootstrap": "^5.3.3",
         "fullcalendar": "^6.1.15",
         "jquery": "^3.7.1",

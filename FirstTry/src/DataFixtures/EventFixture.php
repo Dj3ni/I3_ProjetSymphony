@@ -26,20 +26,24 @@ class EventFixture extends Fixture implements DependentFixtureInterface
 
             $event = new Event([
                 "title" => $faker->catchPhrase(),
-                "dateStart" => $dateStart,
-                "dateEnd" => (clone $dateStart)->modify('+' . rand(2,7) . ' days'),
+                "dateStart" => $dateStart->modify('+' . rand(0,7) . ' months'),
+                "dateEnd" => (clone $dateStart)->modify('+' . rand(0,7) . ' days'),
                 "recurrenceEnd"=>$faker->dateTime(),
                 "recurrenceCount"=> 3,
                 "description" => $faker->paragraph(),
                 "fee"=>$faker->randomFloat(2,0,100),
-                
             ]);
+
             $organisator = $this->getReference("user$i");
             
-            $event->setEventType(EventType::BOARDGAMES_DEMO);
+            $event->setEventType(EventType::cases()[rand(0,4)]);
             
-            $event->setRecurrenceType(RecurrenceType::WEEKLY);
+            $event->setRecurrenceType(RecurrenceType::cases()[rand(0,4)]);
             $event->setUserOrganisator($organisator);
+            $colors = ["#FFAABB","#EEFFAA","#BBAA33"];
+            $event->setBackgroundColor($colors[rand(0,2)]);
+            // $event->setTextColor($colors [rand(0,2)]);
+            // $event->setBorderColor($colors [rand(0,2)]);
             
             $manager->persist($event);
 

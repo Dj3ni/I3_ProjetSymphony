@@ -14,6 +14,7 @@ window.$ = $
 
 import "bootstrap"
 import "bootstrap/dist/css/bootstrap.css"
+import axios from "axios";
 
 
 /***************** Hidden submenu nav *****************/ 

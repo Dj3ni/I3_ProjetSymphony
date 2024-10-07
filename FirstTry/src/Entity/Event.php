@@ -83,6 +83,15 @@ class Event
     #[ORM\OneToMany(targetEntity: EventOccurrence::class, mappedBy: 'event')]
     private Collection $Occurrences;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $backgroundColor = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $textColor = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $borderColor = null;
+
 
 #####################  Functions #########################################
     
@@ -334,6 +343,42 @@ class Event
                 $occurrence->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBackgroundColor(): ?string
+    {
+        return $this->backgroundColor;
+    }
+
+    public function setBackgroundColor(?string $backgroundColor): static
+    {
+        $this->backgroundColor = $backgroundColor;
+
+        return $this;
+    }
+
+    public function getTextColor(): ?string
+    {
+        return $this->textColor;
+    }
+
+    public function setTextColor(?string $textColor): static
+    {
+        $this->textColor = $textColor;
+
+        return $this;
+    }
+
+    public function getBorderColor(): ?string
+    {
+        return $this->borderColor;
+    }
+
+    public function setBorderColor(?string $borderColor): static
+    {
+        $this->borderColor = $borderColor;
 
         return $this;
     }
