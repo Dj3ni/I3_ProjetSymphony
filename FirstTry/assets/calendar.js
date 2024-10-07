@@ -42,7 +42,15 @@ document.addEventListener("DOMContentLoaded", () =>{
         displayEventTime: false, // cacher l'heure
         initialView: "dayGridMonth",
         initialDate: new Date(), // aujourd'hui
-        background_color: "red",
+        firstDay: 1,
+        eventRender : function (info){
+            switch (info.event.extendedProps.type){
+                case EventType.FESTIVAL:
+                    info.el.style.backgroundColor = "red";
+                    info.el.style.borderColor = "red"
+                break;
+            }
+        },
 
         headerToolbar: {
         left: "prev,next today",

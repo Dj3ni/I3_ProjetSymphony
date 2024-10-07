@@ -19,6 +19,12 @@ MVP3: Manage boardgame Library
 MVP4: Create and subscribe to a game session
 
 
+
+Calendar doc: 
+- https://fullcalendar.io/docs/date-display
+
+https://jquense.github.io/react-big-calendar/examples/index.html?path=/docs/about-big-calendar--page
+
 <!-- 
 ## Getting Started
 
