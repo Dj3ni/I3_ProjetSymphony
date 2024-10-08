@@ -7,6 +7,7 @@ use App\Enum\EventType;
 use App\Entity\GamingPlace;
 use App\Enum\RecurrenceType;
 use App\DataFixtures\UserFixtures;
+use DateTime;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -16,12 +17,12 @@ class EventFixture extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = \Faker\Factory::create("fr_BE");
-        
+        $datestart = new DateTime();
         for ($i = 0; $i < 10; $i++) { 
             $event = new Event([
                 "title" => $faker->catchPhrase(),
-                "dateStart" => $faker->dateTime(),
-                "dateEnd" => $faker->dateTime(),
+                "dateStart" => $datestart->modify("+". rand(0,12) . "months"),
+                "dateEnd" => $datestart->modify("+". rand(0,12) . "days"),
                 "recurrenceEnd"=>$faker->dateTime(),
                 "recurrenceCount"=> 3,
                 "description" => $faker->paragraph(),

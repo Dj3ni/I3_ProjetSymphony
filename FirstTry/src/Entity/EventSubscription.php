@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\HydrateTrait\HydrateTrait;
 use App\Repository\EventSubscriptionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,22 +30,31 @@ class EventSubscription
     #[ORM\Column]
     private ?int $numberParticipants = null;
 
-    #[ORM\Column]
-    private array $occurrenceDates = [];
+    // #[ORM\Column]
+    // private array $occurrenceDates = [];
 
 #################### Relations ###################################################
 
     #[ORM\ManyToOne(inversedBy: 'eventSubscriptions')]
     private ?User $userSubscriptor = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Subscriptions')]
-    private ?Event $eventSubscripted = null;
+    /**
+     * @var Collection<int, EventOccurrence>
+     */
+    #[ORM\ManyToMany(targetEntity: EventOccurrence::class, mappedBy: 'subscriptions')]
+    private Collection $eventOccurrences;
+
+    // #[ORM\ManyToOne(inversedBy: 'Subscriptions')]
+    // private ?Event $eventSubscripted = null;
+
+
 
 #####################  Functions #########################################
 
 
     public function __construct(array $init =[]){
         $this->hydrate($init);
+        $this->eventOccurrences = new ArrayCollection();
     }
     
     
@@ -76,17 +87,17 @@ class EventSubscription
         return $this;
     }
 
-    public function getEventSubscripted(): ?Event
-    {
-        return $this->eventSubscripted;
-    }
+    // public function getEventSubscripted(): ?Event
+    // {
+    //     return $this->eventSubscripted;
+    // }
 
-    public function setEventSubscripted(?Event $eventSubscripted): static
-    {
-        $this->eventSubscripted = $eventSubscripted;
+    // public function setEventSubscripted(?Event $eventSubscripted): static
+    // {
+    //     $this->eventSubscripted = $eventSubscripted;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getNumberParticipants(): ?int
     {
@@ -100,17 +111,45 @@ class EventSubscription
         return $this;
     }
 
-    public function getOccurrenceDates(): array
+    // public function getOccurrenceDates(): array
+    // {
+    //     return $this->occurrenceDates;
+    // }
+
+    // public function setOccurrenceDates(array $occurrenceDates): static
+    // {
+    //     $this->occurrenceDates = $occurrenceDates;
+
+    //     return $this;
+    // }
+
+    /**
+     * @return Collection<int, EventOccurrence>
+     */
+    public function getEventOccurrences(): Collection
     {
-        return $this->occurrenceDates;
+        return $this->eventOccurrences;
     }
 
-    public function setOccurrenceDates(array $occurrenceDates): static
+    public function addEventOccurrence(EventOccurrence $eventOccurrence): static
     {
-        $this->occurrenceDates = $occurrenceDates;
+        if (!$this->eventOccurrences->contains($eventOccurrence)) {
+            $this->eventOccurrences->add($eventOccurrence);
+            $eventOccurrence->addSubscription($this);
+        }
 
         return $this;
     }
+
+    public function removeEventOccurrence(EventOccurrence $eventOccurrence): static
+    {
+        if ($this->eventOccurrences->removeElement($eventOccurrence)) {
+            $eventOccurrence->removeSubscription($this);
+        }
+
+        return $this;
+    }
+
 
 
 }

@@ -58,11 +58,11 @@ class Event
 
 #################### Relations ###################################################
 
-    /**
-     * @var Collection<int, EventSubscription>
-     */
-    #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'eventSubscripted')]
-    private Collection $subscriptions;
+    // /**
+    //  * @var Collection<int, EventSubscription>
+    //  */
+    // #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'eventSubscripted')]
+    // private Collection $subscriptions;
 
     /**
      * @var Collection<int, EventPlace>
@@ -76,7 +76,7 @@ class Event
     /**
      * @var Collection<int, EventOccurrence>
      */
-    #[ORM\OneToMany(targetEntity: EventOccurrence::class, mappedBy: 'event')]
+    #[ORM\OneToMany(targetEntity: EventOccurrence::class, mappedBy: 'event', cascade:['persist', 'remove'])]
     private Collection $occurrences;
 
 
@@ -85,7 +85,7 @@ class Event
     public function __construct(array $init = [])
     {
         $this->hydrate($init);
-        $this->subscriptions = new ArrayCollection();
+        // $this->subscriptions = new ArrayCollection();
         $this->eventPlaces = new ArrayCollection();
         $this->occurrences = new ArrayCollection();
         
@@ -178,35 +178,35 @@ class Event
         return $this;
     }
 
-    /**
-     * @return Collection<int, EventSubscription>
-     */
-    public function getSubscriptions(): Collection
-    {
-        return $this->subscriptions;
-    }
+    // /**
+    //  * @return Collection<int, EventSubscription>
+    //  */
+    // public function getSubscriptions(): Collection
+    // {
+    //     return $this->subscriptions;
+    // }
 
-    public function addSubscription(EventSubscription $subscription): static
-    {
-        if (!$this->subscriptions->contains($subscription)) {
-            $this->subscriptions->add($subscription);
-            $subscription->setEventSubscripted($this);
-        }
+    // public function addSubscription(EventSubscription $subscription): static
+    // {
+    //     if (!$this->subscriptions->contains($subscription)) {
+    //         $this->subscriptions->add($subscription);
+    //         $subscription->setEventSubscripted($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeSubscription(EventSubscription $subscription): static
-    {
-        if ($this->subscriptions->removeElement($subscription)) {
-            // set the owning side to null (unless already changed)
-            if ($subscription->getEventSubscripted() === $this) {
-                $subscription->setEventSubscripted(null);
-            }
-        }
+    // public function removeSubscription(EventSubscription $subscription): static
+    // {
+    //     if ($this->subscriptions->removeElement($subscription)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($subscription->getEventSubscripted() === $this) {
+    //             $subscription->setEventSubscripted(null);
+    //         }
+    //     }
         
-        return $this;
-    }
+    //     return $this;
+    // }
     
     /**
      * @return Collection<int, EventPlace>
@@ -249,7 +249,7 @@ class Event
     /**
      * Set the value of recurrenceType
      */
-    public function setRecurrenceType(RecurrenceType $recurrenceType = RecurrenceType::None) : self
+    public function setRecurrenceType(RecurrenceType $recurrenceType = RecurrenceType::NONE) : self
     {
         $this->recurrenceType = $recurrenceType;
 
