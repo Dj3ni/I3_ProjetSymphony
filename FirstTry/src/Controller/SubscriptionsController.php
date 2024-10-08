@@ -110,10 +110,11 @@ class SubscriptionsController extends AbstractController
         $subscription = new EventSubscription();
         $subscription->setUserSubscriptor($this->getUser());
         // $subscription->setEventOccurrence($eventOccurrence);
-
+        $occurrences = $event->getOccurrences();
         // Create form
         $form = $this->createForm(EventSubscriptionFormType::class, $subscription,
-            ["event" => $event]);
+            ["event" => $event,
+                "occurrences"=>$occurrences]);
         $form->handleRequest($req);
 
         if ($form->isSubmitted() && $form->isValid()){

@@ -9,12 +9,29 @@
         {# <h1>Subscribe to: {{eventOccurrence.title}}</h1> #}
     </header>
 
-
+{# Case1: form with only one number participants field #}
     {{ form_start(form) }}
     {{ form_row(form.eventOccurrences) }}
 
     {{ form_row(form.numberParticipants) }}
     {{ form_end(form) }}
+
+{# Case 2: form with subform for occurrences , doenst work#}
+
+{# {{form_start(form)}}
+{{form_errors(form)}}
+{% for occurrenceForm in form.eventOccurrences %}
+    <div>
+        {{form_widget(occurrenceForm.eventOccurrence)}}
+        {{form_widget(occurrenceForm.numberParticipants)}}
+    </div>
+    
+{% endfor %} #}
+
+{{form_end(form)}}
+
+
+
 {# <div class="login-block"> #}
     {# {{ form_errors(form) }}
 
