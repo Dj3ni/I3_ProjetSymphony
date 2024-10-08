@@ -128,9 +128,12 @@ class EventController extends AbstractController
             }
             elseif ($action === "delete_occurrences"){
                 // Delete only occurrences
-                foreach ($event->getOccurrences() as $occurrence){
-                    $em->remove($occurrence);
-                }
+                // foreach ($event->getOccurrences() as $occurrence){
+                //     $em->remove($occurrence);
+                // }
+                return $this->redirectToRoute("event",[
+                    "id"=> $event->getId(),
+                ]);
             }
             // 4.Sync in DB
             $em->flush();
