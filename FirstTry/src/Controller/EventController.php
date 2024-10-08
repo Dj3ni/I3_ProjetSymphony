@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Demo;
 use App\Entity\Event;
+use App\Entity\EventOccurrence;
 use App\EventOccurrenceGenerator;
 use App\Form\CreateEventFormType;
 use App\Repository\EventOccurrenceRepository;
@@ -57,6 +58,15 @@ class EventController extends AbstractController
             $em = $this->doctrine->getManager();
             $em->persist($event);
             $em->flush();
+
+            // call to the service eventOccurrenceGenerator to create it after event creation
+            $occurrences = $this->occurrenceGenerator->generateOccurrences($event);
+            // persist the occurrences in DB
+            foreach($occurrences as $occurrence){
+                $em->persist($occurrence);
+            }
+            $em->flush();
+
             $this->addFlash("event_create_success", "Event successfully created!");
             return $this->redirectToRoute("event_search");
         }

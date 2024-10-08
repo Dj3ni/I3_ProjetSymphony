@@ -99,27 +99,23 @@ class EventOccurrenceGenerator
             }
         }
         
-
         // Case 3: Iterate until end occurrenceCount or Date
         if ($recurrenceType === RecurrenceType::NONE){ // what to do if case == none
 
-            $occurrencesWithEnd[] = [
-                "startDate" => $currentStartDate,
-                "endDate" => $currentEndDate,
-            ];
+            $occurrencesWithEnd[] = $this->createEventOccurrence($event, $currentStartDate,$currentEndDate);
         }
         else{
             while(
                 ($recurrenceEnd !== null && $currentStartDate <= $recurrenceEnd) ||
                 ($recurrenceCount!== null && $count < $recurrenceCount)
                 ) {
-                    if ((!$currentStartDate || !$currentEndDate) instanceof \DateTime) {
-                        throw new \Exception('currentDate is not an instance of \DateTime inside the loop');
-                    }
+                    // if ((!$currentStartDate || !$currentEndDate) instanceof \DateTime) {
+                    //     throw new \Exception('currentDate is not an instance of \DateTime inside the loop');
+                    // }
 
                 // Create new occurrence
                 $occurrence = $this->createEventOccurrence($event, clone $currentStartDate, clone $currentEndDate);
-                $occurrences[] = $occurrence;
+                $occurrencesWithEnd[] = $occurrence;
                 // $occurrencesWithEnd[] = [
                 //     "startDate" => clone $currentStartDate,
                 //     "endDate" => clone $currentEndDate,
