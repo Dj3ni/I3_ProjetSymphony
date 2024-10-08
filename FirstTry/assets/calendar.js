@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
             // }
         // ],
-        events: eventsJSONJSArray, //We sent array Json as a value
+        events: eventsJSONJSArray, //Events gets an array of objects
         // url: data-events-url, //use  when url property in event entity
         displayEventTime: true, // display hours or not
         initialView: "dayGridMonth",
