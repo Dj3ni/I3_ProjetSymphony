@@ -28,38 +28,43 @@
 
 
 <header>
-    <h1>All the events are here</h1>
+    <h1>All the results for your search </h1>
 </header>
 
-{% if is_granted ("ROLE_ADMIN") %}
-<a href="{{ path ('create_event')}}">Create new event</a>
-{# Page to search the event to update it#}
-{# <a href="{{ path ('update_events')}}">Update an event</a> #}
-{% endif %}
-
-{# {{ form_errors(form) }}
-<div class="login-block">
-    {{ form_start(form) }}
-    {{form_widget(form)}}
-    {{ form_end(form) }}
-</div> #}
-
-
-
-
-<ul>
-    {% for event in events %}
-    <li>
-    <a href="{{ path ('event',{id:event.id})}}">{{event.title}}</a>
-    {% if is_granted("ROLE_ADMIN") %}
-    <a href="{{ path ('update_event', {id:event.id})}}">✏️</a>
-    <a href="{{ path ('delete_event', {id:event.id})}}">🪦</a>
+<div class = "div-btn">
+    <button class="btn btn-primary btn-block">
+        <a href=" {{ path ('event_search')}} ">Back to search page</a>
+    </button>
+    {% if is_granted ("ROLE_ADMIN") %}
+    <button class= "btn btn-primary btn-block">
+        <a href="{{ path ('create_event')}}">Create new event</a>
+    </button>
     {% endif %}
+</div>
 
-    </li>
-        
-    {% endfor %}
+<div id ="SearchResult" class = "card-section">
+{# In controller: if no research put all the events #}
+    
+        {% for event in events %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ path ('event',{id:event.id})}}">
+                            {{event.title}}
+                        </a>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{event.eventType.value}}</h6>
+                    <hr class="hr-xs">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="{{path ("event", {id: event.id})}}" class="card-link">More info</a>
+                    <a href="{{ path ("event_subscription", {id:event.id})}}" class="card-link">Subscribe</a>
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <a href="{{ path ('update_event', {id:event.id})}}"class="card-link">✏️</a>
+                        <a href="{{ path ('delete_event', {id:event.id})}}"class="card-link">❌</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
 
-</ul>
 
 {% endblock %}

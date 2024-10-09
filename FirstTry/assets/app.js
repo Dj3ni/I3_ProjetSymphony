@@ -53,7 +53,6 @@ SEARCH_FORM.addEventListener("input", function(){
         let ul = document.createElement("ul");
         
         for(let element of arrayEvents){
-            
             // console.log(element);
             let li = document.createElement("li");
             li.innerHTML = element.title;
