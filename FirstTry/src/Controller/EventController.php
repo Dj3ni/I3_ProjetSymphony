@@ -28,16 +28,16 @@ class EventController extends AbstractController
     
 ############  Show all the events in DB now managed by events/search
     
-    // #[Route('/events', name: 'events_show')]
-    // public function showAllEvents(EventRepository $rep): Response
-    // {
-    //     $events = $rep ->findAll();
-    //     // dd($events);
+    #[Route('/events', name: 'events_show')]
+    public function showAllEvents(EventRepository $rep): Response
+    {
+        $events = $rep ->findAll();
+        // dd($events);
         
-    //     return $this->render('event/events_show.html.twig', [
-    //         'events' => $events,
-    //     ]);
-    // }
+        return $this->render('event/events_show.html.twig', [
+            'events' => $events,
+        ]);
+    }
     
 ############# Show the Event Informations
     

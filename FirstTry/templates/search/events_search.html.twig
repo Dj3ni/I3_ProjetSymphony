@@ -34,7 +34,7 @@
 <div class="login-block">
     <h1>Search your events here</h1>
     {{ form_start(form, {"attr" : {"id": "SearchForm"}}) }}
-    {{form_widget(form.search)}}
+    {{form_widget(form.search, {"attr" : {"id": "SearchInput"}})}}
     {{ form_end(form) }}
 </div>
 <br>

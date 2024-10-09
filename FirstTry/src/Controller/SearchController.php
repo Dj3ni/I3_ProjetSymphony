@@ -30,6 +30,17 @@ class SearchController extends AbstractController
         $form = $this->createForm(SearchFormType::class);
         // dd($form);
         $form->handleRequest($req);
+
+        // if ($req->isXmlHttpRequest()){ //if ajax search
+        //     $data = $form->getData();
+        //     // dd($data);
+        //     $events = $rep->findEventByTitles($data);
+        //     $eventsJson = $serializerInterface->serialize ($events,"json", [
+        //         AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "Occurrences"]
+        //     ]);
+        //     return new Response($eventsJson);
+        // }
+
         if($form->isSubmitted() && $form->isValid()){
             $data = $form->getData();
             // dd($data);
@@ -37,10 +48,11 @@ class SearchController extends AbstractController
             $eventsJson = $serializerInterface->serialize ($events,"json", [
                 AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "Occurrences"]
             ]);
-            
-            return $this->render("event/events_show.html.twig", [
-                "events" => $events,
-            ]);
+            // return $this->redirectToRoute("events",[
+            //     "eventsJson"=>$eventsJson,
+            //     "events"=>$events,
+            // ]);
+            return new Response($eventsJson);
 
         }else{
             $events = $rep->findAll();

@@ -35,7 +35,7 @@ const DIV_RESULT = document.getElementById("SearchResult");
 console.log(SEARCH_FORM);
 console.log(DIV_RESULT);
 
-// Listens to each modif on form's inputs
+// Listens to each modif on form's inputs, Ajax Search
 SEARCH_FORM.addEventListener("input", function(){
     console.log("Modify form");
 
@@ -45,7 +45,7 @@ SEARCH_FORM.addEventListener("input", function(){
         .then( response => {
             // What to do with response
             console.log(response);
-            // We will modify the Dom to display the response
+            // Clear previous response
             DIV_RESULT.innerHTML = "";
      // We don't need to parse the response, axios does it
 
@@ -60,4 +60,18 @@ SEARCH_FORM.addEventListener("input", function(){
         }
         DIV_RESULT.appendChild(ul);
     })
+    
 })
+
+// // Handling the submit event, prevent reload and manage search
+// SEARCH_FORM.addEventListener("submit", function(event){
+//     event.preventDefault(); 
+//     const SEARCH_INPUT = document.getElementById("SearchInput");
+//     let query = SEARCH_INPUT.value;
+
+//     if(query.lenght > 0){
+//         // Redirect to page with results
+//         window.location.href = "/event/events_show.html.twig" + JSON.encode(query);
+//     }
+
+// })
