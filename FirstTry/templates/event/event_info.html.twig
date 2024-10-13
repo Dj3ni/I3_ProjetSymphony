@@ -28,6 +28,16 @@
         <p>Starts: {{event.dateStart | date("d/m/y H:i")}}</p>
         <p>Ends: {{event.dateEnd | date("d/m/y H:i")}}</p>
         <p>Fee: {{event.fee}}</p>
+        <p>Where:
+            <ul>
+            {% for place in places %}
+                <li>{{place.gamingPlace.name}}: <br>
+                    {{place.gamingPlace.address.street}}, {{place.gamingPlace.address.number}}<br>
+                    {{place.gamingPlace.address.postCode}}  {{place.gamingPlace.address.city}}
+                </li>
+            {% endfor %}
+            </ul>   
+        </p>
     </div>
     <h3>About the event</h3>
     <div>

@@ -48,10 +48,13 @@ class EventController extends AbstractController
 
         // Init occurrences
         $occurrences = $this->occurrenceGenerator->generateOccurrences($event);
+        $places = $event->getEventPlaces();
+        // dd($places);
 
         return $this->render('event/event_info.html.twig', [
             'event' => $event,
             "occurrences"=> $occurrences,
+            "places"=>$places,
         ]);
     }
     
