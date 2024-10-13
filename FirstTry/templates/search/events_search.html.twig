@@ -38,6 +38,18 @@
     {{ form_end(form) }}
 </div>
 <br>
+<div class = "div-btn">
+<p>Search by type:</p>
+    <button class ="btn btn-primary btn-block">
+        <a href="{{ path ('search_type',{type: "tournament"})}}">Tournament</a>
+        <a href="{{ path ('search_type',{type: "festival"})}}">Festival</a>
+        <a href="{{ path ('search_type',{type: "boardgames_demo"})}}">Boardgames Demo</a>
+        <a href="{{ path ('search_type',{type: "role_play"})}}">Role Play</a>
+        <a href="{{ path ('search_type',{type: "gaming_sales"})}}">Gaming Sales</a>
+    </button>
+    
+</div>
+
 
 <div class = "div-btn">
     {% if is_granted ("ROLE_ADMIN") %}

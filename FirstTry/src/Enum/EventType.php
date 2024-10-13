@@ -4,10 +4,10 @@ namespace App\Enum;
 
 enum EventType:string
 {
-    case BOARDGAMES_DEMO = "Boardgames_Demo";
-    case ROLE_PLAY = "Role_Play";
-    case FESTIVAL = "Festival";
-    case GAMING_SALES = "Gaming_Sales";
-    case TOURNAMENT = "Tournament";
+    case BOARDGAMES_DEMO = "boardgames_demo";
+    case ROLE_PLAY = "role_play";
+    case FESTIVAL = "festival";
+    case GAMING_SALES = "gaming_sales";
+    case TOURNAMENT = "tournament";
     
 }

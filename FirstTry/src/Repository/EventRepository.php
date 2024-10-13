@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Enum\EventType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use PhpParser\Builder\EnumCase;
 
 /**
  * @extends ServiceEntityRepository<Event>
@@ -29,6 +31,14 @@ class EventRepository extends ServiceEntityRepository
         return $this->createQueryBuilder("event")
                     ->where("event.title LIKE :term")
                     ->setParameter(":term", "%".$term["search"]."%")
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    public function findByType(EventType $type): array{
+        return $this->createQueryBuilder("event")
+                    ->where("event.eventType = :type")
+                    ->setParameter("type", $type->value)
                     ->getQuery()
                     ->getResult();
     }

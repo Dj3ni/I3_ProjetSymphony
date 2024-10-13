@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Enum\EventType;
 use App\Form\SearchFormType;
 use App\Repository\EventRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -61,6 +62,16 @@ class SearchController extends AbstractController
         return $this->render('search/events_search.html.twig', [
             'form' => $form,
             "events" => $events,
+        ]);
+    }
+
+    #[Route("/search/{type}", name: "search_type")]
+    public function searchByType(EventType $type, EventRepository $rep){
+        
+        $events = $rep->findByType($type);
+
+        return $this->render("event/events_show.html.twig", [
+            "events"=> $events,
         ]);
     }
 }
