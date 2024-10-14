@@ -17,11 +17,13 @@ class SearchFormType extends AbstractType
                 "empty_data" => "",
                 "attr" => [
                     "placeholder" => "Search",
+                    
                 ],
+            
             ])
-            ->add("save", SubmitType::class, [
-                "label"=> "Search",
-            ])
+            // ->add("save", SubmitType::class, [
+            //     "label"=> "Search",
+            // ])
         ;
     }
 

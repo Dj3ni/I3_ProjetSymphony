@@ -30,15 +30,34 @@
 </header>
 
 
+{# <div class="login-block"> #}
+<div class = "search-div">
 {{ form_errors(form) }}
-<div class="login-block">
-    <h1>Search your events here</h1>
+    {# <h1>Search your events here</h1> #}
     {{ form_start(form, {"attr" : {"id": "SearchForm"}}) }}
     {{form_widget(form.search, {"attr" : {"id": "SearchInput"}})}}
+    {# <button>    <img src="/images/loupe.png" alt="loupe" id = "SearchIcon">
+    </button>     #}
     {{ form_end(form) }}
+    <a href="">Calendar</a>
+    <a href="">Map</a>
 </div>
 <br>
-<div class = "div-btn">
+<div class="nav">
+    {# <p>Search by type: </p> #}
+    <nav class="navbar">
+        <a href="{{ path ('search_type',{type: "tournament"})}}">
+        Tournament
+        {# <img src="/images/tournoi.png" alt="tournament"> #}
+        </a>
+        <a href="{{ path ('search_type',{type: "festival"})}}">Festival</a>
+        <a href="{{ path ('search_type',{type: "boardgames_demo"})}}">Boardgames Demo</a>
+        <a href="{{ path ('search_type',{type: "role_play"})}}">Role Play</a>
+        <a href="{{ path ('search_type',{type: "gaming_sales"})}}">Gaming Sales</a>
+
+    </nav>
+</div>
+{# <div class = "div-btn">
 <p>Search by type:</p>
     <button class ="btn btn-primary btn-block">
         <a href="{{ path ('search_type',{type: "tournament"})}}">Tournament</a>
@@ -47,7 +66,7 @@
         <a href="{{ path ('search_type',{type: "role_play"})}}">Role Play</a>
         <a href="{{ path ('search_type',{type: "gaming_sales"})}}">Gaming Sales</a>
     </button>
-</div>
+</div> #}
 
 
 <div class = "div-btn">

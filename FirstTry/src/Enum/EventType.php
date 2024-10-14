@@ -9,5 +9,4 @@ enum EventType:string
     case FESTIVAL = "festival";
     case GAMING_SALES = "gaming_sales";
     case TOURNAMENT = "tournament";
-    
 }
