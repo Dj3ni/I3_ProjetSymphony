@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Events Map{% endblock %}
+
+{% block body %}
+
+<header>
+    <h1>Events Map</h1>
+</header>
+
+<div class = "div-btn">
+    <button class ="btn btn-primary btn-block">
+        <a href="{{ path ('event_search')}}">Back to search page</a>
+    </button>
+</div>
+
+<div id = "map">
+</div>
+
+
+{% endblock %}
+
+
+

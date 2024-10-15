@@ -344,3 +344,8 @@ nav {
     justify-content: space-between;
     align-items: center;
 }
+
+#map {
+    width: 500px;
+    height: 500px;
+}
