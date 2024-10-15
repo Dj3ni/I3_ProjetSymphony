@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SearchController extends AbstractController
 {
@@ -33,20 +33,7 @@ class SearchController extends AbstractController
         $form = $this->createForm(SearchFormType::class);
         // dd($form);
         $form->handleRequest($req);
-
-<<<<<<< HEAD
-        // if ($req->isXmlHttpRequest()){ //if ajax search
-        //     $data = $form->getData();
-        //     // dd($data);
-        //     $events = $rep->findEventByTitles($data);
-        //     $eventsJson = $serializerInterface->serialize ($events,"json", [
-        //         AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "Occurrences"]
-        //     ]);
-        //     return new Response($eventsJson);
-        // }
-
-=======
->>>>>>> testWebpack
+        
         if($form->isSubmitted() && $form->isValid()){
             $data = $form->getData();
             // dd($data);
@@ -54,10 +41,11 @@ class SearchController extends AbstractController
             $eventsJson = $serializerInterface->serialize ($events,"json", [
                 AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "occurrences"],
             ]);
-            return $this->render('search/events_show.html.twig', [
-                "events" => $events,
-                "eventsJson" => $eventsJson,
-            ]); ;
+            return new Response($eventsJson);
+            // return $this->render('search/events_show.html.twig', [
+            //     "events" => $events,
+            //     "eventsJson" => $eventsJson,
+            // ]); ;
         }
         else {
             $events = $rep->findAll();

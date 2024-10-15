@@ -42,11 +42,11 @@
         {{ form_end(form) }}
     </div>
         <div class="search-links">
-            <a href=""{{ path ("calendar")}}"">Calendar</a>
+            <a href="{{ path ("calendar")}}">Calendar</a>
             <a href="">Map</a>
         </div>
 </div>
-<br>
+
 <div class="nav">
     {# <p>Search by type: </p> #}
     <nav class="navbar">
@@ -86,7 +86,7 @@
 <div id ="SearchResult" class = "card-section">
 {# In controller: if no research put all the events #}
     
-        {% for event in events %}
+    {% for event in events %}
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">
@@ -100,13 +100,13 @@
                 <a href="{{path ("event", {id: event.id})}}" class="card-link">More info</a>
                 <a href="{{ path ("event_subscription", {id:event.id})}}" class="card-link">Subscribe</a>
                 {% if is_granted("ROLE_ADMIN") %}
+                <br>
                     <a href="{{ path ('update_event', {id:event.id})}}"class="card-link">✏️</a>
                     <a href="{{ path ('delete_event', {id:event.id})}}"class="card-link">❌</a>
                 {% endif %}
             </div>
         </div>
-    </div>
-        {% endfor %}
+    {% endfor %}
 </div>
 
 
