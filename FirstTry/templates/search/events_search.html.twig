@@ -50,27 +50,28 @@
 <div class="nav">
     {# <p>Search by type: </p> #}
     <nav class="navbar">
-        <a href="{{ path ('search_type',{type: "tournament"})}}">
-        Tournament
-        {# <img src="/images/tournoi.png" alt="tournament"> #}
-        </a>
-        <a href="{{ path ('search_type',{type: "festival"})}}">Festival</a>
-        <a href="{{ path ('search_type',{type: "boardgames_demo"})}}">Boardgames Demo</a>
-        <a href="{{ path ('search_type',{type: "role_play"})}}">Role Play</a>
-        <a href="{{ path ('search_type',{type: "gaming_sales"})}}">Gaming Sales</a>
-
+        <div class="type-search">
+            <a href="{{ path ('search_type',{type: "tournament"})}}">Tournament</a>
+            <img src="/images/tournament.png" alt="tournament">
+        </div>
+        <div class="type-search">
+            <a href="{{ path ('search_type',{type: "festival"})}}">Festival</a>
+            <img src="/images/festival.png" alt="festival">
+        </div>        
+        <div class="type-search">
+            <a href="{{ path ('search_type',{type: "boardgames_demo"})}}">Boardgames Demo</a>
+            <img src="/images/boardgames_demo.png" alt="boardgames-demo">
+        </div>        
+        <div class="type-search">
+            <a href="{{ path ('search_type',{type: "role_play"})}}">Role Play</a>
+            <img src="/images/role_play.png" alt="role-play">
+        </div>        
+        <div class="type-search">
+            <a href="{{ path ('search_type',{type: "gaming_sales"})}}">Gaming Sales</a>
+            <img src="/images/gaming_sales.png" alt="gaming-sales">
+        </div>    
     </nav>
 </div>
-{# <div class = "div-btn">
-<p>Search by type:</p>
-    <button class ="btn btn-primary btn-block">
-        <a href="{{ path ('search_type',{type: "tournament"})}}">Tournament</a>
-        <a href="{{ path ('search_type',{type: "festival"})}}">Festival</a>
-        <a href="{{ path ('search_type',{type: "boardgames_demo"})}}">Boardgames Demo</a>
-        <a href="{{ path ('search_type',{type: "role_play"})}}">Role Play</a>
-        <a href="{{ path ('search_type',{type: "gaming_sales"})}}">Gaming Sales</a>
-    </button>
-</div> #}
 
 
 <div class = "div-btn">
@@ -94,16 +95,21 @@
                         {{event.title}}
                     </a>
                 </h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">{{event.eventType.value}}</h6>
+                <div class ="card-type">
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{event.eventType.value}}</h6>
+                    <img src="/images/{{event.eventType.value}}.png" alt="{{event.eventType.value}}">
+                </div >
                 <hr class="hr-xs">
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="{{path ("event", {id: event.id})}}" class="card-link">More info</a>
-                <a href="{{ path ("event_subscription", {id:event.id})}}" class="card-link">Subscribe</a>
-                {% if is_granted("ROLE_ADMIN") %}
-                <br>
-                    <a href="{{ path ('update_event', {id:event.id})}}"class="card-link">✏️</a>
-                    <a href="{{ path ('delete_event', {id:event.id})}}"class="card-link">❌</a>
-                {% endif %}
+                <div class = "card-link-div">
+                    <a href="{{path ("event", {id: event.id})}}" class="card-link">More info</a>
+                    <a href="{{ path ("event_subscription", {id:event.id})}}" class="card-link">Subscribe</a>
+                    {% if is_granted("ROLE_ADMIN") %}
+                    <br>
+                        <a href="{{ path ('update_event', {id:event.id})}}"class="card-link">✏️</a>
+                        <a href="{{ path ('delete_event', {id:event.id})}}"class="card-link">❌</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     {% endfor %}

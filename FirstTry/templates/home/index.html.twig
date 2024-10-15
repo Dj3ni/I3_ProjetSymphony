@@ -37,15 +37,29 @@ Accusamus hic sapiente deserunt sequi ex repellat magni quas obcaecati! Blanditi
     
     {% for event in lastEvents %}
     <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">{{event.title}}</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">{{event.eventType.value}}</h6>
-            <hr class="hr-xs">
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="{{path ("event", {id: event.id})}}" class="card-link">More info</a>
-            <a href="{{ path ("event_subscription", {id:event.id})}}" class="card-link">Subscribe</a>
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ path ('event',{id:event.id})}}">
+                        {{event.title}}
+                    </a>
+                </h5>
+                <div class ="card-type">
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{event.eventType.value}}</h6>
+                    <img src="/images/{{event.eventType.value}}.png" alt="{{event.eventType.value}}">
+                </div >
+                <hr class="hr-xs">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <div class = "card-link-div">
+                    <a href="{{path ("event", {id: event.id})}}" class="card-link">More info</a>
+                    <a href="{{ path ("event_subscription", {id:event.id})}}" class="card-link">Subscribe</a>
+                    {% if is_granted("ROLE_ADMIN") %}
+                    <br>
+                        <a href="{{ path ('update_event', {id:event.id})}}"class="card-link">✏️</a>
+                        <a href="{{ path ('delete_event', {id:event.id})}}"class="card-link">❌</a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-    </div>
     {% endfor %}
 
 </div>
