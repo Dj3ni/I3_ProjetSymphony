@@ -7,6 +7,8 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
+import "./styles/event_cards.css";
+import "./styles/event_info.css";
 
 const $ = require ("jquery");
 window.jQuery = $;
@@ -33,12 +35,12 @@ AVATAR.addEventListener("click", function(){
 
 const SEARCH_FORM = document.getElementById("SearchForm");
 const DIV_RESULT = document.getElementById("SearchResult");
-console.log(SEARCH_FORM);
-console.log(DIV_RESULT);
+// console.log(SEARCH_FORM);
+// console.log(DIV_RESULT);
 
 // Listens to each modif on form's inputs, Ajax Search
 SEARCH_FORM.addEventListener("input", function(){
-    console.log("Modify form");
+    // console.log("Modify form");
 
     let formData = new FormData (SEARCH_FORM);
 

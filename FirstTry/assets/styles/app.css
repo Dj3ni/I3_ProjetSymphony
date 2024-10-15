@@ -40,23 +40,6 @@ header {
     margin: 5px 15px 15px 15px;
 }
 
-.event-type {
-    display: inline-flex;
-    justify-content: flex-start;
-    height: 40px;
-    width:50%;
-    align-items: center;
-}
-
-.event-type img {
-    max-width: 40px;
-    margin-left: 5px;
-}
-
-.event-type p {
-    margin: 0;
-}
-
 /************************ Nav Header *****************/
 .header-nav{
     width: 100%;
@@ -255,62 +238,6 @@ nav {
     margin-bottom:5px
 }
 
-/* .btn .btn-primary .btn-block{
-    background-color: #525252 !important;
-} */
-
-/******************* Bootstrap cards *********************/
-
-.card-section{
-    max-width: 90%;
-    margin: auto;
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.card {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    margin: 15px;
-    height: 320px;
-    overflow: hidden;
-    width: 350px;
-}
-
-.card-link {
-    text-decoration: none;
-    color: #525252;
-}
-
-.card-link:hover {
-    background: #1a1a1a;
-    padding: 5px;
-    border-radius: 20px;
-    color:#fff;
-}
-
-.card-title a {
-    text-decoration: none;
-    color: #1a1a1a;
-}
-.card-link-div{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.card-type {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.card-type img {
-    max-width: 40px;
-    color: grey;
-    background-color: #fff;
-}
-
 /*************** Nav filters ********************/
 
 .navbar img {
@@ -384,9 +311,3 @@ nav {
     align-items: center;
 }
 
-/**************** Google Map *************/
-
-#map {
-    width: 500px;
-    height: 500px;
-}
