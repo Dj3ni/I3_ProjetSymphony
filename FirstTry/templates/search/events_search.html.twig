@@ -42,7 +42,7 @@
         {{ form_end(form) }}
     </div>
         <div class="search-links">
-            <a href="">Calendar</a>
+            <a href=""{{ path ("calendar")}}"">Calendar</a>
             <a href="">Map</a>
         </div>
 </div>
@@ -105,8 +105,10 @@
                 {% endif %}
             </div>
         </div>
+    </div>
         {% endfor %}
 </div>
 
 
 {% endblock %}
+

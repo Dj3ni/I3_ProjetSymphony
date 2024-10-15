@@ -3,15 +3,16 @@
 namespace App\Entity;
 
 use App\Enum\EventType;
+use App\Enum\RecurrenceType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\EventSubscription;
-use App\Enum\RecurrenceType;
 use App\HydrateTrait\HydrateTrait;
 use App\Repository\EventRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
@@ -32,9 +33,12 @@ class Event
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[SerializedName("start")]
     private ?\DateTimeInterface $dateStart = null;
 
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[SerializedName("end")]
     private ?\DateTimeInterface $dateEnd = null;
 
     #[ORM\Column(type: 'string', enumType: RecurrenceType::class)] 
@@ -78,6 +82,15 @@ class Event
      */
     #[ORM\OneToMany(targetEntity: EventOccurrence::class, mappedBy: 'event')]
     private Collection $Occurrences;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $backgroundColor = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $textColor = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $borderColor = null;
 
 
 #####################  Functions #########################################
@@ -330,6 +343,42 @@ class Event
                 $occurrence->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBackgroundColor(): ?string
+    {
+        return $this->backgroundColor;
+    }
+
+    public function setBackgroundColor(?string $backgroundColor): static
+    {
+        $this->backgroundColor = $backgroundColor;
+
+        return $this;
+    }
+
+    public function getTextColor(): ?string
+    {
+        return $this->textColor;
+    }
+
+    public function setTextColor(?string $textColor): static
+    {
+        $this->textColor = $textColor;
+
+        return $this;
+    }
+
+    public function getBorderColor(): ?string
+    {
+        return $this->borderColor;
+    }
+
+    public function setBorderColor(?string $borderColor): static
+    {
+        $this->borderColor = $borderColor;
 
         return $this;
     }

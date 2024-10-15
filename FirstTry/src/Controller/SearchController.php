@@ -6,12 +6,14 @@ use App\Enum\EventType;
 use App\Form\SearchFormType;
 use App\Repository\EventRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Serializer\EventCustomNameConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 class SearchController extends AbstractController
 {
@@ -32,6 +34,7 @@ class SearchController extends AbstractController
         // dd($form);
         $form->handleRequest($req);
 
+<<<<<<< HEAD
         // if ($req->isXmlHttpRequest()){ //if ajax search
         //     $data = $form->getData();
         //     // dd($data);
@@ -42,26 +45,45 @@ class SearchController extends AbstractController
         //     return new Response($eventsJson);
         // }
 
+=======
+>>>>>>> testWebpack
         if($form->isSubmitted() && $form->isValid()){
             $data = $form->getData();
             // dd($data);
             $events = $rep->findEventByTitles($data);
             $eventsJson = $serializerInterface->serialize ($events,"json", [
-                AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "Occurrences"]
+                AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "occurrences"],
             ]);
-            // return $this->redirectToRoute("events",[
-            //     "eventsJson"=>$eventsJson,
-            //     "events"=>$events,
-            // ]);
-            return new Response($eventsJson);
-
-        }else{
-            $events = $rep->findAll();
+            return $this->render('search/events_show.html.twig', [
+                "events" => $events,
+                "eventsJson" => $eventsJson,
+            ]); ;
         }
+        else {
+            $events = $rep->findAll();
+            $eventsJson = $serializerInterface->serialize ($events,"json", [
+                AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "occurrences"]
+            ]);
+            // dd($eventsJson);
+            
+            return $this->render('search/events_search.html.twig', [
+                'form' => $form,
+                "events" => $events,
+                "eventsJson" => $eventsJson,
+            ]);
+        }
+    }
 
-        return $this->render('search/events_search.html.twig', [
-            'form' => $form,
-            "events" => $events,
+    #[Route("events/calendar", name: "calendar")]
+    public function Calendar(EventRepository $rep, SerializerInterface $serializerInterface ):Response
+    {
+        $events = $rep->findAll();
+            $eventsJson = $serializerInterface->serialize ($events,"json", [
+                AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "occurrences"]
+            ]);
+        return $this->render("search/events_calendar.html.twig", [
+                "events" => $events,
+                "eventsJson" => $eventsJson,
         ]);
     }
 

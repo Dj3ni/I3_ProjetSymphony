@@ -6,7 +6,7 @@ Ensuite, via le EventSubscriptionForm, je génère une liste avec les différent
 
 ==> est-ce une bonne approche? Ou vaut-il mieux créer une entité Occurrence avec une relation One to Many avec Event? 
 
-## 2. Formulaire de Contact
+<!-- ## 2. Formulaire de Contact
 
 J'ai créé un simple formulaire, non lié à une entité. Cependant, dans les tutos, ils le lient à une entité. Quand je demande à Chat GPT, il me dit que les 2 approches sont bonnes.
 
@@ -16,4 +16,5 @@ J'ai créé un simple formulaire, non lié à une entité. Cependant, dans les t
 ## 3. Pourquoi pour certaines pages, les images ne sont pas accessibles?
 ->Attention à bien toujours mettre le "/" avant le chemin pour forcer à démarrer de la racine
 
-## 4. Le toggle ne persiste pas 
+## 4. Le toggle ne persiste pas : ok réglé grâce à webpack -->
+
