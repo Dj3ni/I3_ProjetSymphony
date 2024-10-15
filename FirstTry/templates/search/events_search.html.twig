@@ -31,16 +31,20 @@
 
 
 {# <div class="login-block"> #}
-<div class = "search-div">
-{{ form_errors(form) }}
-    {# <h1>Search your events here</h1> #}
-    {{ form_start(form, {"attr" : {"id": "SearchForm"}}) }}
-    {{form_widget(form.search, {"attr" : {"id": "SearchInput"}})}}
-    {# <button>    <img src="/images/loupe.png" alt="loupe" id = "SearchIcon">
-    </button>     #}
-    {{ form_end(form) }}
-    <a href="">Calendar</a>
-    <a href="">Map</a>
+<div class = "search-div-container">
+    <div class = "search-div">
+    {{ form_errors(form) }}
+        {# <h1>Search your events here</h1> #}
+        {{ form_start(form, {"attr" : {"id": "SearchForm"}}) }}
+        <img src="/images/loupe.png" alt="loupe" id = "SearchIcon">
+        {{form_widget(form.search, {"attr" : {"id": "SearchInput"}})}}
+        
+        {{ form_end(form) }}
+    </div>
+        <div class="search-links">
+            <a href="">Calendar</a>
+            <a href="">Map</a>
+        </div>
 </div>
 <br>
 <div class="nav">

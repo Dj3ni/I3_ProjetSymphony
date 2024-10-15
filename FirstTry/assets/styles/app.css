@@ -269,12 +269,35 @@ nav {
     color: grey;
     background-color: #fff;
 } */
+
+/************************ Searchbar ********************/
+.search-div-container{
+    width: 100%;
+    margin: 5px 5px 15px 5px;
+}
+
+.search-links {
+    margin-right: 5px;
+}
+.search-links a{
+    margin: 5px;
+    text-decoration: none;
+    color: #525252;
+}
+
+.search-links a:hover {
+    background-color: #525252;
+    color: #ffff;
+    padding: 5px;
+    border-radius: 20px;
+}
+
 .search-div {
-    width: 30%; 
+    width: 50%; 
     margin-left: 2%;
     display: flex;
     align-items: center;
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 #SearchForm {
@@ -295,5 +318,11 @@ nav {
 #SearchIcon {
     width: 20px;
     height: 20px;
-    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.search-div-container {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
 }
