@@ -41,9 +41,18 @@
 
 {# calendrier #}
 
-<div id="calendrier" data-calendrier="{{ eventsJson }}" class="calendar" {% for event in events %}
-    data-events-url="{{ path('event',{"id":event.id}) }}"
-{% endfor %}>
+<div id="calendrier"
+    class="calendar"  
+    data-roles = "
+    {% if app.user %}
+        {{app.user.roles |json_encode()}}
+    {% else %} 
+        {{ [] | json_encode() }}
+    {% endif %}"
+    data-calendrier="{{ eventsJson }}"  
+    {% for event in events %}
+        data-events-url="{{ path('event',{"id":event.id}) }}"
+    {% endfor %}>
 
 </div>
 

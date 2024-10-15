@@ -23,6 +23,18 @@ document.addEventListener("DOMContentLoaded", () =>{
 
     // 3. Calendar Creation, settings and events on click
     let calendarEl = document.getElementById("calendrier");
+    let roles = JSON.parse(calendarEl.dataset.roles);
+    // console.log(roles);
+    if (!roles.includes("ROLE_ADMIN")){
+        const dayNumbers = document.querySelectorAll('.fc-daygrid-day-number');
+        // Loop through each element and remove the class
+        console.log(dayNumbers);
+
+        dayNumbers.forEach(dayNumber => {
+            dayNumber.classList.add('no-hover');
+        });
+
+    }
 
     var calendar = new Calendar(calendarEl, {
         // example to see if plugin works :
@@ -87,6 +99,9 @@ document.addEventListener("DOMContentLoaded", () =>{
 
         // other events for our listener:
         dateClick: function () {
+            if (!roles.includes("ROLE_ADMIN")){
+                return;
+            }
             // When click on date, redirect to create form
             window.location.href = "/create_event";
 
@@ -106,8 +121,11 @@ document.addEventListener("DOMContentLoaded", () =>{
                 }
             });
             // console.log (existe);
+            // console.log(window.userRoles);
 
-            // on ne rajout pas si l'Evenement existe
+
+
+            // on ne rajout pas si l'Evenement existe, que pour les admin
             if (!existe){
                 axios.post("/create_event", 
                     newEvent) // axios encode le nouvelElement en json automatiquement et l'envoie dans le corps de la Request
@@ -121,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                         calendar.addEvent (newEvent);
                     });  
             }
+            
             else {
                 console.log ("This event already exist");
             } 
@@ -143,3 +162,5 @@ document.addEventListener("DOMContentLoaded", () =>{
     calendar.render();
 
 })
+
+

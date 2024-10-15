@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -58,6 +59,7 @@ class EventController extends AbstractController
 ############# Creation Event Form
 
     #[Route('/create_event', name: 'create_event')]
+    #[IsGranted('ROLE_ADMIN')]
     public function createEvent(Request $request): Response
     {
         // 1. Create new empty object
