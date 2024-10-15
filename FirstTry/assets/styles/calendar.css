@@ -41,3 +41,7 @@
 .no-hover:hover {
     background-color: red !important; /* Override hover effect */
 }
+
+.fc-list-event-graphic {
+    overflow: hidden;
+}

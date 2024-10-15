@@ -26,13 +26,13 @@ document.addEventListener("DOMContentLoaded", () =>{
     let roles = JSON.parse(calendarEl.dataset.roles);
     // console.log(roles);
     if (!roles.includes("ROLE_ADMIN")){
-        const dayNumbers = document.querySelectorAll('.fc-daygrid-day-number');
-        // Loop through each element and remove the class
-        console.log(dayNumbers);
+        // const dayNumbers = document.querySelectorAll('.fc-daygrid-day-number');
+        // // Loop through each element and remove the class
+        // console.log(dayNumbers);
 
-        dayNumbers.forEach(dayNumber => {
-            dayNumber.classList.add('no-hover');
-        });
+        // dayNumbers.forEach(dayNumber => {
+        //     dayNumber.classList.add('no-hover');
+        // });
 
     }
 
@@ -60,32 +60,32 @@ document.addEventListener("DOMContentLoaded", () =>{
             let eventType = info.event.extendedProps.eventType;
             console.log(eventType);
             switch (eventType){
-                case "Festival":
+                case "festival":
                     info.el.style.backgroundColor = "#fb8500";
                     info.el.style.borderColor = "#fb8500"
                 break;
-                case "Tournament":
+                case "tournament":
                     info.el.style.backgroundColor = "#ffb703";
                     info.el.style.borderColor = "#ffb703"
                 break;
-                case "Boardgames_Demo":
+                case "boardgames_demo":
                     info.el.style.backgroundColor = "#023047";
                     info.el.style.borderColor = "#023047";
                     info.el.style.color = "#fff";
                 break;
-                case "Role_Play":
+                case "role_play":
                     info.el.style.backgroundColor = "#219ebc";
                     info.el.style.borderColor = "#219ebc";
 
                 break;
-                case "Gaming_Sales":
+                case "gaming_sales":
                     info.el.style.backgroundColor = "#8ecae6";
                     info.el.style.borderColor = "#y8ecae6";
                     // info.el.style.color = "blue";
-
                 break;
+                
                 default:
-                    info.el.style.backgroundColor = "blue";
+                    info.el.style.backgroundColor = "lightblue";
                     info.el.style.borderColor = "blue"
                 break;
             }
