@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Demo;
 use App\Entity\Event;
+use App\Entity\EventOccurrence;
 use App\EventOccurrenceGenerator;
 use App\Form\CreateEventFormType;
 use App\Repository\EventRepository;
@@ -49,6 +50,7 @@ class EventController extends AbstractController
 
         // Init occurrences
         $occurrences = $this->occurrenceGenerator->generateOccurrences($event);
+        // dd($occurrences);
         $places = $event->getEventPlaces();
         // dd($places);
 
@@ -144,6 +146,14 @@ class EventController extends AbstractController
         return $this->redirectToRoute("event_search");
     }
     
+    #[Route("occurrence/{id}", name:"occurrence_show")]
+    public function occurrenceShow(EventOccurrence $occurrence):Response
+    {
+        return $this->render("event/event_info.html.twig", [
+            "occurrence" => $occurrence,
+        ]);
+    }
+
     
     // For debug event occurences service
 
@@ -164,4 +174,4 @@ class EventController extends AbstractController
             //     ]);
             // }
             
-        }
+}

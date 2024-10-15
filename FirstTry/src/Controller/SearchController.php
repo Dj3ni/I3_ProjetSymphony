@@ -75,6 +75,21 @@ class SearchController extends AbstractController
         ]);
     }
 
+    #[Route("events/map", name: "events_map")]
+    public function eventsMap(EventRepository $rep, SerializerInterface $serializerInterface ):Response
+    {
+        $events = $rep->findAll();
+            $eventsJson = $serializerInterface->serialize ($events,"json", [
+                AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "occurrences"]
+            ]);
+        return $this->render("search/events_map.html.twig", [
+                "events" => $events,
+                "eventsJson" => $eventsJson,
+        ]);
+    }
+
+
+
     #[Route("/search/{type}", name: "search_type")]
     public function searchByType(EventType $type, EventRepository $rep){
         

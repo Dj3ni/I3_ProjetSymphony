@@ -3,26 +3,34 @@
 namespace App;
 
 use App\Entity\Event;
+use App\Entity\EventOccurrence;
 use App\Enum\RecurrenceType;
+use Doctrine\ORM\EntityManagerInterface;
 
 class EventOccurrenceGenerator
 {
-    public function __construct($test)
+    private $em;
+    public function __construct(EntityManagerInterface $em, $test)
     {
+        $this->em = $em;
         // dd($test);
         // Pas de dépendances à injecter pour l'instant
     }
 
 ############## For each event occurence, I create a "child" event
 
-    public function createEventOccurrence(Event $event, \DateTimeInterface $newStartDate, \DateTimeInterface $newEndDate) : Event{
+    public function createEventOccurrence(Event $event, \DateTimeInterface $newStartDate, \DateTimeInterface $newEndDate) : EventOccurrence{
         
-        // 1. Clone original event
-        $occurrence = clone $event;
+        $occurrence = new EventOccurrence();
+        // // 1. Clone original event
+        // $occurrence = clone $event;
 
         // 2. Modify Dates
         $occurrence->setDateStart($newStartDate)
-                    ->setDateEnd($newEndDate);
+                    ->setDateEnd($newEndDate)
+                    ->setEvent($event);
+        
+        $this->em->persist($occurrence);
         
         return $occurrence;
     }
@@ -130,7 +138,7 @@ class EventOccurrenceGenerator
                 $count++;
             }
         }
-
+        $this->em->flush();
         return $occurrencesWithEnd;
 
     }
