@@ -59,4 +59,17 @@ class SearchController extends AbstractController
             ]);
         }
     }
+
+    #[Route("events/calendar", name: "calendar")]
+    public function Calendar(EventRepository $rep, SerializerInterface $serializerInterface ):Response
+    {
+        $events = $rep->findAll();
+            $eventsJson = $serializerInterface->serialize ($events,"json", [
+                AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "occurrences"]
+            ]);
+        return $this->render("search/events_calendar.html.twig", [
+                "events" => $events,
+                "eventsJson" => $eventsJson,
+        ]);
+    }
 }

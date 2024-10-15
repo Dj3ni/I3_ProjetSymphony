@@ -38,26 +38,7 @@
     {{ form_end(form) }}
 </div>
 <br>
-
-{# calendrier #}
-
-<div id="calendrier"
-    class="calendar"  
-    data-roles = "
-    {% if app.user %}
-        {{app.user.roles |json_encode()}}
-    {% else %} 
-        {{ [] | json_encode() }}
-    {% endif %}"
-    data-calendrier="{{ eventsJson }}"  
-    {% for event in events %}
-        data-events-url="{{ path('event',{"id":event.id}) }}"
-    {% endfor %}>
-
-</div>
-
-{# {{ dump(eventsJson) }} #}
-
+<a href="{{ path ("calendar")}}">Calendar</a>
 
 <div class = "div-btn">
     {% if is_granted ("ROLE_ADMIN") %}
@@ -95,15 +76,5 @@
 </div>
 
 
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('calendar') }}
-{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('calendar') }}
 {% endblock %}
 
