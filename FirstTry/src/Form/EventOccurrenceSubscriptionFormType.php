@@ -18,13 +18,14 @@ class EventOccurrenceSubscriptionFormType extends AbstractType
     {
         $occurrence = $options["data"];
         // dd($options);
+        // dd($occurrence);
         
             $builder
             -> add("eventOccurrence", TextType::class,[
-                "data"=> $occurrence->getDateStart()->format("d-m-Y H:i"),
                 "mapped" => false,
+                "data"=> $occurrence->getDateStart()->format("d-m-Y H:i"),
                 "disabled"=> true,
-                "expanded"=> true,            
+                // "expanded"=> true,            
     
             ])
             -> add("numberParticipants", IntegerType::class,[
