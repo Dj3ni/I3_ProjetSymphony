@@ -29,12 +29,13 @@ To do:
 - message when form submitted ->ok
 - contact page ->ok
 - create validation rules for forms (email,pwd,...)
+- upload d'images
 
 ### Comments
 - All entities, fixtures and relations for MVP1 ok
 
 ### Bugs known
-- Impossible to delete child event
+- Impossible to delete child event-> ok
 - improve email constraints, no error message appears when errors in all forms (except dateEnd)
 - no message when logged-out
 
