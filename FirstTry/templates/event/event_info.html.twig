@@ -21,7 +21,7 @@
     </h1>
 </header>
 
-<div>
+
 <h3>Practical informations</h3>
     <div>
         <p>Type: {{event.eventType.value}}</p>
@@ -58,7 +58,9 @@
     <h3>All the dates for this event</h3>
     <ul>
         {% for occurrence in occurrences %}
-            <li>{{ occurrence.dateStart|date('d-m-Y H:i') }} - {{ occurrence.dateEnd|date('d-m-Y H:i') }}
+            <li>
+            
+            {{ occurrence.dateStart|date('d-m-Y H:i') }} - {{ occurrence.dateEnd|date('d-m-Y H:i') }}
                 {% if is_granted("ROLE_ADMIN") %}
                 <a href="{{ path("delete_occurrence", {"id":occurrence.id})}}">❌</a>
                 {# <a href="{{ path("update_occurrence", {"id":event.id})}}">✏️</a> #}
@@ -69,4 +71,9 @@
     </ul>
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent()}}
+    {{ encore_entry_script_tags("events")}}
 {% endblock %}
