@@ -92,10 +92,7 @@ class SubscriptionsController extends AbstractController
     #[Route ("/calendar/{id}")]
     public function calendar(Event $event, SerializerInterface $serializerInterface){
         // dd($event);
-        // obtenir les dates d'un calendrier d'un Utilisateur
-        // qui ont été déjà sélectionnées et les envoyer en JSON à la vue pour que fullcalendar les affiche.
-        // C'est un objet Serializer qui transformera en JSON l'array d'Evenement
-
+        
         // l'Utilisateur doit être connecté, on va obtenir tous ses evenements (rajoutés avec de Fixtures)
         $user = $this->getUser(); // ATTENTION: la méthode getUser est du CONTROLLER et portera toujours ce nom, même si notre classe est Utilisateur
         // si pas d'Utilisateur, on va au login
@@ -105,18 +102,7 @@ class SubscriptionsController extends AbstractController
 
         // sinon, on continue. On obtient tous les Evenement de cet utilisateur
         $events = $user->getEventSubscriptions();
-        // pour debugger, vous pouvez faire de dumps. Attention: un dd($evenements)
-        // dump ($evenements);
-        // dump($evenements[0]);
-        // dd($evenements[1]); // etc...
-
-
-        // Serialiser = Normaliser (passer objet ou array d'objets à array) et Encoder (passer array à JSON)
-        // https://symfony.com/doc/current/components/serializer.html (regardez le dessin)
-        // Si vous avez de problèmes de CIRCULAR REFERENCE, utilisez IGNORED_ATTRIBUTS pour ne pas 
-        // serialiser les propriétés qui constituent une rélation (ex: serialiser Livre sans serialiser les Exemplaires)
-        // $evenementsJSON = $serializer->serialize($evenements, 'json',[AbstractNormalizer::IGNORED_ATTRIBUTES => ['utilisateur']]);
-        // $evenementsJSON = $serializer->serialize($evenements, 'json',[AbstractNormalizer::ATTRIBUTES => ['start','title']]);
+        
         $evenementsJSON = $serializerInterface->serialize($events, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['user',"subscriptions","eventPlaces","userOrganisator","Occurrences","userSubscriptor"]]);
         return $this->render('subscriptions/calendar.html.twig',[
             

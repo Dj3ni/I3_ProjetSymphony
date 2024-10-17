@@ -4,18 +4,20 @@ namespace App\Form;
 
 use Assert\Email;
 use App\Entity\User;
+use Webmozart\Assert\Assert;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Required;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Webmozart\Assert\Assert;
 
 class RegistrationFormType extends AbstractType
 {
@@ -48,6 +50,18 @@ class RegistrationFormType extends AbstractType
                 //     'mode' => 'strict' // Optionnel : stricte vérification (recommandée)
                 //     ])
                 // ]
+            ])
+            ->add("avatarFile", FileType::class,[
+                /* if avatarFile not in Entity these fields are compulsory
+                "mapped" => false,
+                */
+                "constraints"=> [
+                    new Image(),
+                ],
+                
+                "attr" => [
+                    "placeholder" => "Download your Avatar",
+                ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
