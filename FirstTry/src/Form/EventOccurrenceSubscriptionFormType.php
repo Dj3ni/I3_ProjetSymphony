@@ -16,8 +16,8 @@ class EventOccurrenceSubscriptionFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $occurrence = $options["data"];
-        // dd($options);
+        dd($options);
+        // $occurrence = $options["data"];
         // dd($occurrence);
         
             $builder
@@ -25,7 +25,7 @@ class EventOccurrenceSubscriptionFormType extends AbstractType
                 "mapped" => false,
                 "data"=> $occurrence->getDateStart()->format("d-m-Y H:i"),
                 "disabled"=> true,
-                // "expanded"=> true,            
+                "expanded"=> true,            
     
             ])
             -> add("numberParticipants", IntegerType::class,[
