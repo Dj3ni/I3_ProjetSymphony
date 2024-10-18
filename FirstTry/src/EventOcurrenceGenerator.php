@@ -108,7 +108,6 @@ class EventOccurrenceGenerator
             }
         }
         
-
         // Case 3: Iterate until end occurrenceCount or Date
         if ($recurrenceType === RecurrenceType::NONE){ // what to do if case == none
 
