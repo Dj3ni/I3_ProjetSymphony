@@ -31,7 +31,7 @@
                     <div class="sub-menu">
                         <div class="user-info">
                             {% if app.user and app.user.avatar is not null %}
-                                <img src="" alt="avatar">
+                                <img src="{{ vich_uploader_asset(app.user,"avatarFile")}}" alt="avatar">
                             {% else %}
                                 <img src="/images/defaultAvatar.jpg" alt="defaultAvatar">
                             {% endif %}
