@@ -27,8 +27,7 @@ class EventSubscription
     #[ORM\Column]
     private ?\DateTimeImmutable $subscriptionDate = null;
     
-    #[ORM\Column]
-    private ?int $numberParticipants = null;
+
 
     // #[ORM\Column]
     // private array $occurrenceDates = [];
@@ -99,17 +98,6 @@ class EventSubscription
     //     return $this;
     // }
 
-    public function getNumberParticipants(): ?int
-    {
-        return $this->numberParticipants;
-    }
-
-    public function setNumberParticipants(int $numberParticipants): static
-    {
-        $this->numberParticipants = $numberParticipants;
-
-        return $this;
-    }
 
     // public function getOccurrenceDates(): array
     // {

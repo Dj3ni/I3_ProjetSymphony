@@ -25,6 +25,10 @@ class EventOccurrence
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateEnd = null;
 
+
+    #[ORM\Column]
+    private ?int $numberParticipants = null;
+
     ###################### Relations
 
     #[ORM\ManyToOne(inversedBy: 'Occurrences')]
@@ -117,6 +121,19 @@ class EventOccurrence
 
         return $this;
     }
+
+    public function getNumberParticipants(): ?int
+    {
+        return $this->numberParticipants;
+    }
+
+    public function setNumberParticipants(int $numberParticipants): static
+    {
+        $this->numberParticipants = $numberParticipants;
+
+        return $this;
+    }
+
 
 
 }

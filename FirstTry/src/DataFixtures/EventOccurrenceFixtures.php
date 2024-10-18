@@ -22,7 +22,8 @@ class EventOccurrenceFixtures extends Fixture implements DependentFixtureInterfa
                 $occurrence = new EventOccurrence();
                 $occurrence->setEvent($event)
                             ->setDateStart(clone $currentStartDate)
-                            ->setDateEnd(clone $currentEndDate);
+                            ->setDateEnd(clone $currentEndDate)
+                            ->setNumberParticipants(random_int(0,5));
                     // Increment dates
                     $currentStartDate->modify("+1 day");
                     $currentEndDate->modify("+1 day");

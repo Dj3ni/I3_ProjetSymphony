@@ -16,8 +16,8 @@ class EventOccurrenceSubscriptionFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        dd($options);
-        // $occurrence = $options["data"];
+        // dd($options);
+        $occurrence = $options["data"]->getOccurrence();
         // dd($occurrence);
         
             $builder
