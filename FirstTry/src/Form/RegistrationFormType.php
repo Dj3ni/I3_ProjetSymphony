@@ -55,6 +55,7 @@ class RegistrationFormType extends AbstractType
                 /* if avatarFile not in Entity these fields are compulsory
                 "mapped" => false,
                 */
+                "required"=> false,
                 "constraints"=> [
                     new Image(),
                 ],
