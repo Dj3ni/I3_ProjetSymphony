@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+<header>
+<h1>{{app.user.firstname}}</h1>
+</header>
+
+
+<h2>My informations</h2>
+
+{{form_start(form)}}
+    {{form_row (form.firstName)}}
+    {{form_row (form.lastName)}}
+    {{form_row (form.phoneNumber)}}
+    {{form_row (form.email)}}
+    {{form_row (form.avatarFile)}}
+    <a href="{{ path ("change_password")}}" class = "card-link">Change password</a>
+<div class="div-btn">
+        <button class= "btn btn-primary btn-block" type = "submit">Update</button>
+    
+</div>{{form_end(form, {"render_rest":false})}}
+
+
+
+{% endblock %}
+

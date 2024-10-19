@@ -2,17 +2,26 @@
 
 namespace App\Controller;
 
+use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/profile', name: 'app_user')]
-    public function index(): Response
+    #[Route('/profile', name: 'user_profile')]
+    public function userProfile(): Response
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+        $user = $this->getUser();
+
+        $form = $this->createForm(RegistrationFormType::class,$user);
+        if($form->isSubmitted() && $form->isValid()){
+            
+        }
+
+        return $this->render('user/profile.html.twig', [
+            'user' => $user,
+            "form"=>$form,
         ]);
     }
 }

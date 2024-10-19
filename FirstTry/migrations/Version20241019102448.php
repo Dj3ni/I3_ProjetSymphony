@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241018122436 extends AbstractMigration
+final class Version20241019102448 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -26,6 +26,7 @@ final class Version20241018122436 extends AbstractMigration
         $this->addSql('CREATE TABLE event_place (id INT AUTO_INCREMENT NOT NULL, event_id INT DEFAULT NULL, gaming_place_id INT DEFAULT NULL, INDEX IDX_3506E2E171F7E88B (event_id), INDEX IDX_3506E2E117EC9A18 (gaming_place_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE event_subscription (id INT AUTO_INCREMENT NOT NULL, user_subscriptor_id INT DEFAULT NULL, event_subscripted_id INT DEFAULT NULL, subscription_date DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', number_participants INT NOT NULL, occurrence_dates JSON NOT NULL COMMENT \'(DC2Type:json)\', INDEX IDX_4ED56E203CECDD17 (user_subscriptor_id), INDEX IDX_4ED56E20B7EFA4DF (event_subscripted_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE gaming_place (id INT AUTO_INCREMENT NOT NULL, address_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, type VARCHAR(255) NOT NULL, description LONGTEXT NOT NULL, place_max INT NOT NULL, UNIQUE INDEX UNIQ_A60B6C3FF5B7AF75 (address_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE reset_password_request (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, selector VARCHAR(20) NOT NULL, hashed_token VARCHAR(100) NOT NULL, requested_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', expires_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_7CE748AA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, address_id INT DEFAULT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL COMMENT \'(DC2Type:json)\', password VARCHAR(255) NOT NULL, firstname VARCHAR(150) NOT NULL, lastname VARCHAR(200) NOT NULL, phone_number VARCHAR(10) DEFAULT NULL, avatar VARCHAR(255) DEFAULT NULL, updated_at DATETIME DEFAULT NULL, UNIQUE INDEX UNIQ_8D93D649F5B7AF75 (address_id), UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', available_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', delivered_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA794589191 FOREIGN KEY (user_organisator_id) REFERENCES user (id)');
@@ -35,6 +36,7 @@ final class Version20241018122436 extends AbstractMigration
         $this->addSql('ALTER TABLE event_subscription ADD CONSTRAINT FK_4ED56E203CECDD17 FOREIGN KEY (user_subscriptor_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE event_subscription ADD CONSTRAINT FK_4ED56E20B7EFA4DF FOREIGN KEY (event_subscripted_id) REFERENCES event (id)');
         $this->addSql('ALTER TABLE gaming_place ADD CONSTRAINT FK_A60B6C3FF5B7AF75 FOREIGN KEY (address_id) REFERENCES address (id)');
+        $this->addSql('ALTER TABLE reset_password_request ADD CONSTRAINT FK_7CE748AA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D649F5B7AF75 FOREIGN KEY (address_id) REFERENCES address (id)');
     }
 
@@ -48,6 +50,7 @@ final class Version20241018122436 extends AbstractMigration
         $this->addSql('ALTER TABLE event_subscription DROP FOREIGN KEY FK_4ED56E203CECDD17');
         $this->addSql('ALTER TABLE event_subscription DROP FOREIGN KEY FK_4ED56E20B7EFA4DF');
         $this->addSql('ALTER TABLE gaming_place DROP FOREIGN KEY FK_A60B6C3FF5B7AF75');
+        $this->addSql('ALTER TABLE reset_password_request DROP FOREIGN KEY FK_7CE748AA76ED395');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D649F5B7AF75');
         $this->addSql('DROP TABLE address');
         $this->addSql('DROP TABLE event');
@@ -55,6 +58,7 @@ final class Version20241018122436 extends AbstractMigration
         $this->addSql('DROP TABLE event_place');
         $this->addSql('DROP TABLE event_subscription');
         $this->addSql('DROP TABLE gaming_place');
+        $this->addSql('DROP TABLE reset_password_request');
         $this->addSql('DROP TABLE user');
         $this->addSql('DROP TABLE messenger_messages');
     }
