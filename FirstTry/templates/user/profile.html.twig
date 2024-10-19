@@ -11,12 +11,24 @@
 
 <h2>My informations</h2>
 
+{{form_errors(form)}}
 {{form_start(form)}}
+{% if app.user.avatar %}
+    <div class = "avatar">
+        <label>My avatar</label>
+        <img src=" {{ vich_uploader_asset(app.user,"avatarFile")}}" alt="avatar">
+    </div>
+{% else %}
+    <div>
+        <label>Change Avatar</label>
+        {{form_widget (form.avatarFile)}}  
+    </div>      
+{% endif %}
+
     {{form_row (form.firstName)}}
     {{form_row (form.lastName)}}
     {{form_row (form.phoneNumber)}}
     {{form_row (form.email)}}
-    {{form_row (form.avatarFile)}}
     <a href="{{ path ("change_password")}}" class = "card-link">Change password</a>
 <div class="div-btn">
         <button class= "btn btn-primary btn-block" type = "submit">Update</button>
