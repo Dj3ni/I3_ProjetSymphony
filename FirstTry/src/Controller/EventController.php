@@ -26,8 +26,6 @@ class EventController extends AbstractController
         $this->occurrenceGenerator = $occurrenceGenerator;
     }
 
-
-    
 ############  Show all the events in DB now managed by events/search
     
     #[Route('/events', name: 'events_show')]
@@ -49,7 +47,7 @@ class EventController extends AbstractController
         // dd($event);
 
         // Init occurrences
-        $occurrences = $this->occurrenceGenerator->generateOccurrences($event);
+        $occurrences = $event->getOccurrences();
         // dd($occurrences);
         $places = $event->getEventPlaces();
         // dd($places);

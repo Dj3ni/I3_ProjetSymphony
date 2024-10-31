@@ -80,15 +80,15 @@
     <h3>All the dates for this event</h3>
 <div class = "event-description">
             {# {{ dump(occurrences.id) }} #}
-            {{ dump(occurrences) }}
+            {# {{ dump(occurrences) }} #}
     <ul>
         {% for occurrence in occurrences %}
+            {{dump(occurrence)}}
 
-
-            {% if occurrence.startDate >= "now"|date %}
+            {% if occurrence.dateStart >= "now"|date %}
                 <li>
-                    {# <a href= "{{ path ("occurrence_show", {id: occurrences.id} )}}" class = "occurrence-link">                     #}
-                        {{ occurrence.startDate|date('d-m-Y H:i') }} - {{ occurrence.endDate|date('d-m-Y H:i') }}
+                    {# <a href= "{{ path ("occurrence_show", {id: occurrences.id} )}}" class = "occurrence-link">                      #}
+                        {{ occurrence.dateStart|date('d-m-Y H:i') }} to {{ occurrence.dateEnd|date('d-m-Y H:i') }}
                     </a>
                 </li>
             {% endif %}

@@ -223,7 +223,7 @@ nav {
 
 .login-block .input-group-addon
 {
-    color:#29aafe;
+    color:#525252;
     font-size:19px;
     opacity:.5
 }
@@ -231,8 +231,8 @@ nav {
 {
     margin-top:30px;
     padding:15px;
-    background:#29aafe;
-    border-color:#29aafe;
+    background-color:#525252 ;
+    border-color: #525252;
 }
 .login-block .hr-xs
 {
