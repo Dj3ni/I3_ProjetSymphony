@@ -21,6 +21,16 @@ main {
     border-color: #525252;
 }
 
+.btn-danger{
+    margin: 15px;
+    background-color: red !important;
+}
+
+.btn-warning{
+    margin: 15px;
+    background-color: yellow !important;
+}
+
 .btn:hover{
     background-color: #96a2b2;
     border-color: #525252;
