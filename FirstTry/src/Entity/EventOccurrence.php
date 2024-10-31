@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\HydrateTrait\HydrateTrait;
 use App\Repository\EventOccurrenceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,11 +30,18 @@ class EventOccurrence
     #[ORM\ManyToOne(inversedBy: 'Occurrences')]
     private ?Event $event = null;
 
+    /**
+     * @var Collection<int, EventOccurrenceSubscription>
+     */
+    #[ORM\OneToMany(targetEntity: EventOccurrenceSubscription::class, mappedBy: 'eventOccurrence')]
+    private Collection $subscriptions;
+
     ####################### Functions
 
     public function __construct(array $init = [])
     {
         $this->hydrate($init);
+        $this->subscriptions = new ArrayCollection();
     }
     
     public function getId(): ?int
@@ -72,6 +81,36 @@ class EventOccurrence
     public function setEvent(?Event $event): static
     {
         $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventOccurrenceSubscription>
+     */
+    public function getSubscriptions(): Collection
+    {
+        return $this->subscriptions;
+    }
+
+    public function addSubscription(EventOccurrenceSubscription $subscription): static
+    {
+        if (!$this->subscriptions->contains($subscription)) {
+            $this->subscriptions->add($subscription);
+            $subscription->setEventOccurrence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscription(EventOccurrenceSubscription $subscription): static
+    {
+        if ($this->subscriptions->removeElement($subscription)) {
+            // set the owning side to null (unless already changed)
+            if ($subscription->getEventOccurrence() === $this) {
+                $subscription->setEventOccurrence(null);
+            }
+        }
 
         return $this;
     }

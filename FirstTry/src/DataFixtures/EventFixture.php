@@ -40,10 +40,6 @@ class EventFixture extends Fixture implements DependentFixtureInterface
             
             $event->setRecurrenceType(RecurrenceType::cases()[rand(0,4)]);
             $event->setUserOrganisator($organisator);
-            $colors = ["#FFAABB","#EEFFAA","#BBAA33"];
-            $event->setBackgroundColor($colors[rand(0,2)]);
-            // $event->setTextColor($colors [rand(0,2)]);
-            // $event->setBorderColor($colors [rand(0,2)]);
             
             $manager->persist($event);
 

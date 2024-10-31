@@ -72,11 +72,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Address $address = null;
     
-    /**
-     * @var Collection<int, EventSubscription>
-     */
-    #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'userSubscriptor')]
-    private Collection $eventSubscriptions;
+    // /**
+    //  * @var Collection<int, EventSubscription>
+    //  */
+    // #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'userSubscriptor')]
+    // private Collection $eventSubscriptions;
 
     /**
      * @var Collection<int, Event>
@@ -84,14 +84,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Event::class, mappedBy: 'userOrganisator')]
     private Collection $eventsOrganized;
 
+    /**
+     * @var Collection<int, EventOccurrenceSubscription>
+     */
+    #[ORM\OneToMany(targetEntity: EventOccurrenceSubscription::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $occurrencesSubscriptions;
+
 
 #####################  Functions #########################################
 
     public function __construct(array $init = [])
     {
         $this->hydrate($init);
-        $this->eventSubscriptions = new ArrayCollection();
+        // $this->eventSubscriptions = new ArrayCollection();
         $this->eventsOrganized = new ArrayCollection();
+        $this->occurrencesSubscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -208,6 +215,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, EventSubscription>
      */
+    /*
     public function getEventSubscriptions(): Collection
     {
         return $this->eventSubscriptions;
@@ -234,7 +242,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
+*/
     public function getAddress(): ?Address
     {
         return $this->address;
@@ -329,6 +337,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventOccurrenceSubscription>
+     */
+    public function getOccurrencesSubscriptions(): Collection
+    {
+        return $this->occurrencesSubscriptions;
+    }
+
+    public function addOccurrencesSubscription(EventOccurrenceSubscription $occurrencesSubscription): static
+    {
+        if (!$this->occurrencesSubscriptions->contains($occurrencesSubscription)) {
+            $this->occurrencesSubscriptions->add($occurrencesSubscription);
+            $occurrencesSubscription->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOccurrencesSubscription(EventOccurrenceSubscription $occurrencesSubscription): static
+    {
+        if ($this->occurrencesSubscriptions->removeElement($occurrencesSubscription)) {
+            // set the owning side to null (unless already changed)
+            if ($occurrencesSubscription->getUser() === $this) {
+                $occurrencesSubscription->setUser(null);
+            }
+        }
 
         return $this;
     }

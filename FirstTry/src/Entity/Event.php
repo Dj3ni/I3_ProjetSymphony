@@ -60,13 +60,14 @@ class Event
     #[ORM\Column(type: 'string', enumType: EventType::class)] 
     private EventType $eventType;
 
+
 #################### Relations ###################################################
 
-    /**
-     * @var Collection<int, EventSubscription>
-     */
-    #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'eventSubscripted')]
-    private Collection $subscriptions;
+    // /**
+    //  * @var Collection<int, EventSubscription>
+    //  */
+    // #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'eventSubscripted')]
+    // private Collection $subscriptions;
 
     /**
      * @var Collection<int, EventPlace>
@@ -83,22 +84,13 @@ class Event
     #[ORM\OneToMany(targetEntity: EventOccurrence::class, mappedBy: 'event')]
     private Collection $occurrences;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $backgroundColor = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $textColor = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $borderColor = null;
-
 
 #####################  Functions #########################################
     
     public function __construct(array $init = [])
     {
         $this->hydrate($init);
-        $this->subscriptions = new ArrayCollection();
+        // $this->subscriptions = new ArrayCollection();
         $this->eventPlaces = new ArrayCollection();
         $this->occurrences = new ArrayCollection();
         
@@ -194,6 +186,7 @@ class Event
     /**
      * @return Collection<int, EventSubscription>
      */
+    /*
     public function getSubscriptions(): Collection
     {
         return $this->subscriptions;
@@ -220,7 +213,7 @@ class Event
         
         return $this;
     }
-    
+    */
     /**
      * @return Collection<int, EventPlace>
      */
@@ -320,7 +313,7 @@ class Event
     /**
      * @return Collection<int, EventOccurrence>
      */
-    public function getoccurrences(): Collection
+    public function getOccurrences(): Collection
     {
         return $this->occurrences;
     }
@@ -343,42 +336,6 @@ class Event
                 $occurrence->setEvent(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getBackgroundColor(): ?string
-    {
-        return $this->backgroundColor;
-    }
-
-    public function setBackgroundColor(?string $backgroundColor): static
-    {
-        $this->backgroundColor = $backgroundColor;
-
-        return $this;
-    }
-
-    public function getTextColor(): ?string
-    {
-        return $this->textColor;
-    }
-
-    public function setTextColor(?string $textColor): static
-    {
-        $this->textColor = $textColor;
-
-        return $this;
-    }
-
-    public function getBorderColor(): ?string
-    {
-        return $this->borderColor;
-    }
-
-    public function setBorderColor(?string $borderColor): static
-    {
-        $this->borderColor = $borderColor;
 
         return $this;
     }
