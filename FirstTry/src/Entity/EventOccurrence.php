@@ -27,7 +27,7 @@ class EventOccurrence
 
     ###################### Relations
 
-    #[ORM\ManyToOne(inversedBy: 'Occurrences')]
+    #[ORM\ManyToOne(inversedBy: 'Occurrences', cascade:['remove'])]
     private ?Event $event = null;
 
     /**

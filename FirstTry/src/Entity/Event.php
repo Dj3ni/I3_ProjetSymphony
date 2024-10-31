@@ -81,7 +81,7 @@ class Event
     /**
      * @var Collection<int, EventOccurrence>
      */
-    #[ORM\OneToMany(targetEntity: EventOccurrence::class, mappedBy: 'event')]
+    #[ORM\OneToMany(targetEntity: EventOccurrence::class, mappedBy: 'event', cascade:['remove'])]
     private Collection $occurrences;
 
 
@@ -98,7 +98,7 @@ class Event
     #[Assert\Callback] //will be called when entity validated
     public function isDatesValid(ExecutionContextInterface $context): void
     {
-        // Context let us send a persinalized msg and will be checked with isValid in form
+        // Context let us send a personalized msg and will be checked with isValid in form
         if($this->dateEnd < $this->dateStart){
             $context->buildViolation("Date End must me after Date start")
                     ->atPath("dateEnd") //error field
@@ -183,37 +183,6 @@ class Event
         return $this;
     }
 
-    /**
-     * @return Collection<int, EventSubscription>
-     */
-    /*
-    public function getSubscriptions(): Collection
-    {
-        return $this->subscriptions;
-    }
-
-    public function addSubscription(EventSubscription $subscription): static
-    {
-        if (!$this->subscriptions->contains($subscription)) {
-            $this->subscriptions->add($subscription);
-            $subscription->setEventSubscripted($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSubscription(EventSubscription $subscription): static
-    {
-        if ($this->subscriptions->removeElement($subscription)) {
-            // set the owning side to null (unless already changed)
-            if ($subscription->getEventSubscripted() === $this) {
-                $subscription->setEventSubscripted(null);
-            }
-        }
-        
-        return $this;
-    }
-    */
     /**
      * @return Collection<int, EventPlace>
      */

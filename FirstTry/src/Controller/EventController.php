@@ -116,7 +116,7 @@ class EventController extends AbstractController
 ################## Delete Event Form
 
     #[Route('/delete_event/{id}', name: 'delete_event')]
-    public function deleteEvent(int $id, EventRepository $rep, Request $request): Response
+    public function deleteEvent(int $id, EventRepository $rep): Response
     {
         // 1. Create new empty object
         $event = $rep->find($id);

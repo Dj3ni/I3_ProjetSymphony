@@ -26,11 +26,11 @@ class EventOccurrenceSubscription
 #################### Relations ###################################################
     
     #[ORM\ManyToOne(inversedBy: 'occurrencesSubscriptions')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'subscriptions')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'subscriptions', cascade:['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true)]
     private ?EventOccurrence $eventOccurrence = null;
 
 #####################  Functions ################################    
