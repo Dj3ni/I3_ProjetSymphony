@@ -14,6 +14,11 @@
         {{message}}
     </div>
 {% endfor %}
+{% for message in app.flashes("event_delete_success") %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
 
 <header>
     <h1>
@@ -88,10 +93,10 @@
 
             {% if occurrence.dateStart >= "now"|date %}
                 <li>
-                    {# <a href= "{{ path ("occurrence_show", {id: occurrences.id} )}}" class = "occurrence-link">                      #}
-                        {{ occurrence.dateStart|date('d-m-Y H:i') }} to {{ occurrence.dateEnd|date('d-m-Y H:i') }}
-                        <a href="{{ path ('delete_occurrence', {id:occurrence.id})}}"class="card-link">❌</a>
-                    </a>
+                    {# < href= "{{ path ("occurrence_show", {id: occurrences.id} )}}" class = "occurrence-link">                      #}
+                    {{ occurrence.dateStart|date('d-m-Y H:i') }} to {{ occurrence.dateEnd|date('d-m-Y H:i') }}
+                    <a href="{{ path ('delete_occurrence', {id:occurrence.id})}}"class="card-link">❌</a>
+                    <a href="{{ path ('update_occurrence', {id:occurrence.id})}}"class="card-link">✏️</a>
                 </li>
             {% endif %}
         {% endfor %}

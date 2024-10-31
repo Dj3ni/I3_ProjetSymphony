@@ -7,6 +7,7 @@ use App\Entity\Event;
 use App\Entity\EventOccurrence;
 use App\EventOccurrenceGenerator;
 use App\Form\CreateEventFormType;
+use App\Form\EventOccurrenceFormType;
 use App\Repository\EventRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -172,6 +173,32 @@ class EventController extends AbstractController
         $this->addFlash("event_delete_success", "Your occurrence was successfully removed!");
         return $this->redirectToRoute("event", [
             "id" => $occurrence->getEvent()->getId(),
+        ]);
+    }
+
+    #[Route('/update_event_occurrence/{id}' , name: "update_occurrence")]
+    public function updateOccurrence(EventOccurrence $occurrence, Request $request): Response
+    {
+        $form = $this->createForm(EventOccurrenceFormType::class, $occurrence);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $occurrence->setDateStart($form->get("dateStart")->getData())
+                        ->setDateEnd($form->get("dateEnd")->getData());
+            
+            $em = $this->doctrine->getManager();
+            $em->flush();
+
+            $this->addFlash("event_update_success", "Your occurrence was successfully updated!");
+            return $this->redirectToRoute("event", [
+                "id" => $occurrence->getEvent()->getId(),
+            ]);
+        }
+            
+        return $this->render("event/event_occurrence_update.html.twig", [
+            "id" => $occurrence->getEvent()->getId(),
+            "form"=>$form,
+            "event"=> $occurrence->getEvent(),
+            "occurrence"=>$occurrence,
         ]);
     }
     
