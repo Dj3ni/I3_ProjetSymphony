@@ -19,6 +19,11 @@
         {{message}}
     </div>
 {% endfor %}
+{% for message in app.flashes("event_create_success") %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
 
 <header>
     <h1>
@@ -84,12 +89,16 @@
 
     <h3>All the dates for this event</h3>
 <div class = "event-description">
-            {# {{ dump(occurrences.id) }} #}
             {# {{ dump(occurrences) }} #}
+        <div class="div-btn">
+            <button class="btn btn-primary btn-block">
+                <a href="{{ path ("create_occurrence", {event: event.id})}}">➕ add an occurrence</a>
+            </button>
+        </div>
     <ul>
         {% for occurrence in occurrences %}
-            {{dump(occurrence)}}
-            {{dump(occurrence.id)}}
+            {# {{dump(occurrence)}} #}
+            {# {{dump(occurrence.id)}} #}
 
             {% if occurrence.dateStart >= "now"|date %}
                 <li>
