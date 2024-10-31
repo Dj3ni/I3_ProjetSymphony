@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241031172340 extends AbstractMigration
+final class Version20241031223643 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -32,7 +32,7 @@ final class Version20241031172340 extends AbstractMigration
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA794589191 FOREIGN KEY (user_organisator_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE event_occurrence ADD CONSTRAINT FK_E61358DC71F7E88B FOREIGN KEY (event_id) REFERENCES event (id)');
         $this->addSql('ALTER TABLE event_occurrence_subscription ADD CONSTRAINT FK_FD585EE9A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
-        $this->addSql('ALTER TABLE event_occurrence_subscription ADD CONSTRAINT FK_FD585EE9140E9F00 FOREIGN KEY (event_occurrence_id) REFERENCES event_occurrence (id)');
+        $this->addSql('ALTER TABLE event_occurrence_subscription ADD CONSTRAINT FK_FD585EE9140E9F00 FOREIGN KEY (event_occurrence_id) REFERENCES event_occurrence (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE event_place ADD CONSTRAINT FK_3506E2E171F7E88B FOREIGN KEY (event_id) REFERENCES event (id)');
         $this->addSql('ALTER TABLE event_place ADD CONSTRAINT FK_3506E2E117EC9A18 FOREIGN KEY (gaming_place_id) REFERENCES gaming_place (id)');
         $this->addSql('ALTER TABLE gaming_place ADD CONSTRAINT FK_A60B6C3FF5B7AF75 FOREIGN KEY (address_id) REFERENCES address (id)');
