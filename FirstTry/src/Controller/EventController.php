@@ -116,32 +116,62 @@ class EventController extends AbstractController
 ################## Delete Event
 
     #[Route('/delete_event/{id}', name: 'delete_event')]
-    public function deleteEvent(int $id, EventRepository $rep): Response
+    public function deleteEvent(Event $event, Request $request): Response
     {
-        // 1. Create new empty object
-        $event = $rep->find($id);
-        // dd($event);
-        
-        // 2. Get linked entities and remove them
-        
-        $eventPlaces = $event->getEventPlaces();
-        // dd($eventPlaces);
-        
-        $em = $this->doctrine->getManager();
-        
-        foreach($eventPlaces as $eventPlace){
-            $em->remove($eventPlace);
+        // We want to protect deletion by asking if sure:
+            if ($request->isMethod("POST")){
+                $action = $request->request->get("action"); //listens to the action type
+                $em = $this->doctrine->getManager();
+
+                if ($action === "delete_event"){
+                    // Delete event and occurrences
+    
+                    // 2. Get linked entities and remove them        
+                    $eventPlaces = $event->getEventPlaces();
+                    // dd($eventPlaces);                
+                    foreach($eventPlaces as $eventPlace){
+                        $em->remove($eventPlace);
+                    }
+                    
+                    // 3. Remove Event
+                    $em->remove($event);
+                }   
+                else if ($action === "delete_occurrences"){
+                    // Delete only occurrences
+                    foreach ($event->getOccurrences() as $occurrence){
+                        $em->remove($occurrence);
+                    }
+                    return $this->redirectToRoute("event",[
+                        "id"=> $event->getId(),
+                    ]);
+                }
+
+                // 4.Sync in DB
+                $em->flush();
+                
+                // 5. Redirect with message
+                $this->addFlash("event_delete_success", "Your event was successfully removed!");
+                return $this->redirectToRoute("event_search");
+            }
+
+        return $this->render("event/confirm_delete.html.twig", [
+            "event"=> $event,
+        ]);
+    }
+    
+    #[Route('/delete_event_occurrence/{id}' , name: "delete_occurrence")]
+    public function deleteOccurrence(EventOccurrence $occurrence): Response
+    {
+        // Check if occurrence exists
+        if($occurrence){
+            $em = $this->doctrine->getManager();
+            $em->remove($occurrence);
+            $em->flush();
         }
-        
-        // 3. Remove Event
-        $em->remove($event);
-        
-        // 4.Sync in DB
-        $em->flush();
-        
-        // 5. Redirect with message
-        $this->addFlash("event_delete_success", "Your event was successfully removed!");
-        return $this->redirectToRoute("event_search");
+        $this->addFlash("event_delete_success", "Your occurrence was successfully removed!");
+        return $this->redirectToRoute("event", [
+            "id" => $occurrence->getEvent()->getId(),
+        ]);
     }
     
     #[Route("occurrence/{id}", name:"occurrence_show")]
@@ -151,25 +181,5 @@ class EventController extends AbstractController
             "occurrence" => $occurrence,
         ]);
     }
-
-    
-    // For debug event occurences service
-
-    // #[Route("/event/{id}/occurrences")]
-    // public function showEventOccurrences( Event $event):Response
-    // {
-
-        // Init Event Occurrences
-    
-    //     if (!$event) {
-        //         throw $this->createNotFoundException('Event not found');
-        //     }
-        //     $occurrences = $this->occurrenceGenerator->generateOccurrences($event);
-        
-        //     return $this->render("event/occurrences.html.twig", [
-            //         "event"=>$event,
-            //         "occurrences"=>$occurrences,
-            //     ]);
-            // }
             
 }
