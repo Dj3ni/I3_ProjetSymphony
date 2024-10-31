@@ -162,6 +162,7 @@ class EventController extends AbstractController
     #[Route('/delete_event_occurrence/{id}' , name: "delete_occurrence")]
     public function deleteOccurrence(EventOccurrence $occurrence): Response
     {
+        // dd($occurrence->getEvent()->getId());
         // Check if occurrence exists
         if($occurrence){
             $em = $this->doctrine->getManager();
@@ -174,12 +175,12 @@ class EventController extends AbstractController
         ]);
     }
     
-    #[Route("occurrence/{id}", name:"occurrence_show")]
-    public function occurrenceShow(EventOccurrence $occurrence):Response
-    {
-        return $this->render("event/event_info.html.twig", [
-            "occurrence" => $occurrence,
-        ]);
-    }
+    // #[Route("occurrence/{id}", name:"occurrence_show")]
+    // public function occurrenceShow(EventOccurrence $occurrence):Response
+    // {
+    //     return $this->render("event/event_info.html.twig", [
+    //         "occurrence" => $occurrence,
+    //     ]);
+    // }
             
 }
