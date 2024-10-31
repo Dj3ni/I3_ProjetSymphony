@@ -85,9 +85,9 @@ class SubscriptionsController extends AbstractController
                     $subscribe = true;
                 }
                 // if unchecked and user already subscripted, delete subscription
-                else{
-                    $em->remove($eventOccurrenceSubscription);
-                }
+                // else{
+                //     $em->remove($eventOccurrenceSubscription);
+                // }
 
                 // if checked, persist()
                 if($subscribe){

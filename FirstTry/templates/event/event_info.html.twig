@@ -40,6 +40,7 @@
                 <p>Type: {{event.eventType.value}}</p>
                 <img src="/images/{{event.eventType.value}}.png" alt="{{event.eventType.value}}">
             </div>
+            <p>Recurrence: {{event.recurrenceType.value}}</p>
             <p>Starts: {{event.dateStart | date("d/m/y H:i")}}</p>
             <p>Ends: {{event.dateEnd | date("d/m/y H:i")}}</p>
             <p>Fee: {{event.fee}}</p>

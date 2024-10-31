@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Demo;
 use App\Entity\Event;
+use App\Entity\EventOccurrence;
 use App\EventOccurrenceGenerator;
 use App\Form\CreateEventFormType;
 use App\Repository\EventRepository;
@@ -59,7 +60,7 @@ class EventController extends AbstractController
 
     #[Route('/create_event', name: 'create_event')]
     #[IsGranted('ROLE_ADMIN')]
-    public function createEvent(Request $request): Response
+    public function createEvent(Request $request, EventOccurrenceGenerator $occurrenceGenerator): Response
     {
         // 1. Create new empty object
         $event = new Event();
@@ -71,7 +72,10 @@ class EventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($form);
             $em = $this->doctrine->getManager();
+            $event->setUserOrganisator($this->getUser());
             $em->persist($event);
+            // Create Occurrences
+            $occurrenceGenerator->generateOccurrences($event);
             $em->flush();
             $this->addFlash("event_create_success", "Event successfully created!");
             return $this->redirectToRoute("event_search");
@@ -80,25 +84,37 @@ class EventController extends AbstractController
             'form' => $form,
         ]);
     }
-    
+
+
 ############### Update Event Form
 
     #[Route('/update_event/{id}', name: 'update_event')]
-    public function updateEvent(int $id, EventRepository $rep, Request $request): Response
+    public function updateEvent(Event $event, EventOccurrenceGenerator $occurrenceGenerator, Request $request): Response
     {
-        // 1. Create new empty object
-        $event = $rep->find($id);
-        // dd($event);
+        $em = $this->doctrine->getManager();
+        
+        // 1. Stock old recurrence to check if change
+        $oldReccurrence = $event->getRecurrenceType();
+        
         // 2. Create new Form
         $form = $this->createForm(CreateEventFormType::class, $event);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($form);
-            // 3.Send in DB
-            $em = $this->doctrine->getManager();
-            
-            $em->flush();
+            //  Check if recurrence change
+            if ($event->getRecurrenceType() !== $oldReccurrence){
+                // Remove old occurrences
+                foreach($event->getOccurrences() as $occurrence){
+                    $event->removeOccurrence($occurrence);
+                }
+                // create new occurences
+                $occurrenceGenerator->generateOccurrences($event);
+                
+                // 3.Send in DB
+                $em->flush();
+            }
+
             $this->addFlash("event_update_success", "Your event is now up-to-date");
             return $this->redirectToRoute("event_search");
         }

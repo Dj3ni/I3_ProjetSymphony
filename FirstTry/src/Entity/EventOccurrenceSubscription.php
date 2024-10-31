@@ -29,7 +29,7 @@ class EventOccurrenceSubscription
     #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'subscriptions', cascade:['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'subscriptions', cascade:['remove'])]
     #[ORM\JoinColumn(nullable: true)]
     private ?EventOccurrence $eventOccurrence = null;
 

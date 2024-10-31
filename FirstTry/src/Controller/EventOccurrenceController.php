@@ -18,6 +18,9 @@ class EventOccurrenceController extends AbstractController
     public function __construct(ManagerRegistry $doctrine){
         $this->doctrine = $doctrine;
     }
+
+    ######################### Create Occurrence
+
     #[Route('/create_event_occurrence/{event}', name:'create_occurrence')]
     public function createOccurrence(Event $event, Request $request)
     {
@@ -44,6 +47,8 @@ class EventOccurrenceController extends AbstractController
         ]);
     }
     
+    ########################## Delete Occurrence
+
     #[Route('/delete_event_occurrence/{id}' , name: "delete_occurrence")]
     public function deleteOccurrence(EventOccurrence $occurrence): Response
     {
@@ -59,6 +64,8 @@ class EventOccurrenceController extends AbstractController
             "id" => $occurrence->getEvent()->getId(),
         ]);
     }
+
+    ################### Update Occurrence
 
     #[Route('/update_event_occurrence/{id}' , name: "update_occurrence")]
     public function updateOccurrence(EventOccurrence $occurrence, Request $request): Response
@@ -78,7 +85,7 @@ class EventOccurrenceController extends AbstractController
             ]);
         }
             
-        return $this->render("event/event_occurrence_update.html.twig", [
+        return $this->render("event_occurrence/event_occurrence_update.html.twig", [
             "id" => $occurrence->getEvent()->getId(),
             "form"=>$form,
             "event"=> $occurrence->getEvent(),
