@@ -113,7 +113,7 @@ class EventController extends AbstractController
         ]);
     }
     
-################## Delete Event Form
+################## Delete Event
 
     #[Route('/delete_event/{id}', name: 'delete_event')]
     public function deleteEvent(int $id, EventRepository $rep): Response
