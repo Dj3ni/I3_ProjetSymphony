@@ -84,11 +84,13 @@
     <ul>
         {% for occurrence in occurrences %}
             {{dump(occurrence)}}
+            {{dump(occurrence.id)}}
 
             {% if occurrence.dateStart >= "now"|date %}
                 <li>
                     {# <a href= "{{ path ("occurrence_show", {id: occurrences.id} )}}" class = "occurrence-link">                      #}
                         {{ occurrence.dateStart|date('d-m-Y H:i') }} to {{ occurrence.dateEnd|date('d-m-Y H:i') }}
+                        <a href="{{ path ('delete_occurrence', {id:occurrence.id})}}"class="card-link">❌</a>
                     </a>
                 </li>
             {% endif %}
