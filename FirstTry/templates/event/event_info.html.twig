@@ -47,13 +47,13 @@
             <p>Where:
                 <ul>
                 {% for place in places %}
-                {{ dump(place)}}
                     <li>{{place.gamingPlace.name}}: <br>
-                        <a href="">
+                {{ dump(place.gamingPlace.address)}}
+                        {# <a href="">
                         </iframe>
                             {{place.gamingPlace.address.street}}, {{place.gamingPlace.address.number}}<br>
                             {{place.gamingPlace.address.postCode}}  {{place.gamingPlace.address.city}}
-                        </a>
+                        </a> #}
                     </li>
                 {% endfor %}
                 </ul>   

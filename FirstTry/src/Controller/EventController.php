@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Constraints\Length;
 
 class EventController extends AbstractController
 {
@@ -50,10 +51,8 @@ class EventController extends AbstractController
         $occurrences = $event->getOccurrences();
         // dd($occurrences);
         $places = $event->getEventPlaces();
-        // foreach ($places as $place){
-        //     $place->getGamingPlace()->getAddress();
-        // }
-        // dd($places);
+    
+        // dd($places[0]->getGamingPlace()->getAddress());
 
         return $this->render('event/event_info.html.twig', [
             'event' => $event,
