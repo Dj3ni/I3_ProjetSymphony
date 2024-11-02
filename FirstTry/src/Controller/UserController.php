@@ -28,4 +28,10 @@ class UserController extends AbstractController
             "form"=>$form,
         ]);
     }
+
+    #[Route('/my_calendar', name:"user_calendar")]
+    public function personalCalendar()
+    {
+
+    }
 }

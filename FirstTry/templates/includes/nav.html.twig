@@ -44,16 +44,22 @@
                         <hr>
                         
                         {% if app.user %}
-                            <a href=" {{ path ('user_profile')}}" class = "sub-menu-link">
-                                <img src="/images/defaultAvatar.jpg" alt="profile">
-                                <p>My Profile</p>
-                                <span>></span>
-                            </a>
                             <a href="{{ path ('app_logout')}}" class = "sub-menu-link">
                                 <img src="/images/logout.png" alt="logout">
                                 <p>Logout</p>
                                 <span>></span>
                             </a>
+                            <a href=" {{ path ('user_profile')}}" class = "sub-menu-link">
+                                <img src="/images/defaultAvatar.jpg" alt="profile">
+                                <p>My Profile</p>
+                                <span>></span>
+                            </a>
+                            <a href=" {{ path ('user_calendar')}}" class = "sub-menu-link">
+                                <img src="" alt="personal Calendar">
+                                <p>My Calendar</p>
+                                <span>></span>
+                            </a>
+
                         {% else %}
                         <a href="{{ path ('app_login')}}" class = "sub-menu-link">
                             <img src="/images/login.png" alt="login">

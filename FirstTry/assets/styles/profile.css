@@ -1,0 +1,21 @@
+.onglets-btn{
+    /* -webkit-appearance: none; */
+    /* background-color: red; */
+    border : 0px;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.tab-content{
+    border:1px solid;
+    /* border-color: red; */
+}
+
+.mTop10{
+    margin-top: 10px;
+}
+
+button.active {
+    background-color: black;
+    color: white;
+}

@@ -23,4 +23,4 @@ Tout Ok si J'ajoute un avatar lors de l'inscription, par contre j'ai un problèm
 
 ## Problème avec Les formulaires imbriqués:
 <!-- CRSF Token Invalid lors de la soumission du formulaire et n'ajoute pas dans la DB -->
-Problème réglé mais depuis que c'est fait, je n'ai plus accès aux données de l'addresse via Twig 
+<!-- Problème réglé mais depuis que c'est fait, je n'ai plus accès aux données de l'addresse via Twig  --> problème réglé
