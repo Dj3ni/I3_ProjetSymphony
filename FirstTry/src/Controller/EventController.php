@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Demo;
 use App\Entity\Event;
 use App\Entity\EventOccurrence;
+use App\Entity\EventPlace;
 use App\EventOccurrenceGenerator;
 use App\Form\CreateEventFormType;
 use App\Repository\EventRepository;
@@ -64,6 +65,8 @@ class EventController extends AbstractController
     {
         // 1. Create new empty object
         $event = new Event();
+        $eventPlace = new EventPlace();
+        $event->addEventPlace($eventPlace);
         // 2. Create new Form
         $form = $this->createForm(CreateEventFormType::class, $event);
         $form->handleRequest($request);
