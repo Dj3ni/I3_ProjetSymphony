@@ -48,12 +48,11 @@
                 <ul>
                 {% for place in places %}
                     <li>{{place.gamingPlace.name}}: <br>
-                {{ dump(place.gamingPlace.address)}}
-                        {# <a href="">
+                        <a href="">
                         </iframe>
                             {{place.gamingPlace.address.street}}, {{place.gamingPlace.address.number}}<br>
                             {{place.gamingPlace.address.postCode}}  {{place.gamingPlace.address.city}}
-                        </a> #}
+                        </a>
                     </li>
                 {% endfor %}
                 </ul>   

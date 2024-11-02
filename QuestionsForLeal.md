@@ -22,4 +22,5 @@ J'ai créé un simple formulaire, non lié à une entité. Cependant, dans les t
 Tout Ok si J'ajoute un avatar lors de l'inscription, par contre j'ai un problème de sérialization si je souhaite faire un update /changer la photo. Quand je "règle" le problème de sérialization, toutes les modifs du formulaire se font, la photo ne change pas et j'ai un message d'erreur de "CSRF Token Invalide".
 
 ## Problème avec Les formulaires imbriqués:
-CRSF Token Invalid lors de la soumission du formulaire et n'ajoute pas dans la DB
+<!-- CRSF Token Invalid lors de la soumission du formulaire et n'ajoute pas dans la DB -->
+Problème réglé mais depuis que c'est fait, je n'ai plus accès aux données de l'addresse via Twig 
