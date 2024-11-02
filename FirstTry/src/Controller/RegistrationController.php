@@ -38,13 +38,9 @@ class RegistrationController extends AbstractController
             // // dd($this->getParameter("kernel.project_dir"));
             // $file->move($this->getParameter("kernel.project_dir")."/public/uploads",$fileName);
             // $user->setAvatar($fileName);
-
-
             
             $entityManager->persist($user);
             $entityManager->flush();
-
-
 
             $user->setAvatarFile(null);
 
