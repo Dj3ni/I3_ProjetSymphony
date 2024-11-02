@@ -48,14 +48,6 @@ class AddressFormType extends AbstractType
             ->add('country', TextType::class,[
                 "data"=> "Belgium",
             ])
-            // ->add('user', EntityType::class, [
-            //     'class' => User::class,
-            //     'choice_label' => 'id',
-            // ])
-            // ->add('gamingPlace', EntityType::class, [
-            //     'class' => GamingPlace::class,
-            //     'choice_label' => 'id',
-            // ])
         ;
     }
 

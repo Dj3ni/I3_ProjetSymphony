@@ -35,13 +35,13 @@ class GamingPlace
 
 #################### Relations ###################################################
 
-    #[ORM\OneToOne(inversedBy: 'gamingPlace', cascade: ['persist', 'remove'])]
-    private ?Address $Address = null;
+    #[ORM\OneToOne(inversedBy: 'gamingPlace')]
+    private ?Address $address = null;
 
     /**
      * @var Collection<int, EventPlace>
      */
-    #[ORM\OneToMany(targetEntity: EventPlace::class, mappedBy: 'gamingPlace', cascade:['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: EventPlace::class, mappedBy: 'gamingPlace', cascade:['persist', 'remove'], fetch: 'EAGER')]
     private Collection $eventPlaces;
 
 #####################  Functions #########################################
@@ -107,12 +107,12 @@ class GamingPlace
 
     public function getAddress(): ?Address
     {
-        return $this->Address;
+        return $this->address;
     }
 
-    public function setAddress(?Address $Address): static
+    public function setAddress(?Address $address): static
     {
-        $this->Address = $Address;
+        $this->address = $address;
 
         return $this;
     }

@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Demo;
+use App\Entity\Address;
 use App\Entity\Event;
 use App\Entity\EventOccurrence;
 use App\Entity\EventPlace;
+use App\Entity\GamingPlace;
 use App\EventOccurrenceGenerator;
 use App\Form\CreateEventFormType;
 use App\Repository\EventRepository;
@@ -48,6 +50,9 @@ class EventController extends AbstractController
         $occurrences = $event->getOccurrences();
         // dd($occurrences);
         $places = $event->getEventPlaces();
+        // foreach ($places as $place){
+        //     $place->getGamingPlace()->getAddress();
+        // }
         // dd($places);
 
         return $this->render('event/event_info.html.twig', [
@@ -63,18 +68,29 @@ class EventController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function createEvent(Request $request, EventOccurrenceGenerator $occurrenceGenerator): Response
     {
+        $em = $this->doctrine->getManager();
+
         // 1. Create new empty object
         $event = new Event();
         $eventPlace = new EventPlace();
+        $gamingPlace = new GamingPlace();
+        $gamingAddress = new Address();
+
+        $em->persist($gamingAddress);
+        $gamingPlace->setAddress($gamingAddress);
+        $em->persist($gamingPlace);
+        $eventPlace->setGamingPlace($gamingPlace);
         $event->addEventPlace($eventPlace);
+        $em->persist($eventPlace);
+        $em->persist($event);
         // 2. Create new Form
         $form = $this->createForm(CreateEventFormType::class, $event);
         $form->handleRequest($request);
         
         // 3.Send in DB
         if ($form->isSubmitted() && $form->isValid()) {
+            // dd($form->getErrors(true, false));
             // dd($form);
-            $em = $this->doctrine->getManager();
             $event->setUserOrganisator($this->getUser());
             $em->persist($event);
             // Create Occurrences
@@ -113,13 +129,12 @@ class EventController extends AbstractController
                 }
                 // create new occurences
                 $occurrenceGenerator->generateOccurrences($event);
-                
-                // 3.Send in DB
-                $em->flush();
             }
-
+            // 3.Send in DB
+            $em->flush();
+            
             $this->addFlash("event_update_success", "Your event is now up-to-date");
-            return $this->redirectToRoute("event_search");
+            return $this->redirectToRoute("event", ["id"=> $event->getId()]);
         }
         
         return $this->render('event/event_update_form.html.twig', [

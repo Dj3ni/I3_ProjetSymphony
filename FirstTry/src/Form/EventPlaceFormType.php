@@ -5,9 +5,10 @@ namespace App\Form;
 use App\Entity\Event;
 use App\Entity\EventPlace;
 use App\Entity\GamingPlace;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Form\GamingPlaceFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EventPlaceFormType extends AbstractType

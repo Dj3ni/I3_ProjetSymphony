@@ -50,8 +50,9 @@
         <input type="hidden" name="_csrf_token"
             value="{{ csrf_token('authenticate') }}"
         >
-        {{ form_widget(form.save)}}
+        {{ form_widget (form.save)}}
         <br>
-    {{ form_end(form,{'render_rest': false}) }}
+        {{form_end (form)}}
+    {# {{ form_end(form,{'render_rest': false}) }} #}
 </div>
 {% endblock %}

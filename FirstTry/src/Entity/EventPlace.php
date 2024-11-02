@@ -16,10 +16,10 @@ class EventPlace
 #################### Relations ###################################################
 
 
-    #[ORM\ManyToOne(inversedBy: 'eventPlaces')]
+    #[ORM\ManyToOne(inversedBy: 'eventPlaces', cascade:['persist', 'remove'])]
     private ?Event $event = null;
 
-    #[ORM\ManyToOne(inversedBy: 'eventPlaces')]
+    #[ORM\ManyToOne(inversedBy: 'eventPlaces', cascade:['persist', 'remove'])]
     private ?GamingPlace $gamingPlace = null;
 
 #####################  Functions #########################################
