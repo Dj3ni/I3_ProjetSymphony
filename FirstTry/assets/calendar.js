@@ -6,7 +6,6 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import axios from "axios";
 
-
 // Css
 import "./styles/calendar.css";
 

@@ -20,16 +20,16 @@ import axios from "axios";
 
 
 /***************** Hidden submenu nav *****************/ 
+document.addEventListener("DOMContentLoaded",() => {
+    const SUB_MENU = document.getElementById("subMenu");
+    const AVATAR = document.querySelector(".avatar");
+    // console.log(SUB_MENU);
+    // console.log(AVATAR);
 
-const SUB_MENU = document.getElementById("subMenu");
-const AVATAR = document.querySelector(".avatar");
-// console.log(SUB_MENU);
-// console.log(AVATAR);
-
-AVATAR.addEventListener("click", function(){
-    SUB_MENU.classList.toggle("open-menu");
+    AVATAR.addEventListener("click", function(){
+        SUB_MENU.classList.toggle("open-menu");
+    })
 })
-
 
 /********************* Ajax Search Form ****************/ 
 
