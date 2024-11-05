@@ -91,11 +91,13 @@
     <h3>All the dates for this event</h3>
 <div class = "event-description">
             {# {{ dump(occurrences) }} #}
-        <div class="div-btn">
-            <button class="btn btn-primary btn-block">
-                <a href="{{ path ("create_occurrence", {event: event.id})}}">➕ add an occurrence</a>
-            </button>
-        </div>
+            {% if is_granted("ROLE_ADMIN") %}
+                <div class="div-btn">
+                    <button class="btn btn-primary btn-block">
+                        <a href="{{ path ("create_occurrence", {event: event.id})}}">➕ add an occurrence</a>
+                    </button>
+                </div>
+            {% endif %}
     <ul>
         {% for occurrence in occurrences %}
             {# {{dump(occurrence)}} #}
@@ -103,10 +105,12 @@
 
             {% if occurrence.dateStart >= "now"|date %}
                 <li>
-                    {# < href= "{{ path ("occurrence_show", {id: occurrences.id} )}}" class = "occurrence-link">                      #}
+                    {# < href= "{{ path ("occurrence_show", {id: occurrences.id} )}}" class = "occurrence-link">#}
                     {{ occurrence.dateStart|date('d-m-Y H:i') }} to {{ occurrence.dateEnd|date('d-m-Y H:i') }}
-                    <a href="{{ path ('delete_occurrence', {id:occurrence.id})}}"class="card-link">❌</a>
-                    <a href="{{ path ('update_occurrence', {id:occurrence.id})}}"class="card-link">✏️</a>
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <a href="{{ path ('delete_occurrence', {id:occurrence.id})}}"class="card-link">❌</a>
+                        <a href="{{ path ('update_occurrence', {id:occurrence.id})}}"class="card-link">✏️</a>
+                    {% endif %}
                 </li>
             {% endif %}
         {% endfor %}
