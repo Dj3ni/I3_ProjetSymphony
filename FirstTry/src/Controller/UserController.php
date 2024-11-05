@@ -37,4 +37,19 @@ class UserController extends AbstractController
 
         ]);
     }
+
+    #[Route('/my_subscriptions', name:"user_subscriptions")]
+    public function personalSubscriptions(): Response
+    {
+        $user = $this->getUser();
+        // dd($user);
+        $subscriptions = $user->getOccurrencesSubscriptions();
+        // dd($subscriptions);
+        
+        return $this->render("user/user_subscriptions.html.twig", [
+            // "events"=> $events,
+            "subscriptions"=>$subscriptions,
+
+        ]);
+    }
 }
