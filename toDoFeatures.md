@@ -9,33 +9,37 @@ MVP4: Create and subscribe to a game session
 
 
 ## MVP1 features
-- Login / Logout / Sign up -> ok
-- Events list -> ok
-- Event details -> ok
-- search for an event with filters
-- Subscribe to an event if logged-in -> ok
-- if admin: update and create event + redirect when send ->ok
-- contact page + contact form -> ok
-- address ->ok
+<!-- - Login / Logout / Sign up -> ok -->
+<!-- - Events list -> ok -->
+<!-- - Event details -> ok -->
+- search for an event with filters-> ok but with ajax is better
+<!-- - Subscribe to an event if logged-in -> ok -->
+<!-- - if admin: update and create event + redirect when send ->ok -->
+<!-- - contact page + contact form -> ok -->
+<!-- - address ->ok -->
 
 To do:
-- finish wireframe -> ok
-- endEvent must be later than startEvent -> ok
-- add occurency for events -> ok
-- add default value for fee = free -> ok
-- events search -> Ajax search ok, search with filters to do
-- create address entity and link it with User and Gaming Place -> ok
+<!-- - finish wireframe -> ok -->
+<!-- - endEvent must be later than startEvent -> ok -->
+<!-- - add occurency for events -> ok -->
+<!-- - add default value for fee = free -> ok -->
+- events search -> Ajax search ok, Ajax search with filters to do 
+<!-- - create address entity and link it with User and Gaming Place -> ok -->
 - manage users + user access for admin
-- message when form submitted ->ok
-- contact page ->ok
+<!-- - message when form submitted ->ok -->
+<!-- - contact page ->ok -->
 - create validation rules for forms (email,pwd,...)
-- upload d'images
+- upload d'images -> bug to fix with avatar
+
+### Bonus
+- sync agenda with google calendar
+- sync address with a map (https://www.youtube.com/watch?v=1ZmHG3cqPAs) for tuto
 
 ### Comments
 - All entities, fixtures and relations for MVP1 ok
 
 ### Bugs known
-- Impossible to delete child event-> ok
+<!-- - Impossible to delete child event-> ok -->
 - improve email constraints, no error message appears when errors in all forms (except dateEnd)
 - no message when logged-out
 
