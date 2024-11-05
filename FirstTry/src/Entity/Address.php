@@ -41,13 +41,13 @@ class Address
     #[ORM\OneToOne(mappedBy: 'address', cascade: ['persist', 'remove'])]
     private ?User $user = null;
 
-    #[ORM\OneToOne(mappedBy: 'Address', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'address', cascade: ['persist', 'remove'])]
     private ?GamingPlace $gamingPlace = null;
 
 #####################  Functions #########################################
 
 
-    public function __construct(array $init){
+    public function __construct(array $init = []){
         $this->hydrate($init);
     }
 

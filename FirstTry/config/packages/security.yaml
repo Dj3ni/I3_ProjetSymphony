@@ -25,7 +25,6 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 target: home
-                
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -36,6 +35,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: /event_subscription/, roles: ROLE_USER }
+        - { path: /profile, roles: ROLE_USER }
+        - { path: /my_subscriptions, roles: ROLE_USER }
+        - { path: /my_calendar, roles: ROLE_USER }
         - { path: /update_event, roles: ROLE_ADMIN }
         - { path: /create_event, roles: ROLE_ADMIN }
 

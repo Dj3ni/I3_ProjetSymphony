@@ -6,7 +6,6 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import axios from "axios";
 
-
 // Css
 import "./styles/calendar.css";
 
@@ -21,6 +20,16 @@ document.addEventListener("DOMContentLoaded", () =>{
     // console.log(eventsJSONJS);
     // console.log(eventsJSONJSArray);
 
+    // I want all the event Occurrences to appear in my calendar
+    let allOccurrences = eventsJSONJSArray.map(occurrence => ({
+        id: occurrence.id,
+        title: occurrence.title,
+        start: occurrence.start,
+        end: occurrence.end,
+        eventType: occurrence.eventType
+    }));
+    console.log(allOccurrences);
+
     // 3. Calendar Creation, settings and events on click
     let calendarEl = document.getElementById("calendrier");
     let roles = JSON.parse(calendarEl.dataset.roles);
@@ -33,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () =>{
         // dayNumbers.forEach(dayNumber => {
         //     dayNumber.classList.add('no-hover');
         // });
-
     }
 
     var calendar = new Calendar(calendarEl, {
@@ -46,7 +54,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 
             // }
         // ],
-        events: eventsJSONJSArray, //Events gets an array of objects
+        events: allOccurrences,
+        // events: eventsJSONJSArray, //if don't use occurrences
         // url: data-events-url, //use  when url property in event entity
         displayEventTime: true, // display hours or not
         initialView: "dayGridMonth",
@@ -107,8 +116,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
             // OPTIONNEL: éviter doublons: Obtenir tous les Evenements du calendrier et chercher 
             // un événement ayant 
-            // le même title et
-            // le même start (ce critére est à vous de le choisir)
+            // le même title et le même start (ce critére est à vous de le choisir)
             var allEvents = calendar.getEvents();
             var existe = false;
             allEvents.forEach(function(value) 

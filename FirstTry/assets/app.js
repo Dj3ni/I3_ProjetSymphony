@@ -20,16 +20,16 @@ import axios from "axios";
 
 
 /***************** Hidden submenu nav *****************/ 
+document.addEventListener("DOMContentLoaded",() => {
+    const SUB_MENU = document.getElementById("subMenu");
+    const AVATAR = document.querySelector(".avatar");
+    // console.log(SUB_MENU);
+    // console.log(AVATAR);
 
-const SUB_MENU = document.getElementById("subMenu");
-const AVATAR = document.querySelector(".avatar");
-// console.log(SUB_MENU);
-// console.log(AVATAR);
-
-AVATAR.addEventListener("click", function(){
-    SUB_MENU.classList.toggle("open-menu");
+    AVATAR.addEventListener("click", function(){
+        SUB_MENU.classList.toggle("open-menu");
+    })
 })
-
 
 /********************* Ajax Search Form ****************/ 
 
@@ -46,25 +46,116 @@ SEARCH_FORM.addEventListener("input", function(){
 
     axios.post("/events/search", formData)
         .then( response => {
-            // What to do with response
-            console.log(response);
+                // console.log(response);
             // Clear previous response
             DIV_RESULT.innerHTML = "";
-     // We don't need to parse the response, axios does it
+            // We don't need to parse the response, axios does it alone
 
-        let arrayEvents = response.data; //It's already an array
-        let ul = document.createElement("ul");
+            let arrayEvents = response.data; //It's already an array
+
+            // I want to generate this html structure:
+
+            arrayEvents.forEach(event => {
+                console.log(event.eventType);
+                // Create card div
+                let cardDiv = document.createElement("div");
+                cardDiv.classList.add("card");
+                // cardDiv.style.width = "18rem";
+
+                // Create Card Body
+                let cardBody = document.createElement("div");
+                cardBody.classList.add("card-body")
+
+                // Title with link and add it to card body
+                let cardTitle = document.createElement("h5");
+                cardTitle.classList.add("card-title");
+                let titleLink = document.createElement("a");
+                titleLink.href = `/event/${event.id}`;
+                titleLink.textContent = event.title
+                cardTitle.appendChild(titleLink);
+                cardBody.appendChild(cardTitle);
+
+                // Event Type + image
+                let cardTypeDiv = document.createElement("div");
+                cardTypeDiv.classList.add("card-type");
+
+                let cardEventType = document.createElement("h6")
+                cardEventType.classList.add("card-subtitle", "mb-2", "text-body-secondary");
+                cardEventType.textContent = event.eventType;
+                let cardTypeImage = document.createElement("img");
+                cardTypeImage.src = `/images/${event.eventType}.png`;
+                cardTypeImage.alt = event.eventType;
+
+                cardTypeDiv.appendChild(cardEventType);
+                cardTypeDiv.appendChild(cardTypeImage);
+                cardBody.appendChild(cardTypeDiv);
+
+                // Horizontal rule
+                let hr = document.createElement("hr");
+                hr.classList.add("hr-xs");
+                cardBody.appendChild(hr);
+
+                // Card Text
+                let cardText = document.createElement("p");
+                cardText.classList.add("card-text");
+                cardText.textContent = event.description;
+                cardBody.appendChild(cardText);
+
+                // Card links section
+                let cardLinkDiv = document.createElement("div");
+                cardLinkDiv.classList.add("card-link-div");
+
+                let moreInfoLink = document.createElement("a");
+                moreInfoLink.href = `/event/${event.id}`;
+                moreInfoLink.classList.add("card-link");
+                moreInfoLink.textContent = "More info";
+
+                let subscribeLink = document.createElement("a");
+                subscribeLink.href = `/event_subscription/${event.id}`;
+                subscribeLink.classList.add("card-link");
+                subscribeLink.textContent = "Subscribe";
+
+                cardLinkDiv.appendChild(moreInfoLink);
+                cardLinkDiv.appendChild(subscribeLink);
+                // Admin control
+                if (event.isAdmin) { 
+                    let editLink = document.createElement("a");
+                    editLink.href = `/update_event/${event.id}`;
+                    editLink.classList.add("card-link");
+                    editLink.textContent = "✏️";
+
+                    let deleteLink = document.createElement("a");
+                    deleteLink.href = `/delete_event/${event.id}`;
+                    deleteLink.classList.add("card-link");
+                    deleteLink.textContent = "❌";
+
+                    cardLinkDiv.appendChild(editLink);
+                    cardLinkDiv.appendChild(deleteLink);
+                }
+
+                cardBody.appendChild(cardLinkDiv);
+                cardDiv.appendChild(cardBody);
+
+                // Append all elements to the result
+                DIV_RESULT.appendChild(cardDiv);
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching events:", error);
+        });
+
+        // For debug
+        // let ul = document.createElement("ul");
         
-        for(let element of arrayEvents){
-            // console.log(element);
-            let li = document.createElement("li");
-            li.innerHTML = element.title;
-            ul.appendChild(li);
-        }
-        DIV_RESULT.appendChild(ul);
+        // for(let element of arrayEvents){
+        //     // console.log(element);
+        //     let li = document.createElement("li");
+        //     li.innerHTML = element.title;
+        //     ul.appendChild(li);
+        // }
+        // DIV_RESULT.appendChild(ul);
     })
     
-})
 
 // // Handling the submit event, prevent reload and manage search
 // SEARCH_FORM.addEventListener("submit", function(event){

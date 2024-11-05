@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Enum\EventType;
 use App\Enum\RecurrenceType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -24,7 +25,7 @@ class CreateEventFormType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 "attr" =>[
-                    "placeholder" => "Event Title"
+                    "placeholder" => "Awesome Event Title"
                 ]
             ])
             ->add('dateStart', null, [
@@ -49,6 +50,20 @@ class CreateEventFormType extends AbstractType
             ->add('eventType', EnumType::class, [
                 "class"=>EventType::class,
             ])
+                // Add Gaming Place
+        
+            ->add("eventPlaces", CollectionType::class, [
+                "entry_type"=> EventPlaceFormType::class,
+                "allow_add"=>true,//I want to add multiple eventPlaces
+                "by_reference"=>false, //I only want to add or remove
+                "entry_options"=>[
+                    "label"=>false, // I don't want the id to appear
+                ],
+                "attr"=>[
+                    "data-controller"=> "form-collection"
+                ]
+            ])    
+
             ->add("save", SubmitType::class, [
                 "label"=> "Save this event"
             ])

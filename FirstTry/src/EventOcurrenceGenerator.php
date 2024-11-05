@@ -20,10 +20,8 @@ class EventOccurrenceGenerator
 ############## For each event occurence, I create a "child" event
 
     public function createEventOccurrence(Event $event, \DateTimeInterface $newStartDate, \DateTimeInterface $newEndDate) : EventOccurrence{
-        
+        // 1. Create New Instance
         $occurrence = new EventOccurrence();
-        // // 1. Clone original event
-        // $occurrence = clone $event;
 
         // 2. Modify Dates
         $occurrence->setDateStart($newStartDate)
@@ -37,7 +35,7 @@ class EventOccurrenceGenerator
 
 ############# Switch case for the recurrenceType
 
-    public function switchCasesOccurrences($recurrenceType, $currentStartDate, $currentEndDate ){
+    public function switchCasesOccurrences($recurrenceType, $currentStartDate, $currentEndDate){
         switch ($recurrenceType) {
             case RecurrenceType::DAILY:
                 $currentStartDate->modify('+1 day');
@@ -75,7 +73,7 @@ class EventOccurrenceGenerator
 
         // return $occurrences; 
 
-        $occurrencesWithEnd = [];
+        $occurrences = [];
         // Get start date and OcurrenceType from Form
         $dateStart = $event->getDateStart();
         $dateEnd = $event->getDateEnd();
@@ -108,14 +106,11 @@ class EventOccurrenceGenerator
             }
         }
         
-
         // Case 3: Iterate until end occurrenceCount or Date
         if ($recurrenceType === RecurrenceType::NONE){ // what to do if case == none
-
-            $occurrencesWithEnd[] = [
-                "startDate" => $currentStartDate,
-                "endDate" => $currentEndDate,
-            ];
+            // create and persist the only occurrence
+            $occurrence = $this->createEventOccurrence($event, clone $currentStartDate, clone $currentEndDate);
+            $occurrences[] = $occurrence;
         }
         else{
             while(
@@ -125,21 +120,22 @@ class EventOccurrenceGenerator
                     if ((!$currentStartDate || !$currentEndDate) instanceof \DateTime) {
                         throw new \Exception('currentDate is not an instance of \DateTime inside the loop');
                     }
+                
+                // Create and persist the first occurrence
+                $occurrence = $this->createEventOccurrence($event, clone $currentStartDate, clone $currentEndDate);
 
-                // Ajouter l'occurrence actuelle
-                $occurrencesWithEnd[] = [
-                    "startDate" => clone $currentStartDate,
-                    "endDate" => clone $currentEndDate,
-                ];
-
+                // Add current occurrence to array
+                $occurrences[] = $occurrence;
+                
+                // Modify dates
                 $this->switchCasesOccurrences($recurrenceType, $currentStartDate, $currentEndDate);
 
-                // Incrémenter le compteur d'occurrences
+                // Increment Reccurrence Count
                 $count++;
             }
         }
         $this->em->flush();
-        return $occurrencesWithEnd;
+        return $occurrences;
 
     }
 

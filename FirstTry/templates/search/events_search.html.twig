@@ -51,39 +51,42 @@
     {# <p>Search by type: </p> #}
     <nav class="navbar">
         <div class="type-search">
-            <a href="{{ path ('search_type',{type: "tournament"})}}">Tournament</a>
-            <img src="/images/tournament.png" alt="tournament">
+            <a href="{{ path ('search_type',{type: "tournament"})}}">Tournament
+                <img src="/images/tournament.png" alt="tournament">
+            </a>
         </div>
         <div class="type-search">
-            <a href="{{ path ('search_type',{type: "festival"})}}">Festival</a>
-            <img src="/images/festival.png" alt="festival">
+            <a href="{{ path ('search_type',{type: "festival"})}}">Festival
+                <img src="/images/festival.png" alt="festival">
+            </a>
         </div>        
         <div class="type-search">
-            <a href="{{ path ('search_type',{type: "boardgames_demo"})}}">Boardgames Demo</a>
-            <img src="/images/boardgames_demo.png" alt="boardgames-demo">
+            <a href="{{ path ('search_type',{type: "boardgames_demo"})}}">Boardgames Demo
+                <img src="/images/boardgames_demo.png" alt="boardgames-demo">
+            </a>
         </div>        
         <div class="type-search">
-            <a href="{{ path ('search_type',{type: "role_play"})}}">Role Play</a>
-            <img src="/images/role_play.png" alt="role-play">
+            <a href="{{ path ('search_type',{type: "role_play"})}}">Role Play
+                <img src="/images/role_play.png" alt="role-play">
+            </a>
         </div>        
         <div class="type-search">
-            <a href="{{ path ('search_type',{type: "gaming_sales"})}}">Gaming Sales</a>
-            <img src="/images/gaming_sales.png" alt="gaming-sales">
+            <a href="{{ path ('search_type',{type: "gaming_sales"})}}">Gaming Sales
+                <img src="/images/gaming_sales.png" alt="gaming-sales">
+            </a>
         </div>    
     </nav>
 </div>
-
 
 <div class = "div-btn">
     {% if is_granted ("ROLE_ADMIN") %}
         <button class ="btn btn-primary btn-block">
             <a href="{{ path ('create_event')}}">Create new event</a>
         </button>
-    {# Page to search the event to update it#}
-    {# <a href="{{ path ('update_events')}}">Update an event</a> #}
     {% endif %}
 </div>
 <br>
+
 <div id ="SearchResult" class = "card-section">
 {# In controller: if no research put all the events #}
     
@@ -100,7 +103,7 @@
                     <img src="/images/{{event.eventType.value}}.png" alt="{{event.eventType.value}}">
                 </div >
                 <hr class="hr-xs">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">{{event.description}}</p>
                 <div class = "card-link-div">
                     <a href="{{path ("event", {id: event.id})}}" class="card-link">More info</a>
                     <a href="{{ path ("event_subscription", {id:event.id})}}" class="card-link">Subscribe</a>
@@ -117,4 +120,9 @@
 
 
 {% endblock %}
+
+{# {% block javascripts %}
+    {{ parent()}}
+    {{ encore_entry_script_tags('searchForm')}}
+{% endblock %} #}
 

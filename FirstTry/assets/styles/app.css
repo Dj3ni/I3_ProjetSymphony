@@ -21,6 +21,16 @@ main {
     border-color: #525252;
 }
 
+.btn-danger{
+    margin: 15px;
+    background-color: red !important;
+}
+
+.btn-warning{
+    margin: 15px;
+    background-color: yellow !important;
+}
+
 .btn:hover{
     background-color: #96a2b2;
     border-color: #525252;
@@ -92,6 +102,7 @@ nav {
 }
 .avatar img {
     width: 50px;
+    height: 50px;
     border-radius: 50%;
     cursor: pointer;
     
@@ -136,6 +147,7 @@ nav {
 
 .user-info img {
     width: 60px;
+    height: 60px;
     border-radius: 50%;
     margin-right: 15px;
 }
@@ -151,6 +163,7 @@ nav {
 .sub-menu-link {
     display: flex;
     align-items: center;
+    /* vertical-align: middle; */
     text-decoration: none;
     color: #525252;
     margin:12px 0 ;
@@ -221,7 +234,7 @@ nav {
 
 .login-block .input-group-addon
 {
-    color:#29aafe;
+    color:#525252;
     font-size:19px;
     opacity:.5
 }
@@ -229,8 +242,8 @@ nav {
 {
     margin-top:30px;
     padding:15px;
-    background:#29aafe;
-    border-color:#29aafe;
+    background-color:#525252 ;
+    border-color: #525252;
 }
 .login-block .hr-xs
 {
@@ -310,4 +323,6 @@ nav {
     justify-content: space-between;
     align-items: center;
 }
+
+
 

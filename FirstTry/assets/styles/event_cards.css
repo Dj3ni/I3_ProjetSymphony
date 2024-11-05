@@ -18,6 +18,12 @@
     width: 350px;
 }
 
+.card-text {
+    max-height: 100px;
+    overflow: hidden;          
+    text-overflow: ellipsis;
+}
+
 .card-link {
     text-decoration: none;
     color: #525252;

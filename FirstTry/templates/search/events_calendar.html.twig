@@ -28,7 +28,7 @@
     {% else %} 
         {{ [] | json_encode() }}
     {% endif %}"
-    data-calendrier="{{ eventsJson }}"  
+    data-calendrier="{{ occurrencesJson }}"  
     {% for event in events %}
         data-events-url="{{ path('event',{"id":event.id}) }}"
     {% endfor %}>

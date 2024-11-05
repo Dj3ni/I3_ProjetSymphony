@@ -2,18 +2,26 @@
 
 namespace App\Entity;
 
+
+use Doctrine\ORM\Mapping as ORM;
 use App\HydrateTrait\HydrateTrait;
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Serializer\Attribute\SerializedName;
+use Symfony\Component\Validator\Constraints\Image;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[Vich\Uploadable]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use HydrateTrait;
@@ -47,17 +55,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $phoneNumber = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $avatar = null;
+
+    #[Vich\UploadableField(mapping: "uploads", fileNameProperty: "avatar")]
+    // #[SerializedName()]
+    // #[Assert\Image()] doesn't work
+    private ?File $avatarFile = null;
+
+    #[ORM\Column(type: "datetime", nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
+
+
 #################### Relations ###################################################
 
     #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Address $address = null;
     
-    /**
-     * @var Collection<int, EventSubscription>
-     */
-    #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'userSubscriptor')]
-    private Collection $eventSubscriptions;
-
+    // /**
+    //  * @var Collection<int, EventSubscription>
+    //  */
+    // #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'userSubscriptor')]
+    // private Collection $eventSubscriptions;
 
     /**
      * @var Collection<int, Event>
@@ -65,16 +84,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Event::class, mappedBy: 'userOrganisator')]
     private Collection $eventsOrganized;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $avatar = null;
+    /**
+     * @var Collection<int, EventOccurrenceSubscription>
+     */
+    #[ORM\OneToMany(targetEntity: EventOccurrenceSubscription::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $occurrencesSubscriptions;
+
 
 #####################  Functions #########################################
 
     public function __construct(array $init = [])
     {
         $this->hydrate($init);
-        $this->eventSubscriptions = new ArrayCollection();
+        // $this->eventSubscriptions = new ArrayCollection();
         $this->eventsOrganized = new ArrayCollection();
+        $this->occurrencesSubscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -191,6 +215,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, EventSubscription>
      */
+    /*
     public function getEventSubscriptions(): Collection
     {
         return $this->eventSubscriptions;
@@ -217,7 +242,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
+*/
     public function getAddress(): ?Address
     {
         return $this->address;
@@ -273,4 +298,76 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     
+
+    /**
+     * Get the value of avatarFile
+     */
+    public function getAvatarFile(): ?File
+    {
+        return $this->avatarFile;
+    }
+
+    /**
+     * Set the value of avatarFile
+     */
+    public function setAvatarFile(?File $avatarFile): self
+    {
+        
+        $this->avatarFile = $avatarFile;
+
+        // if(null !== $avatarFile){
+        if($avatarFile instanceof UploadedFile){
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of updatedAt
+     */
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set the value of updatedAt
+     */
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventOccurrenceSubscription>
+     */
+    public function getOccurrencesSubscriptions(): Collection
+    {
+        return $this->occurrencesSubscriptions;
+    }
+
+    public function addOccurrencesSubscription(EventOccurrenceSubscription $occurrencesSubscription): static
+    {
+        if (!$this->occurrencesSubscriptions->contains($occurrencesSubscription)) {
+            $this->occurrencesSubscriptions->add($occurrencesSubscription);
+            $occurrencesSubscription->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOccurrencesSubscription(EventOccurrenceSubscription $occurrencesSubscription): static
+    {
+        if ($this->occurrencesSubscriptions->removeElement($occurrencesSubscription)) {
+            // set the owning side to null (unless already changed)
+            if ($occurrencesSubscription->getUser() === $this) {
+                $occurrencesSubscription->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 }

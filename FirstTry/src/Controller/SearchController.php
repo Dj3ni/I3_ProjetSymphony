@@ -66,12 +66,28 @@ class SearchController extends AbstractController
     public function Calendar(EventRepository $rep, SerializerInterface $serializerInterface ):Response
     {
         $events = $rep->findAll();
-            $eventsJson = $serializerInterface->serialize ($events,"json", [
-                AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "occurrences"]
-            ]);
+        $allOccurrences = [];
+        foreach ($events as $event){
+            foreach ($event->getOccurrences() as $occurrence){
+                $allOccurrences[] = [
+                    'id' => $event->getId(),
+                    'title' => $event->getTitle(),
+                    'start' => $occurrence->getDateStart()->format('Y-m-d H:i'),
+                    'end' => $occurrence->getDateEnd()->format('Y-m-d H:i'),
+                    'eventType' => $event->getEventType()
+                ];
+            }
+        }
+            // $eventsJson = $serializerInterface->serialize ($events,"json", [
+            //     AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "occurrences"],
+            // ]);
+            $occurrencesJson = json_encode($allOccurrences);
+            
+            // dd($eventsJson);
         return $this->render("search/events_calendar.html.twig", [
                 "events" => $events,
-                "eventsJson" => $eventsJson,
+                // "eventsJson" => $eventsJson,
+                "occurrencesJson" => $occurrencesJson,
         ]);
     }
 

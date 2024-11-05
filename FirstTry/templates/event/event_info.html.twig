@@ -14,6 +14,16 @@
         {{message}}
     </div>
 {% endfor %}
+{% for message in app.flashes("event_delete_success") %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+{% for message in app.flashes("event_create_success") %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
 
 <header>
     <h1>
@@ -30,6 +40,7 @@
                 <p>Type: {{event.eventType.value}}</p>
                 <img src="/images/{{event.eventType.value}}.png" alt="{{event.eventType.value}}">
             </div>
+            <p>Recurrence: {{event.recurrenceType.value}}</p>
             <p>Starts: {{event.dateStart | date("d/m/y H:i")}}</p>
             <p>Ends: {{event.dateEnd | date("d/m/y H:i")}}</p>
             <p>Fee: {{event.fee}}</p>
@@ -79,17 +90,27 @@
 
     <h3>All the dates for this event</h3>
 <div class = "event-description">
-            {# {{ dump(occurrences.id) }} #}
             {# {{ dump(occurrences) }} #}
+            {% if is_granted("ROLE_ADMIN") %}
+                <div class="div-btn">
+                    <button class="btn btn-primary btn-block">
+                        <a href="{{ path ("create_occurrence", {event: event.id})}}">➕ add an occurrence</a>
+                    </button>
+                </div>
+            {% endif %}
     <ul>
         {% for occurrence in occurrences %}
+            {# {{dump(occurrence)}} #}
+            {# {{dump(occurrence.id)}} #}
 
-
-            {% if occurrence.startDate >= "now"|date %}
+            {% if occurrence.dateStart >= "now"|date %}
                 <li>
-                    {# <a href= "{{ path ("occurrence_show", {id: occurrences.id} )}}" class = "occurrence-link">                     #}
-                        {{ occurrence.startDate|date('d-m-Y H:i') }} - {{ occurrence.endDate|date('d-m-Y H:i') }}
-                    </a>
+                    {# < href= "{{ path ("occurrence_show", {id: occurrences.id} )}}" class = "occurrence-link">#}
+                    {{ occurrence.dateStart|date('d-m-Y H:i') }} to {{ occurrence.dateEnd|date('d-m-Y H:i') }}
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <a href="{{ path ('delete_occurrence', {id:occurrence.id})}}"class="card-link">❌</a>
+                        <a href="{{ path ('update_occurrence', {id:occurrence.id})}}"class="card-link">✏️</a>
+                    {% endif %}
                 </li>
             {% endif %}
         {% endfor %}

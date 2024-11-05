@@ -60,13 +60,14 @@ class Event
     #[ORM\Column(type: 'string', enumType: EventType::class)] 
     private EventType $eventType;
 
+
 #################### Relations ###################################################
 
-    /**
-     * @var Collection<int, EventSubscription>
-     */
-    #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'eventSubscripted')]
-    private Collection $subscriptions;
+    // /**
+    //  * @var Collection<int, EventSubscription>
+    //  */
+    // #[ORM\OneToMany(targetEntity: EventSubscription::class, mappedBy: 'eventSubscripted')]
+    // private Collection $subscriptions;
 
     /**
      * @var Collection<int, EventPlace>
@@ -80,17 +81,8 @@ class Event
     /**
      * @var Collection<int, EventOccurrence>
      */
-    #[ORM\OneToMany(targetEntity: EventOccurrence::class, mappedBy: 'event')]
+    #[ORM\OneToMany(targetEntity: EventOccurrence::class, mappedBy: 'event', cascade:['remove'])]
     private Collection $occurrences;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $backgroundColor = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $textColor = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $borderColor = null;
 
 
 #####################  Functions #########################################
@@ -98,7 +90,7 @@ class Event
     public function __construct(array $init = [])
     {
         $this->hydrate($init);
-        $this->subscriptions = new ArrayCollection();
+        // $this->subscriptions = new ArrayCollection();
         $this->eventPlaces = new ArrayCollection();
         $this->occurrences = new ArrayCollection();
         
@@ -106,7 +98,7 @@ class Event
     #[Assert\Callback] //will be called when entity validated
     public function isDatesValid(ExecutionContextInterface $context): void
     {
-        // Context let us send a persinalized msg and will be checked with isValid in form
+        // Context let us send a personalized msg and will be checked with isValid in form
         if($this->dateEnd < $this->dateStart){
             $context->buildViolation("Date End must me after Date start")
                     ->atPath("dateEnd") //error field
@@ -191,36 +183,6 @@ class Event
         return $this;
     }
 
-    /**
-     * @return Collection<int, EventSubscription>
-     */
-    public function getSubscriptions(): Collection
-    {
-        return $this->subscriptions;
-    }
-
-    public function addSubscription(EventSubscription $subscription): static
-    {
-        if (!$this->subscriptions->contains($subscription)) {
-            $this->subscriptions->add($subscription);
-            $subscription->setEventSubscripted($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSubscription(EventSubscription $subscription): static
-    {
-        if ($this->subscriptions->removeElement($subscription)) {
-            // set the owning side to null (unless already changed)
-            if ($subscription->getEventSubscripted() === $this) {
-                $subscription->setEventSubscripted(null);
-            }
-        }
-        
-        return $this;
-    }
-    
     /**
      * @return Collection<int, EventPlace>
      */
@@ -320,7 +282,7 @@ class Event
     /**
      * @return Collection<int, EventOccurrence>
      */
-    public function getoccurrences(): Collection
+    public function getOccurrences(): Collection
     {
         return $this->occurrences;
     }
@@ -343,42 +305,6 @@ class Event
                 $occurrence->setEvent(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getBackgroundColor(): ?string
-    {
-        return $this->backgroundColor;
-    }
-
-    public function setBackgroundColor(?string $backgroundColor): static
-    {
-        $this->backgroundColor = $backgroundColor;
-
-        return $this;
-    }
-
-    public function getTextColor(): ?string
-    {
-        return $this->textColor;
-    }
-
-    public function setTextColor(?string $textColor): static
-    {
-        $this->textColor = $textColor;
-
-        return $this;
-    }
-
-    public function getBorderColor(): ?string
-    {
-        return $this->borderColor;
-    }
-
-    public function setBorderColor(?string $borderColor): static
-    {
-        $this->borderColor = $borderColor;
 
         return $this;
     }

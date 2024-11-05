@@ -17,7 +17,7 @@
                 </div>
                 <div class="avatar">
                     {% if app.user and app.user.avatar is not null %}
-                        <img src="" alt="avatar">
+                        <img src=" {{ vich_uploader_asset(app.user,"avatarFile")}}" alt="avatar">
                     {% else %}
                         <img src="/images/defaultAvatar.jpg" alt="defaultAvatar">
                     {% endif %}
@@ -31,7 +31,7 @@
                     <div class="sub-menu">
                         <div class="user-info">
                             {% if app.user and app.user.avatar is not null %}
-                                <img src="" alt="avatar">
+                                <img src="{{ vich_uploader_asset(app.user,"avatarFile")}}" alt="avatar">
                             {% else %}
                                 <img src="/images/defaultAvatar.jpg" alt="defaultAvatar">
                             {% endif %}
@@ -49,6 +49,23 @@
                                 <p>Logout</p>
                                 <span>></span>
                             </a>
+                            <a href=" {{ path ('user_profile')}}" class = "sub-menu-link">
+                                <img src="/images/defaultAvatar.jpg" alt="profile">
+                                <p>My Profile</p>
+                                <span>></span>
+                            </a>
+                            <a href=" {{ path ('user_calendar')}}" class = "sub-menu-link">
+                                <img src="/images/calendar.png" alt="personal Calendar">
+                                <p>My Calendar</p>
+                                <span>></span>
+                            </a>
+                            <a href="{{path ('user_subscriptions')}}" class = "sub-menu-link">
+                                <img src="/images/register.png" alt="personal subscriptions">
+                                <p>My Subscriptions</p>
+                                <span>></span>
+                            </a>
+
+
                         {% else %}
                         <a href="{{ path ('app_login')}}" class = "sub-menu-link">
                             <img src="/images/login.png" alt="login">
