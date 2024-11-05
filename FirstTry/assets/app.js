@@ -118,7 +118,7 @@ SEARCH_FORM.addEventListener("input", function(){
                 cardLinkDiv.appendChild(moreInfoLink);
                 cardLinkDiv.appendChild(subscribeLink);
                 // Admin control
-                if (event.isAdmin) {  // Assuming `event.isAdmin` is available in the response data
+                if (event.isAdmin) { 
                     let editLink = document.createElement("a");
                     editLink.href = `/update_event/${event.id}`;
                     editLink.classList.add("card-link");
@@ -144,15 +144,16 @@ SEARCH_FORM.addEventListener("input", function(){
             console.error("Error fetching events:", error);
         });
 
-        let ul = document.createElement("ul");
+        // For debug
+        // let ul = document.createElement("ul");
         
-        for(let element of arrayEvents){
-            // console.log(element);
-            let li = document.createElement("li");
-            li.innerHTML = element.title;
-            ul.appendChild(li);
-        }
-        DIV_RESULT.appendChild(ul);
+        // for(let element of arrayEvents){
+        //     // console.log(element);
+        //     let li = document.createElement("li");
+        //     li.innerHTML = element.title;
+        //     ul.appendChild(li);
+        // }
+        // DIV_RESULT.appendChild(ul);
     })
     
 

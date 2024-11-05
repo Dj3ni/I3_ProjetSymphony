@@ -105,7 +105,7 @@
                     <img src="/images/{{event.eventType.value}}.png" alt="{{event.eventType.value}}">
                 </div >
                 <hr class="hr-xs">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">{{event.description}}</p>
                 <div class = "card-link-div">
                     <a href="{{path ("event", {id: event.id})}}" class="card-link">More info</a>
                     <a href="{{ path ("event_subscription", {id:event.id})}}" class="card-link">Subscribe</a>
