@@ -18,13 +18,12 @@
             <li>
             {{subscription.eventOccurrence.event.title}}: 
                 {{subscription.eventOccurrence.dateStart | date("d-m-y H:i")}},
-                    for {{subscription.numberParticipants}} participants</li>
+                    for {{subscription.numberParticipants}} participants
+                    <a href="{{ path ("event_subscription", {"id":subscription.eventOccurrence.event.id})}}">✏️</a>
+            </li>
         {% endfor %}
 
 {% endif %}
-
-
-
 
 {% endblock %}
 
