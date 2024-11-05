@@ -85,7 +85,7 @@ class SearchController extends AbstractController
             
             // dd($eventsJson);
         return $this->render("search/events_calendar.html.twig", [
-                // "events" => $events,
+                "events" => $events,
                 // "eventsJson" => $eventsJson,
                 "occurrencesJson" => $occurrencesJson,
         ]);

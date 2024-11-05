@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RegistrationFormType;
+use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,13 +33,14 @@ class UserController extends AbstractController
     }
 
     #[Route('/my_calendar', name:"user_calendar")]
-    public function personalCalendar(SerializerInterface $serializerInterface): Response
+    public function personalCalendar(EventRepository $rep, SerializerInterface $serializerInterface): Response
     {
         $user = $this->getUser();
-        $occurrences= $user->getOccurrencesSubscriptions();
+        $events = $rep->findAll();
+        $subscriptions= $user->getOccurrencesSubscriptions();
         $allOccurrences = [];
-        foreach ($occurrences as $occurrence){
-            $occurrence = $occurrence->getEventOccurrence();
+        foreach ($subscriptions as $subscription){
+            $occurrence = $subscription->getEventOccurrence();
             $event = $occurrence->getEvent();
             $allOccurrences[] = [
                 'id' => $event->getId(),
@@ -56,7 +58,7 @@ class UserController extends AbstractController
         // dd($eventsJson);
 
         return $this->render("user/user_calendar.html.twig", [
-            // "events"=> $events,
+            "events"=> $events,
             // "eventsJson"=>$eventsJson,
             "occurrencesJson" => $occurrencesJson,
         ]);

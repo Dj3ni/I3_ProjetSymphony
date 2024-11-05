@@ -36,6 +36,7 @@ Accusamus hic sapiente deserunt sequi ex repellat magni quas obcaecati! Blanditi
 <div class = "card-section">
     
     {% for event in lastEvents %}
+    {# {% if event.dateStart >= "now"|date %} #}
     <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">
@@ -48,7 +49,7 @@ Accusamus hic sapiente deserunt sequi ex repellat magni quas obcaecati! Blanditi
                     <img src="/images/{{event.eventType.value}}.png" alt="{{event.eventType.value}}">
                 </div >
                 <hr class="hr-xs">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">{{event.description}}</p>
                 <div class = "card-link-div">
                     <a href="{{path ("event", {id: event.id})}}" class="card-link">More info</a>
                     <a href="{{ path ("event_subscription", {id:event.id})}}" class="card-link">Subscribe</a>
@@ -60,8 +61,8 @@ Accusamus hic sapiente deserunt sequi ex repellat magni quas obcaecati! Blanditi
                 </div>
             </div>
         </div>
+    {# {% endif %} #}
     {% endfor %}
 
 </div>
-
 {% endblock %}
