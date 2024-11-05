@@ -78,17 +78,15 @@
     </nav>
 </div>
 
-
 <div class = "div-btn">
     {% if is_granted ("ROLE_ADMIN") %}
         <button class ="btn btn-primary btn-block">
             <a href="{{ path ('create_event')}}">Create new event</a>
         </button>
-    {# Page to search the event to update it#}
-    {# <a href="{{ path ('update_events')}}">Update an event</a> #}
     {% endif %}
 </div>
 <br>
+
 <div id ="SearchResult" class = "card-section">
 {# In controller: if no research put all the events #}
     
