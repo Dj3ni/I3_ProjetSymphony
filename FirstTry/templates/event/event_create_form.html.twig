@@ -30,6 +30,11 @@
         <h1>Gaming Places</h1>
         {% for eventPlace in form.eventPlaces %}
             {{ form_widget(eventPlace.gamingPlace.name)}}
+            {{ form_row(eventPlace.gamingPlace.type)}}
+            {{ form_row(eventPlace.gamingPlace.placeMax)}}
+            {{ form_widget(eventPlace.gamingPlace.description)}}
+
+
             <hr class="hr-xs">
             <br>
             <h1>Address</h1>
@@ -47,9 +52,6 @@
             <hr class="hr-xs">
         {% endfor %}
     </div>
-        <input type="hidden" name="_csrf_token"
-            value="{{ csrf_token('authenticate') }}"
-        >
         {{ form_widget (form.save)}}
         <br>
         {{form_end (form)}}

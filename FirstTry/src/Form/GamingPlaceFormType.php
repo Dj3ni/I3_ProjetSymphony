@@ -23,11 +23,21 @@ class GamingPlaceFormType extends AbstractType
                     "placeholder" => "Gaming place awesome name"
                 ]
             ])
-            ->add('type', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('type', TextType::class,[
+                "attr" => [
+                    "placeholder" => "Is it a bar, a shop....?"
+                ]
+            ])
+            ->add('description', TextareaType::class,[
+                "required"=>false,
+                "attr"=>[
+                    "placeholder"=> "Describe this awesome place here"
+                ]
+            ])
             ->add('placeMax', IntegerType::class, [
                 "attr"=>[
-                    "minValue" =>1,
+                    "min" =>10,
+                    "value" =>10,
                 ],
             ])
             ->add('address', AddressFormType::class, [
