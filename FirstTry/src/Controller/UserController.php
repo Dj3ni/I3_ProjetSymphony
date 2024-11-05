@@ -30,8 +30,11 @@ class UserController extends AbstractController
     }
 
     #[Route('/my_calendar', name:"user_calendar")]
-    public function personalCalendar()
+    public function personalCalendar(): Response
     {
+        return $this->render("user/user_calendar.html.twig", [
+            // "events"=> $events,
 
+        ]);
     }
 }

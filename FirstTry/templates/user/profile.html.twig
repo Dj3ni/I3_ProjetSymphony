@@ -16,7 +16,32 @@
 
 <div class = "mTop10">
     <div class="tab-content">
-        <h2>Contenu onglet 1</h2>
+        <div class="login-block">
+            {{form_errors(form)}}
+            {{form_start(form)}}
+            <h1>My informations</h1>
+            {% if app.user.avatar %}
+                <div class = "avatar">
+                    <label>My avatar</label>
+                    <img src=" {{ vich_uploader_asset(app.user,"avatarFile")}}" alt="avatar">
+                </div>
+            {% else %}
+                <div>
+                    <label>Change Avatar</label>
+                    {{form_widget (form.avatarFile)}}  
+                </div>      
+            {% endif %}
+
+                {{form_row (form.firstName)}}
+                {{form_row (form.lastName)}}
+                {{form_row (form.phoneNumber)}}
+                {{form_row (form.email)}}
+                <a href="{{ path ("change_password")}}" class = "card-link">Change password</a>
+            <div class="div-btn">
+                    <button class= "btn btn-primary btn-block" type = "submit">Update</button>
+                
+            </div>{{form_end(form, {"render_rest":false})}}
+        </div>
     </div>
     <div class="tab-content">
         <h2>Contenu onglet 2</h2>
@@ -25,31 +50,7 @@
         <h2>Contenu onglet 3</h2>
     </div>
 </div>
-<h2>My informations</h2>
 
-{{form_errors(form)}}
-{{form_start(form)}}
-{% if app.user.avatar %}
-    <div class = "avatar">
-        <label>My avatar</label>
-        <img src=" {{ vich_uploader_asset(app.user,"avatarFile")}}" alt="avatar">
-    </div>
-{% else %}
-    <div>
-        <label>Change Avatar</label>
-        {{form_widget (form.avatarFile)}}  
-    </div>      
-{% endif %}
-
-    {{form_row (form.firstName)}}
-    {{form_row (form.lastName)}}
-    {{form_row (form.phoneNumber)}}
-    {{form_row (form.email)}}
-    <a href="{{ path ("change_password")}}" class = "card-link">Change password</a>
-<div class="div-btn">
-        <button class= "btn btn-primary btn-block" type = "submit">Update</button>
-    
-</div>{{form_end(form, {"render_rest":false})}}
 
 
 {% endblock %}

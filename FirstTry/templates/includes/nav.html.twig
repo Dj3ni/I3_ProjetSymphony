@@ -54,11 +54,17 @@
                                 <p>My Profile</p>
                                 <span>></span>
                             </a>
-                            <a href=" {{ path ('user_calendar')}}" class = "sub-menu-link">
-                                <img src="" alt="personal Calendar">
+                            {# <a href=" {{ path ('user_calendar')}}" class = "sub-menu-link">
+                                <img src="/images/calendar.png" alt="personal Calendar">
                                 <p>My Calendar</p>
                                 <span>></span>
-                            </a>
+                            </a> #}
+                            {# <a href="" class = "sub-menu-link">
+                                <img src="" alt="personal subscriptions">
+                                <p>My Subscriptions</p>
+                                <span>></span>
+                            </a> #}
+
 
                         {% else %}
                         <a href="{{ path ('app_login')}}" class = "sub-menu-link">

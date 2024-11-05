@@ -163,6 +163,7 @@ nav {
 .sub-menu-link {
     display: flex;
     align-items: center;
+    /* vertical-align: middle; */
     text-decoration: none;
     color: #525252;
     margin:12px 0 ;
