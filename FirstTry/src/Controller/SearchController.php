@@ -139,4 +139,30 @@ class SearchController extends AbstractController
         }
         return new JsonResponse($addressData);
     }
+
+    #[Route('/events/addresses', name:'address_list', methods:['GET'])]
+    public function EventsAddressList(EventRepository $rep):JsonResponse
+    {
+        $events = $rep->findAll();
+        // dd($gamingPlaces);
+        $addressData = [];
+        $i = 0;
+        foreach ($events as $event){
+            $eventPlaces = $event->getEventPlaces();
+            foreach($eventPlaces as $eventPlace){
+                $address = $eventPlace->getGamingPlace()->getAddress();
+                $addressData[] = [
+                    "city" =>$address->getCity(),
+                    "lat" =>$address->getLat(),
+                    "lon"=>$address->getLon(),
+                    // "lat"=> 48.856614 + $i,
+                    // "lon" => 2.352221 + $i,
+                ];
+                $i++;
+                // dd($address);
+            }
+        }
+        return new JsonResponse($addressData);
+    }
+
 }

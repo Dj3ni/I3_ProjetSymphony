@@ -7,14 +7,20 @@ import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.markercluster";
 
 const EventsMap = document.getElementById("eventsMap");
-console.log(EventsMap);
-let limits = [];
-let map;
+// console.log(EventsMap);
+let GamingPlaceMap;
+
+const EventMap = document.getElementById("eventMap")
+
 function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
+    
+    let limits = [];
+    let defaultCoords = [50.8638372,4.3607629];
 
     // Initialize map
-    map = L.map(mapContainerId, {
+    let map = L.map(mapContainerId, {
         zoom: intialZoom, 
+        center: defaultCoords
     });
 
     // Add tile layer to the Map
@@ -41,6 +47,10 @@ function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
                     limits.push(coords);
                     map.addLayer(marker);
                 }
+                else{
+                    marker = L.marker(defaultCoords).addTo(map);
+                    map.addLayer(marker);
+                }
             });
             // console.log(limits);
             map.fitBounds(limits);
@@ -48,8 +58,7 @@ function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
         .catch((error)=> console.error("Error dowloading data",error))
 }
 
-
-initializeMap("eventsMap", "/gamingplaces/addresses");
+initializeMap("eventsMap", "/events/addresses");
 // initializeMap()
 
 
