@@ -23,6 +23,8 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('calendar', './assets/calendar.js' )
     .addEntry('profile','./assets/profile.js')
+    .addEntry('map','./assets/map.js')
+
     // .addEntry("searchForm", "./assets/searchForm.js")
     // .addEntry("hiddenSubmenu", "./assets/hiddenSubmenu.js")
 
