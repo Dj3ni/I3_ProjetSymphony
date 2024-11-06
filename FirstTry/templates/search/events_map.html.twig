@@ -37,7 +37,7 @@
 
     </div>
     <div class="grid-item">
-        <div id="map"></div>
+        <div id="eventsMap" style="height: 500px; border: 2px solid black;"></div>
     </div>
 </div>
 
@@ -45,12 +45,13 @@
 
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent()}}
+    {{ encore_entry_link_tags('map')}}
+{% endblock %}
+
 {% block javascripts %}
     {{ parent()}}
     {{ encore_entry_script_tags('map')}}
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent()}}
-    {{ encore_entry_link_tags('map')}}
-{% endblock %}

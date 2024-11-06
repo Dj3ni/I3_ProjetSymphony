@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241106181810 extends AbstractMigration
+final class Version20241106191103 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20241106181810 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE address (id INT AUTO_INCREMENT NOT NULL, locality VARCHAR(255) DEFAULT NULL, street VARCHAR(255) NOT NULL, number VARCHAR(10) NOT NULL, post_code INT NOT NULL, city VARCHAR(255) NOT NULL, country VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE address (id INT AUTO_INCREMENT NOT NULL, locality VARCHAR(255) DEFAULT NULL, street VARCHAR(255) NOT NULL, number VARCHAR(10) NOT NULL, post_code INT NOT NULL, city VARCHAR(255) NOT NULL, country VARCHAR(255) NOT NULL, lat DOUBLE PRECISION DEFAULT NULL, lon DOUBLE PRECISION DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE event (id INT AUTO_INCREMENT NOT NULL, user_organisator_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, date_start DATETIME NOT NULL, date_end DATETIME NOT NULL, recurrence_type VARCHAR(255) NOT NULL, recurrence_end DATETIME DEFAULT NULL, recurrence_count INT DEFAULT NULL, description LONGTEXT NOT NULL, fee NUMERIC(10, 2) NOT NULL, event_type VARCHAR(255) NOT NULL, INDEX IDX_3BAE0AA794589191 (user_organisator_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE event_occurrence (id INT AUTO_INCREMENT NOT NULL, event_id INT DEFAULT NULL, date_start DATETIME NOT NULL, date_end DATETIME NOT NULL, INDEX IDX_E61358DC71F7E88B (event_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE event_occurrence_subscription (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, event_occurrence_id INT DEFAULT NULL, subscription_date DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', occurrence_dates JSON NOT NULL COMMENT \'(DC2Type:json)\', number_participants INT DEFAULT NULL, INDEX IDX_FD585EE9A76ED395 (user_id), INDEX IDX_FD585EE9140E9F00 (event_occurrence_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');

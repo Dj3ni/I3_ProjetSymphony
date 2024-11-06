@@ -33,6 +33,8 @@ class AddressFixture extends Fixture
                 "postCode" => $PlaceData["address"]["postCode"],
                 "city"=>$PlaceData["address"]["city"],
                 "country" => "Belgium",
+                "lat" => $PlaceData["address"]["lat"],
+                "lon"=>$PlaceData["address"]["lon"]
             ]);
 
             $manager->persist($address);

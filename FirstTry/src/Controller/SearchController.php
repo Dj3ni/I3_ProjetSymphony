@@ -98,17 +98,15 @@ class SearchController extends AbstractController
     {
         $events = $rep->findAll();
         $gamingPlaces = $gpRep->findAll();
-            $eventsJson = $serializerInterface->serialize ($events,"json", [
-                AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "occurrences"]
-            ]);
+            // $eventsJson = $serializerInterface->serialize ($events,"json", [
+            //     AbstractNormalizer::IGNORED_ATTRIBUTES => ["subscriptions","eventPlaces","userOrganisator", "occurrences"]
+            // ]);
         return $this->render("search/events_map.html.twig", [
                 "events" => $events,
-                "eventsJson" => $eventsJson,
+                // "eventsJson" => $eventsJson,
                 "gamingPlaces"=>$gamingPlaces,
         ]);
     }
-
-
 
     #[Route("/search/{type}", name: "search_type")]
     public function searchByType(EventType $type, EventRepository $rep){
@@ -131,8 +129,10 @@ class SearchController extends AbstractController
             $address = $gamingPlace->getAddress();
             $addressData[] = [
                 "city" =>$address->getCity(),
-                "lat"=> 48.856614 + $i,
-                "lon" => 2.352221 + $i,
+                "lat" =>$address->getLat(),
+                "lon"=>$address->getLon(),
+                // "lat"=> 48.856614 + $i,
+                // "lon" => 2.352221 + $i,
             ];
             $i++;
             // dd($address);

@@ -6,35 +6,52 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.markercluster";
 
-
+const EventsMap = document.getElementById("eventsMap");
+console.log(EventsMap);
 let limits = [];
+let map;
+function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
 
-// Initialize map
-let map = L.map("map", {
-    zoom: 13, 
-})
+    // Initialize map
+    map = L.map(mapContainerId, {
+        zoom: intialZoom, 
+    });
 
-L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
-    minZoom: 1, // till you can zoom in
-    maxZoom: 20, //till you can zoom out
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-})
-    .addTo(map); // otherwise wont be in our map
-
-fetch ("/gamingplaces/addresses") //route path to transform data in JSON
-    .then(data => data.json())
-    .then(cities =>{
-        cities.forEach(city => {
-            let coords = [city.lat, city.lon];
-            let marker = L.marker(coords).addTo(map);
-            
-            marker.bindPopup(city.city);
-            // markers.addLayer(marker);
-            limits.push(coords);
-            map.addLayer(marker);
-        });
-        map.fitBounds(limits);
+    // Add tile layer to the Map
+    L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
+        minZoom: 1, // till you can zoom in
+        maxZoom: 20, //till you can zoom out
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     })
+        .addTo(map); // otherwise wont be in our map
+
+    // fetch data and create markers
+    fetch (apiEndPoint) //route path to transform data in JSON
+        .then(data => data.json())
+        .then(cities =>{
+            cities.forEach(city => {
+                // console.log("coucou " + city.city);
+                if(city.lat != null && city.lon != null){
+                    let coords = [city.lat, city.lon];
+                    let marker = L.marker(coords).addTo(map);
+                    
+                    // console.log(coords);
+                    marker.bindPopup(city.city);
+                    // markers.addLayer(marker);
+                    limits.push(coords);
+                    map.addLayer(marker);
+                }
+            });
+            // console.log(limits);
+            map.fitBounds(limits);
+        })
+        .catch((error)=> console.error("Error dowloading data",error))
+}
+
+
+initializeMap("eventsMap", "/gamingplaces/addresses");
+// initializeMap()
+
 
 
 /*********************** Tuto *************************************/
