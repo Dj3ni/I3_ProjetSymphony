@@ -118,7 +118,7 @@ class SearchController extends AbstractController
         ]);
     }
 
-    #[Route('/gamingplaces/addresses', name:'address_list', methods:['GET'])]
+    #[Route('/gamingplaces/addresses', name:'gamingPlaces_address_list', methods:['GET'])]
     public function addressList(GamingPlaceRepository $rep):JsonResponse
     {
         $gamingPlaces = $rep->findAll();
@@ -140,7 +140,7 @@ class SearchController extends AbstractController
         return new JsonResponse($addressData);
     }
 
-    #[Route('/events/addresses', name:'address_list', methods:['GET'])]
+    #[Route('/events/addresses', name:'events_address_list', methods:['GET'])]
     public function EventsAddressList(EventRepository $rep):JsonResponse
     {
         $events = $rep->findAll();

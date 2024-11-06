@@ -48,17 +48,19 @@ function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
                     map.addLayer(marker);
                 }
                 else{
-                    marker = L.marker(defaultCoords).addTo(map);
+                    let marker = L.marker(defaultCoords).addTo(map);
                     map.addLayer(marker);
                 }
             });
-            // console.log(limits);
+            console.log(limits);
             map.fitBounds(limits);
         })
         .catch((error)=> console.error("Error dowloading data",error))
 }
 
 initializeMap("eventsMap", "/events/addresses");
+initializeMap("gamingPlacesMap", "/gamingplaces/addresses");
+
 // initializeMap()
 
 
