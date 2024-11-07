@@ -3,22 +3,23 @@
 namespace App\Controller;
 
 use App\Demo;
-use App\Entity\Address;
 use App\Entity\Event;
-use App\Entity\EventOccurrence;
+use App\Entity\Address;
+use App\GeocodingService;
 use App\Entity\EventPlace;
 use App\Entity\GamingPlace;
+use App\Entity\EventOccurrence;
 use App\EventOccurrenceGenerator;
 use App\Form\CreateEventFormType;
-use App\GeocodingService;
 use App\Repository\EventRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Validator\Constraints\Length;
 
 class EventController extends AbstractController
 {
@@ -207,6 +208,28 @@ class EventController extends AbstractController
         return $this->render("event/confirm_delete.html.twig", [
             "event"=> $event,
         ]);
+    }
+
+    ######################### Api Event Address
+
+    #[Route('/event/{id}/addresses', name:'event_address_list', methods:['GET'])]
+    public function EventAddressList(Event $event):JsonResponse
+    {
+        // dd($event);
+        $addressData = [];
+        $eventPlaces = $event->getEventPlaces();
+            foreach($eventPlaces as $eventPlace){
+                $address = $eventPlace->getGamingPlace()->getAddress();
+                $addressData[] = [
+                    "city" =>$address->getCity(),
+                    "lat" =>$address->getLat(),
+                    "lon"=>$address->getLon(),
+                ];
+
+                // dd($address);
+            }
+            
+        return new JsonResponse($addressData);
     }
             
 }

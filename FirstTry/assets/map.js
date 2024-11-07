@@ -8,16 +8,32 @@ import "leaflet.markercluster";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 
-const EventsMap = document.getElementById("eventsMap");
-// console.log(EventsMap);
+const EventsMap = document.getElementById("allEventsMap");
+console.log(EventsMap);
 let GamingPlaceMap;
+const eventInfoMap = document.getElementById("eventMap");
+// console.log(eventInfoMap);
+// let eventId = eventInfoMap.dataset.event ;
 
-const EventMap = document.getElementById("eventMap")
+if (EventsMap) {
+    initializeMap(EventsMap, "/events/addresses");
+} else {
+    console.error("EventsMap container introuvable !");
+}
+if (eventInfoMap) {
+    let eventId = eventInfoMap.dataset.event;
+    console.log("eventId trouvé : ", eventId); // Vérifie l'ID de l'événement
+    initializeMap(eventInfoMap, `/event/${eventId}/addresses`);
+} else {
+    console.error("eventInfoMap container introuvable !");
+}
+
+// console.log(eventId);
 
 function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
     
     let limits = [];
-    let defaultCoords = [50.8638372,4.3607629];
+    let defaultCoords = [50.8638372, 4.3607629];
 
     // Initialize map
     let map = L.map(mapContainerId, {
@@ -32,10 +48,6 @@ function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     })
         .addTo(map); // otherwise wont be in our map
-
-    L.control.maptilerGeocoding({
-        
-    })
     
     // fetch data and create markers
     fetch (apiEndPoint) //route path to transform data in JSON
@@ -64,12 +76,9 @@ function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
         .catch((error)=> console.error("Error dowloading data",error))
 }
 
-initializeMap("eventsMap", "/events/addresses");
+// initializeMap(eventInfoMap, `/event/${eventId}/addresses`);
+// initializeMap(EventsMap, "/events/addresses");
 initializeMap("gamingPlacesMap", "/gamingplaces/addresses");
-
-// initializeMap()
-
-
 
 /*********************** Tuto *************************************/
 
