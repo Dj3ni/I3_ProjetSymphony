@@ -82,12 +82,21 @@ class EventController extends AbstractController
         $event->addEventPlace($eventPlace);
         $em->persist($eventPlace);
         $em->persist($event);
+
         // 2. Create new Form
         $form = $this->createForm(CreateEventFormType::class, $event);
         $form->handleRequest($request);
         
         // 3.Send in DB
         if ($form->isSubmitted() && $form->isValid()) {
+            //3.1. Retrieve gaming place choice from the form
+            $eventPlace = $event->getEventPlaces()->first();// we want to start with the first
+
+            $gamingPlaceChoice = $eventPlace->getGamingPlace(); // get if "existing or "new"
+
+            if($gamingPlaceChoice){
+                $eventPlace->setGamingPlace($gamingPlaceChoice);
+            }
             // dd($form->getErrors(true, false));
             // dd($form);
             $event->setUserOrganisator($this->getUser());
