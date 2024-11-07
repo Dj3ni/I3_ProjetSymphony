@@ -25,7 +25,10 @@ services:
         arguments: #parameters construct of class Event generator
             $test : "hello"
         public: true
-        
+    
+    App\GeocodingService:
+        arguments:
+            $apiKey: '%env(MAPTILER_KEY)%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

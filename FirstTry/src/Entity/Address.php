@@ -25,7 +25,6 @@ class Address
     #[ORM\Column(length: 10)]
     private ?string $number = null;
 
-
     #[ORM\Column]
     private ?int $postCode = null;
 
@@ -35,6 +34,12 @@ class Address
     #[ORM\Column(length: 255)]
     private ?string $country = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $lat = null;
+    
+    #[ORM\Column(nullable: true)]
+    private ?float $lon = null;
+    
 #################### Relations ###################################################
 
 
@@ -44,11 +49,6 @@ class Address
     #[ORM\OneToOne(mappedBy: 'address', cascade: ['persist', 'remove'])]
     private ?GamingPlace $gamingPlace = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $lat = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?float $lon = null;
 
 #####################  Functions #########################################
 

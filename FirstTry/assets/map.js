@@ -5,6 +5,8 @@ import "leaflet";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.markercluster";
+import "leaflet-control-geocoder/dist/Control.Geocoder.css";
+import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 
 const EventsMap = document.getElementById("eventsMap");
 // console.log(EventsMap);
@@ -31,6 +33,10 @@ function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
     })
         .addTo(map); // otherwise wont be in our map
 
+    L.control.maptilerGeocoding({
+        
+    })
+    
     // fetch data and create markers
     fetch (apiEndPoint) //route path to transform data in JSON
         .then(data => data.json())

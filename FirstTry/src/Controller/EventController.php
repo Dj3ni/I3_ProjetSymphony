@@ -10,6 +10,7 @@ use App\Entity\EventPlace;
 use App\Entity\GamingPlace;
 use App\EventOccurrenceGenerator;
 use App\Form\CreateEventFormType;
+use App\GeocodingService;
 use App\Repository\EventRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,9 +23,12 @@ use Symfony\Component\Validator\Constraints\Length;
 class EventController extends AbstractController
 {
     private ManagerRegistry $doctrine;
+    private GeocodingService $geocodingService;
 
-    public function __construct(ManagerRegistry $doctrine, EventOccurrenceGenerator $occurrenceGenerator ){
+
+    public function __construct(ManagerRegistry $doctrine, EventOccurrenceGenerator $occurrenceGenerator, GeocodingService $geocodingService){
         $this->doctrine = $doctrine;
+        $this->geocodingService = $geocodingService;
     }
 
 ############  Show all the events in DB now managed by events/search
@@ -75,13 +79,14 @@ class EventController extends AbstractController
         $gamingPlace = new GamingPlace();
         $gamingAddress = new Address();
 
-        $em->persist($gamingAddress);
+        // $em->persist($gamingAddress);
         $gamingPlace->setAddress($gamingAddress);
-        $em->persist($gamingPlace);
+        // $em->persist($gamingPlace);
         $eventPlace->setGamingPlace($gamingPlace);
         $event->addEventPlace($eventPlace);
-        $em->persist($eventPlace);
-        $em->persist($event);
+        // $em->persist($eventPlace);
+        // $em->persist($event);
+
         // 2. Create new Form
         $form = $this->createForm(CreateEventFormType::class, $event);
         $form->handleRequest($request);
@@ -90,7 +95,23 @@ class EventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($form->getErrors(true, false));
             // dd($form);
+            $address = $eventPlace->getGamingPlace()->getAddress();
+            $coords = $this->geocodingService->getCoordinatesFromAddress($address);
+
+            if($coords){
+                $address->setLat($coords['latitude']);
+                $address->setLon($coords['longitude']);
+            }
+            else{
+                $address->setLat(null);
+                $address->setLon(null);
+            }
+
             $event->setUserOrganisator($this->getUser());
+            // test
+            $em->persist($eventPlace);
+        $em->persist($gamingPlace);
+        $em->persist($gamingAddress);
             $em->persist($event);
             // Create Occurrences
             $occurrenceGenerator->generateOccurrences($event);
