@@ -28,11 +28,14 @@ class GeocodingService
             $address->getCountry()
         );
 
+        $countryParam = substr(strtolower($address->getCountry()),0,2); //I want the 2 first caracters in lower case
+
         $url = 'https://api.maptiler.com/geocoding/' . urlencode($fullAddress). ".json";
         
         $params = [
             'key' => $this->apiKey,
             'limit' => 1,
+            'country'=> $countryParam,
         ];
 
         $response = $this->client->request('GET', $url, ['query' => $params]);

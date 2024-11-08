@@ -4,14 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\Address;
+use App\GeocodingService;
 use App\Entity\EventPlace;
 use App\Entity\GamingPlace;
 use App\Form\EventPlaceFormType;
-use App\GeocodingService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GamingPlaceController extends AbstractController
@@ -33,6 +34,7 @@ class GamingPlaceController extends AbstractController
     }
 
     #[Route('/remove/{eventPlace}/{event}', name:"remove_gaming_place_event")]
+    #[IsGranted('ROLE_ADMIN')]
     public function removeGamingPlaceEvent(EventPlace $eventPlace, Event $event){
         
         $event->removeEventPlace($eventPlace);
@@ -42,6 +44,7 @@ class GamingPlaceController extends AbstractController
     }
 
     #[Route('add/gamingPlace/{event}', name:"add_gamingPlace_event")]
+    #[IsGranted('ROLE_ADMIN')]
     public function addGaminPlaceEvent(Event $event, Request $req)
     {
         $eventPlace = new EventPlace();

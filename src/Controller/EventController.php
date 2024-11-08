@@ -75,16 +75,16 @@ class EventController extends AbstractController
 
         // 1. Create new empty object
         $event = new Event();
-        $eventPlace = new EventPlace();
-        $gamingPlace = new GamingPlace();
-        $gamingAddress = new Address();
+        // $eventPlace = new EventPlace();
+        // $gamingPlace = new GamingPlace();
+        // $gamingAddress = new Address();
 
-        $em->persist($gamingAddress);
-        $gamingPlace->setAddress($gamingAddress);
-        $em->persist($gamingPlace);
-        $eventPlace->setGamingPlace($gamingPlace);
-        $em->persist($event);
-        $event->addEventPlace($eventPlace);
+        // $em->persist($gamingAddress);
+        // $gamingPlace->setAddress($gamingAddress);
+        // $em->persist($gamingPlace);
+        // $eventPlace->setGamingPlace($gamingPlace);
+        // $em->persist($event);
+        // $event->addEventPlace($eventPlace);
         // $em->persist($eventPlace);
 
         // 2. Create new Form
@@ -93,6 +93,7 @@ class EventController extends AbstractController
         
         // 3.Send in DB
         if ($form->isSubmitted() && $form->isValid()) {
+
             //3.1. Retrieve gaming place choice from the form
             $eventPlace = $event->getEventPlaces()->first();// we want to start with the first
 
@@ -118,7 +119,7 @@ class EventController extends AbstractController
 
             $event->setUserOrganisator($this->getUser());
             // test
-            $em->persist($eventPlace);
+            // $em->persist($eventPlace);
             // $em->persist($gamingPlace);
             // $em->persist($gamingAddress);
             // $em->persist($event);
@@ -137,6 +138,7 @@ class EventController extends AbstractController
 ############### Update Event Form
 
     #[Route('/update_event/{id}', name: 'update_event')]
+    #[IsGranted('ROLE_ADMIN')]
     public function updateEvent(Event $event, EventOccurrenceGenerator $occurrenceGenerator, Request $request): Response
     {
         $em = $this->doctrine->getManager();
@@ -175,6 +177,7 @@ class EventController extends AbstractController
 ################## Delete Event
 
     #[Route('/delete_event/{id}', name: 'delete_event')]
+    #[IsGranted('ROLE_ADMIN')]
     public function deleteEvent(Event $event, Request $request): Response
     {
         // We want to protect deletion by asking if sure:

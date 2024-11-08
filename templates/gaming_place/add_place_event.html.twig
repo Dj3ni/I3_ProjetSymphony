@@ -6,7 +6,7 @@
 
 
     <header>
-        <h1>Create a new Event</h1>
+        <h1>Create a new Gaming Place</h1>
     </header>
 
     {{ form_errors(form) }}
@@ -18,18 +18,19 @@
         <h1>Add a new gaming place</h1>
             {# select Gaming place #}
             <div>
-                {{form_row(form.gamingPlace)}}
+                {# {{form_row(form.gamingPlace)}} #}
             </div>
             {# Create a new gaming place #}
             <div class = "gaming-place-new">
-                {# {{ form_widget(form.gamingPlace.name)}}
+                {{ form_widget(form.gamingPlace.name)}}
+                <hr class="hr-xs">
                 {{ form_row(form.gamingPlace.type)}}
                 {{ form_row(form.gamingPlace.placeMax)}}
-                {{ form_widget(form.gamingPlace.description)}} #}
+                {{ form_widget(form.gamingPlace.description)}}
                 <hr class="hr-xs">
                 <br>
-                {# <h1>Address</h1> #}
-                {# {{ form_widget(form.gamingPlace.address.locality)}}
+                <h1>Address</h1>
+                {{ form_widget(form.gamingPlace.address.locality)}}
                 <hr class="hr-xs">
                 {{ form_widget(form.gamingPlace.address.street)}}
                 <hr class="hr-xs">
@@ -40,7 +41,7 @@
                 {{ form_widget(form.gamingPlace.address.city)}}
                 <hr class="hr-xs">
                 {{ form_widget(form.gamingPlace.address.country)}}
-                <hr class="hr-xs"> #}
+                <hr class="hr-xs">
             </div>
     </div>
     <button type="submit">Create a new gaming place</button>
