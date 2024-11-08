@@ -53,21 +53,23 @@ function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
     fetch (apiEndPoint) //route path to transform data in JSON
         .then(data => data.json())
         .then(cities =>{
+            // console.log(cities);
             cities.forEach(city => {
+                console.log(city);
                 // console.log("coucou " + city.city);
                 if(city.lat != null && city.lon != null){
                     let coords = [city.lat, city.lon];
                     let marker = L.marker(coords).addTo(map);
                     // console.log(coords);
                     
-                    let popup = ` <div class="popup">
-                              <img src="/images/${content.image}" alt ="${city}" width="50" height= "50">
-                            <div>
-                                 <h2>${city}</h2>
-                                 <p>${content.description}</p>
-                             </div>
-                            </div>`marker.bindPopup(popup)
-                    marker.bindPopup(city.city);
+                    let popup = `<div class="popup">
+                                    <div>
+                                        <h4>${city.eventTitle}</h4>
+                                        <p>${city.name}</p>
+                                        <p>${city.postCode} - ${city.city}</p>
+                                    </div>
+                                </div>`;
+                    marker.bindPopup(popup);
                     // markers.addLayer(marker);
                     limits.push(coords);
                     map.addLayer(marker);

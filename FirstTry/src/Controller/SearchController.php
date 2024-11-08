@@ -128,6 +128,7 @@ class SearchController extends AbstractController
         foreach ($gamingPlaces as $gamingPlace){
             $address = $gamingPlace->getAddress();
             $addressData[] = [
+                "name"=>$gamingPlace->getName(),
                 "city" =>$address->getCity(),
                 "lat" =>$address->getLat(),
                 "lon"=>$address->getLon(),
@@ -151,15 +152,16 @@ class SearchController extends AbstractController
             $eventPlaces = $event->getEventPlaces();
             foreach($eventPlaces as $eventPlace){
                 $address = $eventPlace->getGamingPlace()->getAddress();
+                // dd($address);
                 $addressData[] = [
+                    "eventTitle" => $event->getTitle(),
+                    "name"=>$eventPlace->getGamingPlace()->getName(),
                     "city" =>$address->getCity(),
+                    "postCode"=>$address->getPostCode(),
                     "lat" =>$address->getLat(),
                     "lon"=>$address->getLon(),
-                    // "lat"=> 48.856614 + $i,
-                    // "lon" => 2.352221 + $i,
                 ];
                 $i++;
-                // dd($address);
             }
         }
         return new JsonResponse($addressData);
