@@ -49,9 +49,10 @@ class EventFixture extends Fixture implements DependentFixtureInterface
             
             $event->setRecurrenceType(RecurrenceType::cases()[rand(0,4)]);
             $event->setUserOrganisator($organisator);
+            $this->addReference($eventData["title"],$event);
+
             $manager->persist($event);
 
-            $this->addReference($eventData["title"],$event);
         }
         
         for ($i = 0; $i < 10; $i++) {
