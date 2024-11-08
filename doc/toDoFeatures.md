@@ -33,7 +33,7 @@ To do:
 
 ### Bonus
 - sync agenda with google calendar
-- sync address with a map (https://www.youtube.com/watch?v=1ZmHG3cqPAs) for tuto
+<!-- - sync address with a map (https://www.youtube.com/watch?v=1ZmHG3cqPAs) for tuto ->ok -->
 
 ### Comments
 - All entities, fixtures and relations for MVP1 ok
@@ -42,6 +42,7 @@ To do:
 <!-- - Impossible to delete child event-> ok -->
 - improve email constraints, no error message appears when errors in all forms (except dateEnd)
 - no message when logged-out
+- serialization problem with avatar and Vich uploader
 
 ## MVP2 features
 

@@ -36,6 +36,9 @@ with plugins:
 - MapTiler ( for geocoding)
 - Leflet MarkerCluster (not working for the moment) 
 
+### Vich uploader
+https://github.com/dustin10/VichUploaderBundle
+
 ## The project now
 
 For now, only the MVP1 features are implemented. I pushed them a lot further that I initially thought because I wanted my MVP1 to be as complete as possible so all the other features would be "bonuses". 
@@ -50,6 +53,8 @@ For now, only the MVP1 features are implemented. I pushed them a lot further tha
     3. Bugfix for clusters marker
 
 - Sync the personal event calendar with a google calendar.
+
+- to be able to send a mail (if wanted) when a user subscribes to an event or when an event is cancelled
 
 - add boardgame Clubs
 
