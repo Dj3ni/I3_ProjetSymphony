@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\HydrateTrait\HydrateTrait;
+use App\Trait\HydrateTrait;
 use App\Repository\GamingPlaceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

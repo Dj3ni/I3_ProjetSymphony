@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\HydrateTrait\HydrateTrait;
+use App\Trait\HydrateTrait;
 use App\Repository\AddressRepository;
 use Doctrine\ORM\Mapping as ORM;
 

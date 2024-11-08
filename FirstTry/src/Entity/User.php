@@ -4,7 +4,7 @@ namespace App\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
-use App\HydrateTrait\HydrateTrait;
+use App\Trait\HydrateTrait;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;

@@ -9,8 +9,8 @@ import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 
 const EventsMap = document.getElementById("allEventsMap");
-console.log(EventsMap);
-let GamingPlaceMap;
+// console.log(EventsMap);
+let GamingPlaceMap = document.getElementById("gamingPlacesMap");
 const eventInfoMap = document.getElementById("eventMap");
 // console.log(eventInfoMap);
 // let eventId = eventInfoMap.dataset.event ;
@@ -22,13 +22,13 @@ if (EventsMap) {
 }
 if (eventInfoMap) {
     let eventId = eventInfoMap.dataset.event;
-    console.log("eventId trouvé : ", eventId); // Vérifie l'ID de l'événement
+    console.log(eventId);
     initializeMap(eventInfoMap, `/event/${eventId}/addresses`);
 } else {
     console.error("eventInfoMap container introuvable !");
 }
 
-// console.log(eventId);
+initializeMap(GamingPlaceMap, "/gamingplaces/addresses");
 
 function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
     
@@ -58,8 +58,15 @@ function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
                 if(city.lat != null && city.lon != null){
                     let coords = [city.lat, city.lon];
                     let marker = L.marker(coords).addTo(map);
-                    
                     // console.log(coords);
+                    
+                    let popup = ` <div class="popup">
+                              <img src="/images/${content.image}" alt ="${city}" width="50" height= "50">
+                            <div>
+                                 <h2>${city}</h2>
+                                 <p>${content.description}</p>
+                             </div>
+                            </div>`marker.bindPopup(popup)
                     marker.bindPopup(city.city);
                     // markers.addLayer(marker);
                     limits.push(coords);
@@ -76,9 +83,6 @@ function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
         .catch((error)=> console.error("Error dowloading data",error))
 }
 
-// initializeMap(eventInfoMap, `/event/${eventId}/addresses`);
-// initializeMap(EventsMap, "/events/addresses");
-initializeMap("gamingPlacesMap", "/gamingplaces/addresses");
 
 /*********************** Tuto *************************************/
 

@@ -1,5 +1,5 @@
 <?php
-namespace App\HydrateTrait;
+namespace App\Trait;
 
 trait HydrateTrait
 {
