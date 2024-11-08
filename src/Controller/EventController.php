@@ -75,7 +75,7 @@ class EventController extends AbstractController
 
         // 1. Create new empty object
         $event = new Event();
-        // $eventPlace = new EventPlace();
+        $eventPlace = new EventPlace();
         // $gamingPlace = new GamingPlace();
         // $gamingAddress = new Address();
 
@@ -84,7 +84,7 @@ class EventController extends AbstractController
         // $em->persist($gamingPlace);
         // $eventPlace->setGamingPlace($gamingPlace);
         // $em->persist($event);
-        // $event->addEventPlace($eventPlace);
+        $event->addEventPlace($eventPlace);
         // $em->persist($eventPlace);
 
         // 2. Create new Form
@@ -127,7 +127,7 @@ class EventController extends AbstractController
             $occurrenceGenerator->generateOccurrences($event);
             $em->flush();
             $this->addFlash("event_create_success", "Event successfully created!");
-            return $this->redirectToRoute("event_search");
+            return $this->redirectToRoute("event", ["id",$event->getId()]);
         }
         return $this->render('event/event_create_form.html.twig', [
             'form' => $form,

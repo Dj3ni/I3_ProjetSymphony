@@ -18,34 +18,36 @@ class EventPlaceFormType extends AbstractType
     {
         $builder
             
-            ->add("gamingPlace", GamingPlaceFormType::class)
+            // ->add("gamingPlace", GamingPlaceFormType::class)
 
-            // ->add("gamingPlaceChoice", ChoiceType::class,[
-            //     "choices"=>[
-            //         "Choose an existing gaming place" =>"existing",
-            //         "Create a new gaming place"=>"new",
-            //     ],
-            //     "expanded" =>true, // radio buttons
-            //     "multiple"=> false,
-            //     // "label"=>"Choose a gaming place",
-            //     "required"=>true,
-            //     "mapped"=>false, // is not in entity so don't need to map it
-            //     "data"=>"existing", //sets a default choice
-            //     'attr' => ['class' => 'gaming-place-choice'],
+            ->add("gamingPlaceChoice", ChoiceType::class,[
+                "choices"=>[
+                    "Choose an existing gaming place" =>"existing",
+                    "Create a new gaming place"=>"new",
+                ],
+                "expanded" =>true, // radio buttons
+                "multiple"=> false,
+                // "label"=>"Choose a gaming place",
+                "required"=>true,
+                "mapped"=>false, // is not in entity so don't need to map it
+                "data"=>"existing", //sets a default choice
+                'attr' => ['class' => 'gaming-place-choice'],
 
-            // ])
-            // ->add('gamingPlace', EntityType::class, [
-            //     'class' => GamingPlace::class,
-            //     'choice_label' => 'name',
-            //     'placeholder'=> "Choose a gaming place",
-            //     "required"=>false,
-            //     'attr' => ['class' => 'gaming-place-existing'], 
-            // ])
-            // ->add("newGamingPlace", GamingPlaceFormType::class,[
-            //     "required"=> false,
-            //     "mapped"=>false,
-            //     'attr' => ['class' => 'gaming-place-new'], 
-            // ])
+            ])
+            ->add('gamingPlace', EntityType::class, [
+                'class' => GamingPlace::class,
+                'choice_label' => 'name',
+                'placeholder'=> "Choose a gaming place",
+                "required"=>false,
+                'attr' => [
+                    'class' => 'gaming-place-existing'
+                ], 
+            ])
+            ->add("newGamingPlace", GamingPlaceFormType::class,[
+                "required"=> false,
+                "mapped"=>false,
+                'attr' => ['class' => 'gaming-place-new'], 
+            ])
         ;
 
     }

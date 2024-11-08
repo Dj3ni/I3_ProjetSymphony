@@ -61,7 +61,7 @@ class GamingPlaceController extends AbstractController
             // dd($chosenGamingPlace);
             // $newGamingPlace = $form->get("newGamingPlace")->getData();
             // $newAddress = $newGamingPlace->getAddress(); 
-            $newGamingPlace = $form->get("gamingPlace")->getData();
+            $newGamingPlace = $form->get("newGamingPlace")->getData();
 
 
             // dd($newAddress);

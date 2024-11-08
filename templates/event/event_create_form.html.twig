@@ -26,7 +26,7 @@
     </div>
     <div class= "form-group">
         <hr class="hr-xs">
-        <br>
+        <br> 
         <h1>Gaming Places</h1>
         {% for eventPlace in form.eventPlaces %}
         {# choice between existing and new #}
@@ -34,11 +34,11 @@
                 {{form_widget(eventPlace.gamingPlaceChoice)}}
             </div>
             {# select Gaming place #}
-            <div>
+            <div class = "gaming-place-existing" style="display:none;">
                 {{form_row(eventPlace.gamingPlace)}}
             </div>
             {# Create a new gaming place #}
-            <div class = "gaming-place-new">
+            <div class = "gaming-place-new" style="display:none;">
                 {{ form_widget(eventPlace.newGamingPlace.name)}}
                 {{ form_row(eventPlace.newGamingPlace.type)}}
                 {{ form_row(eventPlace.newGamingPlace.placeMax)}}
