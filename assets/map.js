@@ -41,6 +41,8 @@ function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
         center: defaultCoords
     });
 
+    // map.getContainer().style.zIndex = 1;
+
     // Add tile layer to the Map
     L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
         minZoom: 1, // till you can zoom in
