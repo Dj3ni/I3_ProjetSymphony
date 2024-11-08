@@ -47,15 +47,22 @@
             <p>Where:
                 <ul>
                 {% for place in places %}
-                    <li>{{place.gamingPlace.name}}: <br>
-                        <a href="">
-                        </iframe>
+                    <li>{{place.gamingPlace.name}}:
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href=" {{ path("remove_gaming_place_event", {eventPlace: place.id, event: event.id})}}">❌</a>
+                        {% endif %}
+                        <br>
                             {{place.gamingPlace.address.street}}, {{place.gamingPlace.address.number}}<br>
                             {{place.gamingPlace.address.postCode}}  {{place.gamingPlace.address.city}}
-                        </a>
+                        
                     </li>
                 {% endfor %}
-                </ul>   
+                </ul> 
+                {% if is_granted('ROLE_ADMIN') %}
+                <button class = "btn btn-primary btn-block">
+                    <a href="{{ path('add_gamingPlace_event', {event: event.id})}}">➕ Add a new gaming place</a>
+                </button>
+                {% endif %}
             </p>
         </div>
         <div class="grid-item">
@@ -95,7 +102,7 @@
             {% if is_granted("ROLE_ADMIN") %}
                 <div class="div-btn">
                     <button class="btn btn-primary btn-block">
-                        <a href="{{ path ("create_occurrence", {event: event.id})}}">➕ add an occurrence</a>
+                        <a href="{{ path ("create_occurrence", {event: event.id})}}">➕ Add an occurrence</a>
                     </button>
                 </div>
             {% endif %}

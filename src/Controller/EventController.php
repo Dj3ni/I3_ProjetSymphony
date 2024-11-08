@@ -8,7 +8,6 @@ use App\Entity\Address;
 use App\GeocodingService;
 use App\Entity\EventPlace;
 use App\Entity\GamingPlace;
-use App\Entity\EventOccurrence;
 use App\EventOccurrenceGenerator;
 use App\Form\CreateEventFormType;
 use App\Repository\EventRepository;
@@ -80,13 +79,13 @@ class EventController extends AbstractController
         $gamingPlace = new GamingPlace();
         $gamingAddress = new Address();
 
-        // $em->persist($gamingAddress);
+        $em->persist($gamingAddress);
         $gamingPlace->setAddress($gamingAddress);
-        // $em->persist($gamingPlace);
+        $em->persist($gamingPlace);
         $eventPlace->setGamingPlace($gamingPlace);
+        $em->persist($event);
         $event->addEventPlace($eventPlace);
         // $em->persist($eventPlace);
-        // $em->persist($event);
 
         // 2. Create new Form
         $form = $this->createForm(CreateEventFormType::class, $event);
@@ -97,7 +96,8 @@ class EventController extends AbstractController
             //3.1. Retrieve gaming place choice from the form
             $eventPlace = $event->getEventPlaces()->first();// we want to start with the first
 
-            $gamingPlaceChoice = $eventPlace->getGamingPlace(); // get if "existing or "new"
+            // $gamingPlaceChoice = $eventPlace->getGamingPlace(); // get if "existing or "new"
+            $gamingPlaceChoice = $form->get("gamingPlace")->getData();
 
             if($gamingPlaceChoice){
                 $eventPlace->setGamingPlace($gamingPlaceChoice);
@@ -119,9 +119,9 @@ class EventController extends AbstractController
             $event->setUserOrganisator($this->getUser());
             // test
             $em->persist($eventPlace);
-            $em->persist($gamingPlace);
-            $em->persist($gamingAddress);
-            $em->persist($event);
+            // $em->persist($gamingPlace);
+            // $em->persist($gamingAddress);
+            // $em->persist($event);
             // Create Occurrences
             $occurrenceGenerator->generateOccurrences($event);
             $em->flush();
