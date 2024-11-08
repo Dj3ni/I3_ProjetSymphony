@@ -5,8 +5,8 @@ import "leaflet";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.markercluster";
-import "leaflet-control-geocoder/dist/Control.Geocoder.css";
-import "leaflet-control-geocoder/dist/Control.Geocoder.js";
+// import "leaflet-control-geocoder/dist/Control.Geocoder.css";
+// import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 
 const EventsMap = document.getElementById("allEventsMap");
 // console.log(EventsMap);

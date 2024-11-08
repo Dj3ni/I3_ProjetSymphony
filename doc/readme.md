@@ -1,13 +1,13 @@
 # Project Context
 
 I have to build a Symphony project for school and was asked that it contains:
-- user sessions
-- a DB
+- user sessions / login - logout
+- a DB with crud fonctions
 - search form 
 
 # Project Title
 
-My website is for gamers who want to subscribe to a boardgame club. It will be possible for them to consult their events, their game libraries and subscribe to a game session.
+My website is for boardgamers who want to subscribe to a boardgame club. It will be possible for them to consult their events, their game libraries and subscribe to a game session.
 
 ## Features
 
@@ -18,12 +18,40 @@ MVP2: Subscribe a club and members management
 MVP3: Manage boardgame Library
 MVP4: Create and subscribe to a game session
 
+## Dependencies
 
+### Webpack
 
+### Calendar JS
 Calendar doc: 
 - https://fullcalendar.io/docs/date-display
 
 https://jquense.github.io/react-big-calendar/examples/index.html?path=/docs/about-big-calendar--page
+
+### Leaflet for openstreetMap
+
+- https://leafletjs.com/
+
+with plugins: 
+- MapTiler ( for geocoding)
+- Leflet MarkerCluster (not working for the moment) 
+
+## The project now
+
+For now, only the MVP1 features are implemented. I pushed them a lot further that I initially thought because I wanted my MVP1 to be as complete as possible so all the other features would be "bonuses". 
+
+## The project tomorrow
+
+- A lot of the project is for admin users, so I want to develop a back office Interface with easy admin 4. It will really improve the UX. I didn't do it before because, as a learner, it was asked from me to build everything "from scratch". 
+
+- Add features for the map search:
+    1. geolocalisation (https://developer.mozilla.org/fr/docs/Web/API/Geolocation_API)
+    2. Searchbar in the map
+    3. Bugfix for clusters marker
+
+- Sync the personal event calendar with a google calendar.
+
+- add boardgame Clubs
 
 <!-- 
 ## Getting Started
