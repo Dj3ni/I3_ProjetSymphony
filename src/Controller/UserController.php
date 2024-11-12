@@ -26,7 +26,6 @@ class UserController extends AbstractController
             $em->flush();
             return $this->redirectToRoute("user_profile");
         }
-
         
         return $this->render('user/profile.html.twig', [
             'user' => $user,
