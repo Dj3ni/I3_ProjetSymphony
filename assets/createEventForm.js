@@ -2,10 +2,9 @@
 const gamingPlaceChoices = document.querySelectorAll('[name="event_place_form[gamingPlaceChoice]"]');
 const existingGamingPlace = document.querySelector('.gaming-place-existing');
 const newGamingPlace = document.querySelector('.gaming-place-new');
+// console.log(existingGamingPlace);
+// console.log(newGamingPlace);
 // console.log(gamingPlaceChoices);
-console.log(existingGamingPlace);
-console.log(newGamingPlace);
-console.log(gamingPlaceChoices);
 
 
 
@@ -14,8 +13,8 @@ function toggleGamingPlacefields(){
     // if (!selectedChoiceElement) return;
     console.log(selectedChoiceElement);
     
-    // const choice = selectedChoiceElement.value;
-    // console.log(choice);
+    const choice = selectedChoiceElement.value;
+    console.log(choice);
     if (choice === "existing"){
         existingGamingPlace.style.display = "block";
         newGamingPlace.style.display = "none";
@@ -35,6 +34,6 @@ toggleGamingPlacefields();
 
 // I put a listener to the change choice
 gamingPlaceChoices.forEach(gamingPlaceChoice => {
-    console.log(gamingPlaceChoice.value);
+    // console.log(gamingPlaceChoice.value);
         gamingPlaceChoice.addEventListener('change', toggleGamingPlacefields);
 });

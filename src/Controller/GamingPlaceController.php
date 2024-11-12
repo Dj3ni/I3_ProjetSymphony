@@ -57,16 +57,14 @@ class GamingPlaceController extends AbstractController
             // dd($form);
             // $chosenGamingPlace = $eventPlace->getGamingPlace();
             
-            // $chosenGamingPlace = $form->get("gamingPlace")->getData();
+            $chosenGamingPlace = $form->get("gamingPlace")->getData();
             // dd($chosenGamingPlace);
-            // $newGamingPlace = $form->get("newGamingPlace")->getData();
-            // $newAddress = $newGamingPlace->getAddress(); 
             $newGamingPlace = $form->get("newGamingPlace")->getData();
-
-
+            
+            // $newAddress = $newGamingPlace->getAddress(); 
             // dd($newAddress);
 
-            // if(!$chosenGamingPlace && $newGamingPlace){
+            if(!$chosenGamingPlace && $newGamingPlace){
                 $gamingPlace = new GamingPlace([
                     "name"=> $newGamingPlace->getName(),
                     "type"=>$newGamingPlace->getType(),
@@ -86,6 +84,7 @@ class GamingPlaceController extends AbstractController
                 ]);
 
                 $coords = $this->geocodingService->getCoordinatesFromAddress($address);
+                dd($coords);
 
                 if($coords){
                     $address->setLat($coords['latitude']);
@@ -96,8 +95,16 @@ class GamingPlaceController extends AbstractController
                     $address->setLon(null);
                 }
                 $gamingPlace->setAddress($address);
-                $eventPlace->setGamingPlace($gamingPlace);
-            // }
+                $eventPlace->setGamingPlace($newGamingPlace);
+            }
+            else if(!$newGamingPlace && $chosenGamingPlace){
+                $eventPlace->setGamingPlace($chosenGamingPlace);
+            }
+            else{
+                $this->addFlash("failed", "There was an error, your place hasn't been added");            
+            return $this->redirectToRoute("event",["id"=>$event->getId()]);
+            }
+
             $this->em->persist($eventPlace);
             $this->em->flush();
             $this->addFlash("success", "Your event has a new gaming Place!");            
