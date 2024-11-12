@@ -23,6 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EventController extends AbstractController
 {
+    
     private ManagerRegistry $doctrine;
     private GeocodingService $geocodingService;
 
