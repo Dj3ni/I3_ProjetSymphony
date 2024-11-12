@@ -35,13 +35,13 @@ class GamingPlace
 
 #################### Relations ###################################################
 
-    #[ORM\OneToOne(inversedBy: 'gamingPlace')]
+    #[ORM\OneToOne(inversedBy: 'gamingPlace', cascade:['persist', 'remove'])]
     private ?Address $address = null;
 
     /**
      * @var Collection<int, EventPlace>
      */
-    #[ORM\OneToMany(targetEntity: EventPlace::class, mappedBy: 'gamingPlace', cascade:['persist', 'remove'], fetch: 'EAGER')]
+    #[ORM\OneToMany(targetEntity: EventPlace::class, mappedBy: 'gamingPlace', cascade:['persist', 'remove'])]
     private Collection $eventPlaces;
 
 #####################  Functions #########################################

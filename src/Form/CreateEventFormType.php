@@ -59,9 +59,6 @@ class CreateEventFormType extends AbstractType
                 "entry_options"=>[
                     "label"=>false, // I don't want the id to appear
                 ],
-                "attr"=>[
-                    "data-controller"=> "form-collection"
-                ]
             ])    
 
             ->add("save", SubmitType::class, [
