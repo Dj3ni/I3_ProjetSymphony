@@ -84,7 +84,6 @@ class GamingPlaceController extends AbstractController
                 ]);
 
                 $coords = $this->geocodingService->getCoordinatesFromAddress($address);
-                dd($coords);
 
                 if($coords){
                     $address->setLat($coords['latitude']);
@@ -95,7 +94,7 @@ class GamingPlaceController extends AbstractController
                     $address->setLon(null);
                 }
                 $gamingPlace->setAddress($address);
-                $eventPlace->setGamingPlace($newGamingPlace);
+                $eventPlace->setGamingPlace($gamingPlace);
             }
             else if(!$newGamingPlace && $chosenGamingPlace){
                 $eventPlace->setGamingPlace($chosenGamingPlace);
