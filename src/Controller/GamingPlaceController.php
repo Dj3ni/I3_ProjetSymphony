@@ -58,8 +58,8 @@ class GamingPlaceController extends AbstractController
             // $chosenGamingPlace = $eventPlace->getGamingPlace();
             
             $chosenGamingPlace = $form->get("gamingPlace")->getData();
-            // dd($chosenGamingPlace);
             $newGamingPlace = $form->get("newGamingPlace")->getData();
+            // dd($chosenGamingPlace,  $newGamingPlace);
             
             // $newAddress = $newGamingPlace->getAddress(); 
             // dd($newAddress);
@@ -96,17 +96,17 @@ class GamingPlaceController extends AbstractController
                 $gamingPlace->setAddress($address);
                 $eventPlace->setGamingPlace($gamingPlace);
             }
-            else if(!$newGamingPlace && $chosenGamingPlace){
+            else if($chosenGamingPlace){
                 $eventPlace->setGamingPlace($chosenGamingPlace);
             }
             else{
-                $this->addFlash("failed", "There was an error, your place hasn't been added");            
+                $this->addFlash("failed_adding_gamingPlace", "There was an error, your place hasn't been added");            
             return $this->redirectToRoute("event",["id"=>$event->getId()]);
             }
 
             $this->em->persist($eventPlace);
             $this->em->flush();
-            $this->addFlash("success", "Your event has a new gaming Place!");            
+            $this->addFlash("success_adding_gamingPlace", "Your event has a new gaming Place!");            
             return $this->redirectToRoute("event",["id"=>$event->getId()]);
         }
 

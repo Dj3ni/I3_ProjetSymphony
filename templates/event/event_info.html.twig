@@ -24,6 +24,16 @@
         {{message}}
     </div>
 {% endfor %}
+{% for message in app.flashes("failed_adding_gamingPlace") %}
+    <div class="alert alert-failed">
+        {{message}}
+    </div>
+{% endfor %}
+{% for message in app.flashes("success_adding_gamingPlace") %}
+    <div class="alert alert-failed">
+        {{message}}
+    </div>
+{% endfor %}
 
 <header>
     <h1>
