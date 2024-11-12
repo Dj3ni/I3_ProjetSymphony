@@ -37,7 +37,7 @@ class EventController extends AbstractController
     public function showAllEvents(EventRepository $rep): Response
     {
         $events = $rep ->findAll();
-        dd($events);
+        // dd($events);
         
         return $this->render('event/events_show.html.twig', [
             'events' => $events,
