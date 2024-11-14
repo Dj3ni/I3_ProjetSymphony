@@ -33,7 +33,8 @@ class ContactFormType extends AbstractType
                 "required" => true,
                 "empty_data" => "",
                 "attr"=>[
-                    "placeholder" => "Your email"
+                    "placeholder" => "Your email",
+                    "pattern" => '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
                 ],
                 // 'constraints' => [
                 //     new Assert\Regex([
