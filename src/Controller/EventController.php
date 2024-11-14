@@ -8,6 +8,7 @@ use App\Entity\Address;
 use App\GeocodingService;
 use App\Entity\EventPlace;
 use App\Entity\GamingPlace;
+use App\AddNewGamingPlaceService;
 use App\EventOccurrenceGenerator;
 use App\Form\CreateEventFormType;
 use App\Repository\EventRepository;
@@ -25,11 +26,19 @@ class EventController extends AbstractController
     
     private ManagerRegistry $doctrine;
     private GeocodingService $geocodingService;
+    private AddNewGamingPlaceService $addNewGamingPlaceService;
 
 
-    public function __construct(ManagerRegistry $doctrine, EventOccurrenceGenerator $occurrenceGenerator, GeocodingService $geocodingService){
+    public function __construct(
+        ManagerRegistry $doctrine,
+        EventOccurrenceGenerator $occurrenceGenerator, 
+        GeocodingService $geocodingService,
+        AddNewGamingPlaceService $addNewGamingPlaceService)
+    {
         $this->doctrine = $doctrine;
         $this->geocodingService = $geocodingService;
+        // $this->occurrenceGenerator = $occurrenceGenerator;
+        $this->addNewGamingPlaceService = $addNewGamingPlaceService;
     }
 
 ############  Show all the events in DB now managed by events/search
@@ -77,14 +86,6 @@ class EventController extends AbstractController
         // 1. Create new empty object
         $event = new Event();
         $eventPlace = new EventPlace();
-        // $gamingPlace = new GamingPlace();
-        // $gamingAddress = new Address();
-
-        // $em->persist($gamingAddress);
-        // $gamingPlace->setAddress($gamingAddress);
-        // $em->persist($gamingPlace);
-        // $eventPlace->setGamingPlace($gamingPlace);
-        // $em->persist($event);
         $event->addEventPlace($eventPlace);
         // $em->persist($eventPlace);
 
@@ -98,32 +99,23 @@ class EventController extends AbstractController
             //3.1. Retrieve gaming place choice from the form
             $eventPlace = $event->getEventPlaces()->first();// we want to start with the first
 
-            // $gamingPlaceChoice = $eventPlace->getGamingPlace(); // get if "existing or "new"
-            $gamingPlaceChoice = $form->get("gamingPlace")->getData();
+            $chosenGamingPlace = $form->get("gamingPlace")->getData();
+            $newGamingPlace = $form->get("newGamingPlace")->getData();
+            // dd($chosenGamingPlace,  $newGamingPlace);
 
-            if($gamingPlaceChoice){
-                $eventPlace->setGamingPlace($gamingPlaceChoice);
-            }
-            // dd($form->getErrors(true, false));
-            // dd($form);
-            $address = $eventPlace->getGamingPlace()->getAddress();
-            $coords = $this->geocodingService->getCoordinatesFromAddress($address);
+            if(!$chosenGamingPlace && $newGamingPlace){
 
-            if($coords){
-                $address->setLat($coords['latitude']);
-                $address->setLon($coords['longitude']);
-            }
-            else{
-                $address->setLat(null);
-                $address->setLon(null);
-            }
+                $gamingPlace = $this->addNewGamingPlaceService->addNewGamingPlace($newGamingPlace);
 
+                $eventPlace->setGamingPlace($gamingPlace);
+            }
+            else if($chosenGamingPlace){
+                $eventPlace->setGamingPlace($chosenGamingPlace);
+            }
+            
             $event->setUserOrganisator($this->getUser());
-            // test
-            // $em->persist($eventPlace);
-            // $em->persist($gamingPlace);
-            // $em->persist($gamingAddress);
-            // $em->persist($event);
+            $em->persist($event);
+
             // Create Occurrences
             $occurrenceGenerator->generateOccurrences($event);
             $em->flush();

@@ -4,7 +4,7 @@
 - link with mailserver for production missing
 - really slow with form links or maps
 - check min number of people who can subscribe
-- slowdown hover effects
+<!-- - slowdown hover effects -->
 - css profile page to change
 - set more recent events homePage
 - check all the flash messages

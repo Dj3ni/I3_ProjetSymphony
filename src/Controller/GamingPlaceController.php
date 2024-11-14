@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\Address;
 use App\GeocodingService;
+use App\AddNewGamingPlace;
 use App\Entity\EventPlace;
 use App\Entity\GamingPlace;
 use App\Form\EventPlaceFormType;
+use App\AddNewGamingPlaceService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +21,16 @@ class GamingPlaceController extends AbstractController
 {
     private EntityManagerInterface $em;
     private GeocodingService $geocodingService;
+    private AddNewGamingPlaceService $addNewGamingPlaceService;
 
-    public function __construct(EntityManagerInterface $em, GeocodingService $geocodingService){
+    public function __construct(
+        EntityManagerInterface $em, 
+        GeocodingService $geocodingService,
+        AddNewGamingPlaceService $addNewGamingPlaceService)
+    {
         $this->em = $em;
         $this->geocodingService = $geocodingService;
+        $this->addNewGamingPlaceService = $addNewGamingPlaceService;
     }
 
     #[Route('/gaming/place', name: 'app_gaming_place')]
@@ -60,45 +68,17 @@ class GamingPlaceController extends AbstractController
             $chosenGamingPlace = $form->get("gamingPlace")->getData();
             $newGamingPlace = $form->get("newGamingPlace")->getData();
             // dd($chosenGamingPlace,  $newGamingPlace);
-            
-            // $newAddress = $newGamingPlace->getAddress(); 
-            // dd($newAddress);
 
             if(!$chosenGamingPlace && $newGamingPlace){
-                $gamingPlace = new GamingPlace([
-                    "name"=> $newGamingPlace->getName(),
-                    "type"=>$newGamingPlace->getType(),
-                    "description"=>$newGamingPlace->getDescription(),
-                    "placeMax" => $newGamingPlace->getPlaceMax()
-                ]);
 
-                $addressForm = $newGamingPlace->getAddress();
+                $gamingPlace = $this->addNewGamingPlaceService->addNewGamingPlace($newGamingPlace);
 
-                $address = new Address([
-                    "locality"=> $addressForm->getLocality(),
-                    "street"=>$addressForm->getStreet(),
-                    "number"=>$addressForm->getNumber(),
-                    "city"=>$addressForm->getCity(),
-                    "postCode"=>$addressForm->getPostCode(),
-                    "country"=>$addressForm->getCountry(),
-                ]);
-
-                $coords = $this->geocodingService->getCoordinatesFromAddress($address);
-
-                if($coords){
-                    $address->setLat($coords['latitude']);
-                    $address->setLon($coords['longitude']);
-                }
-                else{
-                    $address->setLat(null);
-                    $address->setLon(null);
-                }
-                $gamingPlace->setAddress($address);
                 $eventPlace->setGamingPlace($gamingPlace);
             }
             else if($chosenGamingPlace){
                 $eventPlace->setGamingPlace($chosenGamingPlace);
             }
+            
             else{
                 $this->addFlash("failed_adding_gamingPlace", "There was an error, your place hasn't been added");            
             return $this->redirectToRoute("event",["id"=>$event->getId()]);
