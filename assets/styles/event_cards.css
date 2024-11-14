@@ -27,6 +27,7 @@
 .card-link {
     text-decoration: none;
     color: #525252;
+    transition-duration: 0.5s;
 }
 
 .card-link:hover {

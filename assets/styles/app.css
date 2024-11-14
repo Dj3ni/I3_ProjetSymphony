@@ -79,10 +79,12 @@ nav {
     margin: 0 10px;
     text-decoration: none;
     color: #fff;
+    transition-duration: 0.5s;
 }
 
 .navbar a:hover {
-    background: #525252;
+    background-color: #525252;
+    /* background-color: #fff; */
     padding: 5px 10px;
     border-radius: 20px;
 }
@@ -281,6 +283,7 @@ nav {
     margin: 5px;
     text-decoration: none;
     color: #525252;
+    transition-duration: 0.5s;
 }
 
 .search-links a:hover {
