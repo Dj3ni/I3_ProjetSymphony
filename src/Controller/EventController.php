@@ -85,8 +85,8 @@ class EventController extends AbstractController
 
         // 1. Create new empty object
         $event = new Event();
-        $eventPlace = new EventPlace();
-        $event->addEventPlace($eventPlace);
+        // $eventPlace = new EventPlace();
+        // $event->addEventPlace($eventPlace);
         // $em->persist($eventPlace);
 
         // 2. Create new Form
@@ -96,22 +96,22 @@ class EventController extends AbstractController
         // 3.Send in DB
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //3.1. Retrieve gaming place choice from the form
-            $eventPlace = $event->getEventPlaces()->first();// we want to start with the first
+            // //3.1. Retrieve gaming place choice from the form
+            // $eventPlace = $event->getEventPlaces()->first();// we want to start with the first
 
-            $chosenGamingPlace = $form->get("gamingPlace")->getData();
-            $newGamingPlace = $form->get("newGamingPlace")->getData();
-            // dd($chosenGamingPlace,  $newGamingPlace);
+            // $chosenGamingPlace = $form->get("gamingPlace")->getData();
+            // $newGamingPlace = $form->get("newGamingPlace")->getData();
+            // // dd($chosenGamingPlace,  $newGamingPlace);
 
-            if(!$chosenGamingPlace && $newGamingPlace){
+            // if(!$chosenGamingPlace && $newGamingPlace){
 
-                $gamingPlace = $this->addNewGamingPlaceService->addNewGamingPlace($newGamingPlace);
+            //     $gamingPlace = $this->addNewGamingPlaceService->addNewGamingPlace($newGamingPlace);
 
-                $eventPlace->setGamingPlace($gamingPlace);
-            }
-            else if($chosenGamingPlace){
-                $eventPlace->setGamingPlace($chosenGamingPlace);
-            }
+            //     $eventPlace->setGamingPlace($gamingPlace);
+            // }
+            // else if($chosenGamingPlace){
+            //     $eventPlace->setGamingPlace($chosenGamingPlace);
+            // }
             
             $event->setUserOrganisator($this->getUser());
             $em->persist($event);
@@ -119,8 +119,9 @@ class EventController extends AbstractController
             // Create Occurrences
             $occurrenceGenerator->generateOccurrences($event);
             $em->flush();
+            // dd($event);
             $this->addFlash("event_create_success", "Event successfully created!");
-            return $this->redirectToRoute("event", ["id",$event->getId()]);
+            return $this->redirectToRoute("event", ["id" => $event->getId()]);
         }
         return $this->render('event/event_create_form.html.twig', [
             'form' => $form,

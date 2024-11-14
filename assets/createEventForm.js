@@ -1,12 +1,9 @@
-
 const gamingPlaceChoices = document.querySelectorAll('[name="event_place_form[gamingPlaceChoice]"]');
 const existingGamingPlace = document.querySelector('.gaming-place-existing');
 const newGamingPlace = document.querySelector('.gaming-place-new');
 // console.log(existingGamingPlace);
 // console.log(newGamingPlace);
 // console.log(gamingPlaceChoices);
-
-
 
 function toggleGamingPlacefields(){
     const selectedChoiceElement = document.querySelector('[name="event_place_form[gamingPlaceChoice]"]:checked');

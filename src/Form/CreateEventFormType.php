@@ -52,14 +52,14 @@ class CreateEventFormType extends AbstractType
             ])
                 // Add Gaming Place
         
-            ->add("eventPlaces", CollectionType::class, [
-                "entry_type"=> EventPlaceFormType::class,
-                "allow_add"=>true,//I want to add multiple eventPlaces
-                "by_reference"=>false, //I only want to add or remove
-                "entry_options"=>[
-                    "label"=>false, // I don't want the id to appear
-                ],
-            ])    
+            // ->add("eventPlaces", CollectionType::class, [
+            //     "entry_type"=> EventPlaceFormType::class,
+            //     "allow_add"=>true,//I want to add multiple eventPlaces
+            //     "by_reference"=>false, //I only want to add or remove
+            //     "entry_options"=>[
+            //         "label"=>false, // I don't want the id to appear
+            //     ],
+            // ])    
 
             ->add("save", SubmitType::class, [
                 "label"=> "Save this event"
