@@ -29,6 +29,10 @@ class RegistrationController extends AbstractController
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
+            // I want  the name and firstname To be in ucFirst
+            $user->setLastname(ucfirst($form->get('lastName')->getData()));
+            $user->setFirstname(ucfirst($form->get('firstName')->getData()));
+
             // Avatar management if no Vich Bundle
             // /** @var UploadedFile $file */
             // $file = $form->get("avatarFile")->getData();

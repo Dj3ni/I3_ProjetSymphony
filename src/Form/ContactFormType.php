@@ -53,7 +53,6 @@ class ContactFormType extends AbstractType
             ] )
             ->add("save", SubmitType::class, [
                 'label' => 'Contact us'
-
                 ])
         ;
     }
