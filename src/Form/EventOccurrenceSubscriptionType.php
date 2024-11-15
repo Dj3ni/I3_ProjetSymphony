@@ -26,6 +26,9 @@ class EventOccurrenceSubscriptionType extends AbstractType
             ->add('numberParticipants', IntegerType::class, [
                 'label' => 'Number of Participants',
                 'required' => false, // Optional, but you can make it required
+                'attr' => [
+                    "min"=> 1,
+                ]
             ]);
         ;
     }
