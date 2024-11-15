@@ -3,9 +3,18 @@
 {% block title %}Reset your password{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{% for message in app.flashes('error') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+{% endfor %}
+
     <h1>Reset your password</h1>
 
     {{ form_start(requestForm) }}

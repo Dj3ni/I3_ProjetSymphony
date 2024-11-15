@@ -37,7 +37,7 @@ class EventOccurrenceController extends AbstractController
             $em->persist($occurrence);
             $em->flush();
 
-            $this->addFlash("event_create_succes", "Your occurrence was succesfully created");
+            $this->addFlash("success", "Your occurrence was succesfully created");
             return $this->redirectToRoute("event", ["id"=>$event->getId()]);
         }
 
@@ -59,7 +59,7 @@ class EventOccurrenceController extends AbstractController
             $em->remove($occurrence);
             $em->flush();
         }
-        $this->addFlash("event_delete_success", "Your occurrence was successfully removed!");
+        $this->addFlash("success", "Your occurrence was successfully removed!");
         return $this->redirectToRoute("event", [
             "id" => $occurrence->getEvent()->getId(),
         ]);
@@ -79,7 +79,7 @@ class EventOccurrenceController extends AbstractController
             $em = $this->doctrine->getManager();
             $em->flush();
 
-            $this->addFlash("event_update_success", "Your occurrence was successfully updated!");
+            $this->addFlash("success", "Your occurrence was successfully updated!");
             return $this->redirectToRoute("event", [
                 "id" => $occurrence->getEvent()->getId(),
             ]);
@@ -93,7 +93,6 @@ class EventOccurrenceController extends AbstractController
         ]);
     }
 
-        
     
     // #[Route("occurrence/{id}", name:"occurrence_show")]
     // public function occurrenceShow(EventOccurrence $occurrence):Response

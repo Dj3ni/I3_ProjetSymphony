@@ -49,7 +49,7 @@ class HomeController extends AbstractController
                 die();
             }
             
-            $this->addFlash("contact_success", "Message received 5/5!");
+            $this->addFlash("success", "Message received 5/5!");
 
             return $this->redirectToRoute("contact");
         }

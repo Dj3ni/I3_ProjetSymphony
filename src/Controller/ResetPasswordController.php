@@ -57,7 +57,7 @@ class ResetPasswordController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash("succes","Your password is updated.");
+            $this->addFlash("success","Your password is updated.");
             return $this->redirectToRoute("user_profile");
         }
 

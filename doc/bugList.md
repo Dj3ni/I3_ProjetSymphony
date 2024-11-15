@@ -7,5 +7,5 @@
 <!-- - slowdown hover effects -->
 - css profile page to change
 - set more recent events homePage
-- check all the flash messages
+- check all the flash messages : check if again multiple
 

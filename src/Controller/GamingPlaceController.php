@@ -50,7 +50,7 @@ class GamingPlaceController extends AbstractController
         $event->removeEventPlace($eventPlace);
         $this->em->flush();
 
-        $this->addFlash("success_remove_gamingPlace", "You've successfully removed this gamingPlace");
+        $this->addFlash("success", "You've successfully removed this gamingPlace");
         return $this->redirectToRoute("event", ["id"=>$event->getId()]);
     }
 
@@ -81,13 +81,13 @@ class GamingPlaceController extends AbstractController
                 $eventPlace->setGamingPlace($chosenGamingPlace);
             }
             else{
-                $this->addFlash("failed_adding_gamingPlace", "There was an error, your place hasn't been added");            
+                $this->addFlash("error", "There was an error, your place hasn't been added");            
             return $this->redirectToRoute("event",["id"=>$event->getId()]);
             }
 
             $this->em->persist($eventPlace);
             $this->em->flush();
-            $this->addFlash("success_adding_gamingPlace", "Your event has a new gaming Place!");            
+            $this->addFlash("success", "Your event has a new gaming Place!");            
             return $this->redirectToRoute("event",["id"=>$event->getId()]);
         }
 

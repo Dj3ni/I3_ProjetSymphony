@@ -95,24 +95,6 @@ class EventController extends AbstractController
         
         // 3.Send in DB
         if ($form->isSubmitted() && $form->isValid()) {
-
-            // //3.1. Retrieve gaming place choice from the form
-            // $eventPlace = $event->getEventPlaces()->first();// we want to start with the first
-
-            // $chosenGamingPlace = $form->get("gamingPlace")->getData();
-            // $newGamingPlace = $form->get("newGamingPlace")->getData();
-            // // dd($chosenGamingPlace,  $newGamingPlace);
-
-            // if(!$chosenGamingPlace && $newGamingPlace){
-
-            //     $gamingPlace = $this->addNewGamingPlaceService->addNewGamingPlace($newGamingPlace);
-
-            //     $eventPlace->setGamingPlace($gamingPlace);
-            // }
-            // else if($chosenGamingPlace){
-            //     $eventPlace->setGamingPlace($chosenGamingPlace);
-            // }
-            
             $event->setUserOrganisator($this->getUser());
             $em->persist($event);
 
@@ -120,7 +102,7 @@ class EventController extends AbstractController
             $occurrenceGenerator->generateOccurrences($event);
             $em->flush();
             // dd($event);
-            $this->addFlash("event_create_success", "Event successfully created!");
+            $this->addFlash("success", "Event successfully created!");
             return $this->redirectToRoute("event", ["id" => $event->getId()]);
         }
         return $this->render('event/event_create_form.html.twig', [
@@ -158,7 +140,7 @@ class EventController extends AbstractController
             // 3.Send in DB
             $em->flush();
             
-            $this->addFlash("event_update_success", "Your event is now up-to-date");
+            $this->addFlash("success", "Your event is now up-to-date");
             return $this->redirectToRoute("event", ["id"=> $event->getId()]);
         }
         
@@ -206,7 +188,7 @@ class EventController extends AbstractController
                 $em->flush();
                 
                 // 5. Redirect with message
-                $this->addFlash("event_delete_success", "Your event was successfully removed!");
+                $this->addFlash("success", "Your event was successfully removed!");
                 return $this->redirectToRoute("event_search");
             }
 

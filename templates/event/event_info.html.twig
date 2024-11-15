@@ -4,42 +4,17 @@
 
 {% block body %}
 
-{% for message in app.flashes("subscription_success") %}
+{% for message in app.flashes('success') %}
     <div class="alert alert-success">
-        {{message}}
-    </div>
-{% endfor %}
-{% for message in app.flashes("event_update_success") %}
-    <div class="alert alert-success">
-        {{message}}
-    </div>
-{% endfor %}
-{% for message in app.flashes("event_delete_success") %}
-    <div class="alert alert-success">
-        {{message}}
-    </div>
-{% endfor %}
-{% for message in app.flashes("event_create_success") %}
-    <div class="alert alert-success">
-        {{message}}
-    </div>
-{% endfor %}
-{% for message in app.flashes("failed_adding_gamingPlace") %}
-    <div class="alert alert-danger">
-        {{message}}
-    </div>
-{% endfor %}
-{% for message in app.flashes("success_adding_gamingPlace") %}
-    <div class="alert alert-success">
-        {{message}}
-    </div>
-{% endfor %}
-{% for message in app.flashes("success_remove_gamingPlace") %}
-    <div class="alert alert-success">
-        {{message}}
+        {{ message }}
     </div>
 {% endfor %}
 
+{% for message in app.flashes('error') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+{% endfor %}
 
 <header>
     <h1>
