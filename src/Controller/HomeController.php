@@ -37,7 +37,7 @@ class HomeController extends AbstractController
             try{
                 $email = (new TemplatedEmail())
                         ->from($data["email"])
-                        ->to("contact@demo.be")
+                        ->to("dj3n.dev@gmail.com")
                         ->subject("seekContact")
                         ->htmlTemplate("emails/contact.html.twig")
                         ->context(["data" => $data]);
