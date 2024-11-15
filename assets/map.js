@@ -30,7 +30,7 @@ if (eventInfoMap) {
 
 initializeMap(GamingPlaceMap, "/gamingplaces/addresses");
 
-function initializeMap(mapContainerId, apiEndPoint, intialZoom = 13){
+function initializeMap(mapContainerId, apiEndPoint, intialZoom = 20){
     
     let limits = [];
     let defaultCoords = [50.8638372, 4.3607629];

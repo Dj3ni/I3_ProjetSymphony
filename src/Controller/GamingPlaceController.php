@@ -41,6 +41,8 @@ class GamingPlaceController extends AbstractController
         ]);
     }
 
+########################### Remove Event Place ####################
+
     #[Route('/remove/{eventPlace}/{event}', name:"remove_gaming_place_event")]
     #[IsGranted('ROLE_ADMIN')]
     public function removeGamingPlaceEvent(EventPlace $eventPlace, Event $event){
@@ -48,8 +50,11 @@ class GamingPlaceController extends AbstractController
         $event->removeEventPlace($eventPlace);
         $this->em->flush();
 
+        $this->addFlash("success_remove_gamingPlace", "You've successfully removed this gamingPlace");
         return $this->redirectToRoute("event", ["id"=>$event->getId()]);
     }
+
+############################ New Gaming-Place + link ########################
 
     #[Route('add/gamingPlace/{event}', name:"add_gamingPlace_event")]
     #[IsGranted('ROLE_ADMIN')]
@@ -63,22 +68,18 @@ class GamingPlaceController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             // dd($form);
-            // $chosenGamingPlace = $eventPlace->getGamingPlace();
-            
+            // Check if chosen in list or new 
             $chosenGamingPlace = $form->get("gamingPlace")->getData();
             $newGamingPlace = $form->get("newGamingPlace")->getData();
             // dd($chosenGamingPlace,  $newGamingPlace);
 
             if(!$chosenGamingPlace && $newGamingPlace){
-
                 $gamingPlace = $this->addNewGamingPlaceService->addNewGamingPlace($newGamingPlace);
-
                 $eventPlace->setGamingPlace($gamingPlace);
             }
             else if($chosenGamingPlace){
                 $eventPlace->setGamingPlace($chosenGamingPlace);
             }
-            
             else{
                 $this->addFlash("failed_adding_gamingPlace", "There was an error, your place hasn't been added");            
             return $this->redirectToRoute("event",["id"=>$event->getId()]);
