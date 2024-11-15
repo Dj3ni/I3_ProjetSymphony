@@ -1,7 +1,7 @@
 # For the MVP1, before presentation
 
 <!-- - Correct create event Form -->
-- link with mailserver for production missing
+- link with mailserver for production missing ? 
 - really slow with form links or maps
 <!-- - check min number of people who can subscribe -->
 <!-- - slowdown hover effects -->
