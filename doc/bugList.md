@@ -9,3 +9,4 @@
 - set more recent events homePage
 <!-- - check all the flash messages : check if again multiple -->
 - create error messages for forms
+<!-- - fix css filters nav -->
