@@ -211,9 +211,13 @@ class EventController extends AbstractController
                     "city" =>$address->getCity(),
                     "lat" =>$address->getLat(),
                     "lon"=>$address->getLon(),
+                    "eventTitle"=>$event->getTitle(),
+                    "postCode"=>$address->getPostCode(),
+                    "name"=>$eventPlace->getGamingPlace()->getName(),
+
                 ];
 
-                // dd($address);
+                // dd($addressData);
             }
             
         return new JsonResponse($addressData);

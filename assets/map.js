@@ -22,7 +22,7 @@ if (EventsMap) {
 }
 if (eventInfoMap) {
     let eventId = eventInfoMap.dataset.event;
-    console.log(eventId);
+    // console.log(eventId);
     initializeMap(eventInfoMap, `/event/${eventId}/addresses`);
 } else {
     console.error("eventInfoMap container introuvable !");
@@ -81,7 +81,7 @@ function initializeMap(mapContainerId, apiEndPoint, intialZoom = 20){
                     map.addLayer(marker);
                 }
             });
-            console.log(limits);
+            // console.log(limits);
             map.fitBounds(limits);
         })
         .catch((error)=> console.error("Error dowloading data",error))
