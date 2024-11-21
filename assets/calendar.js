@@ -28,20 +28,20 @@ document.addEventListener("DOMContentLoaded", () =>{
         end: occurrence.end,
         eventType: occurrence.eventType
     }));
-    console.log(allOccurrences);
+    // console.log(allOccurrences);
 
     // 3. Calendar Creation, settings and events on click
     let calendarEl = document.getElementById("calendrier");
     let roles = JSON.parse(calendarEl.dataset.roles);
-    // console.log(roles);
-    if (!roles.includes("ROLE_ADMIN")){
-        // const dayNumbers = document.querySelectorAll('.fc-daygrid-day-number');
-        // // Loop through each element and remove the class
-        // console.log(dayNumbers);
+    console.log(roles);
+    if (roles == []){
+        const dayNumbers = document.querySelectorAll('.fc-daygrid-day-number');
+        // Loop through each element and remove the class
+        console.log(dayNumbers);
 
-        // dayNumbers.forEach(dayNumber => {
-        //     dayNumber.classList.add('no-hover');
-        // });
+        dayNumbers.forEach(dayNumber => {
+            dayNumber.classList.add('no-hover');
+        });
     }
 
     var calendar = new Calendar(calendarEl, {
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             // console.log(info.event);
             // console.log(info.event.extendedProps.eventType);
             let eventType = info.event.extendedProps.eventType;
-            console.log(eventType);
+            // console.log(eventType);
             switch (eventType){
                 case "festival":
                     info.el.style.backgroundColor = "#fb8500";
