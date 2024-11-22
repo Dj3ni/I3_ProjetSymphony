@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RegistrationFormType;
+use App\Form\UpdateUserFormType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,18 +21,18 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
 
-        $form = $this->createForm(RegistrationFormType::class,$user);
+        $form = $this->createForm(UpdateUserFormType::class,$user);
         $form->handleRequest($req);
         // dd($form->isSubmitted(), $form->isValid(), $form->getErrors(true, false));
         if($form->isSubmitted() && $form->isValid()){
-            dd($form);
-            // $file = $form->get("avatarFile")->getData();
-            // // dd($file);
-            // $fileName = "avatar.".$user->getLastname().".".random_int(0,1000).".".$file->getClientOriginalExtension();
-            // // dd($fileName);
-            // // dd($this->getParameter("kernel.project_dir"));
-            // $file->move($this->getParameter("kernel.project_dir")."/public/uploads",$fileName);
-            // $user->setAvatar($fileName);
+            // dd($form);
+            $file = $form->get("avatarFile")->getData();
+            // dd($file);
+            $fileName = "avatar.".$user->getLastname().".".random_int(0,1000).".".$file->getClientOriginalExtension();
+            // dd($fileName);
+            // dd($this->getParameter("kernel.project_dir"));
+            $file->move($this->getParameter("kernel.project_dir")."/public/uploads",$fileName);
+            $user->setAvatar($fileName);
             if ($user->getAvatarFile() instanceof UploadedFile) {
                 $user->setUpdatedAt(new \DateTimeImmutable());
             }
