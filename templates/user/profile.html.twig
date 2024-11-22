@@ -45,8 +45,9 @@
                 <a href="{{ path ("change_password")}}" class = "card-link">Change password</a>
             <div class="div-btn">
                     <button class= "btn btn-primary btn-block" type = "submit">Update</button>
-                </div>{{form_end(form)}}
-            {# </div>{{form_end(form, {"render_rest":false})}} #}
+                {{ form_row(form._token) }}
+
+            </div>{{form_end(form, {"render_rest":false})}}
         </div>
     </div>
     {# <div class="tab-content">
