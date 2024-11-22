@@ -37,7 +37,7 @@ class EventFixture extends Fixture implements DependentFixtureInterface
         foreach($eventsData as $eventData){
             $event = new Event([
                 "title"=> $eventData["title"],
-                "dateStart" => $dateStart->modify('+' . rand(0,7) . ' months'),
+                "dateStart" => $dateStart->modify('+' . rand(0,5) . ' months'),
                 "dateEnd" => (clone $dateStart)->modify('+' . rand(0,7) . ' days'),
                 // "dateStart"=>$eventData[new \DateTime("dateStart")]->format('d-m-Y H:i'),
                 // "dateEnd"=>$eventData[new \DateTime("dateEnd")]->format('d-m-Y H:i'),
@@ -55,33 +55,33 @@ class EventFixture extends Fixture implements DependentFixtureInterface
 
         }
         
-        for ($i = 0; $i < 10; $i++) {
+        // for ($i = 0; $i < 10; $i++) {
             
-            // $dateStart = $faker->dateTime();
+        //     // $dateStart = $faker->dateTime();
 
 
-            $event = new Event([
-                "title" => $faker->catchPhrase(),
-                "dateStart" => $dateStart->modify('+' . rand(0,7) . ' months'),
-                "dateEnd" => (clone $dateStart)->modify('+' . rand(0,7) . ' days'),
-                "recurrenceEnd"=>$faker->dateTime(),
-                "recurrenceCount"=> 3,
-                "description" => $faker->paragraph(),
-                "fee"=>$faker->randomFloat(2,0,100),
-            ]);
+        //     $event = new Event([
+        //         "title" => $faker->catchPhrase(),
+        //         "dateStart" => $dateStart->modify('+' . rand(0,7) . ' months'),
+        //         "dateEnd" => (clone $dateStart)->modify('+' . rand(0,7) . ' days'),
+        //         "recurrenceEnd"=>$faker->dateTime(),
+        //         "recurrenceCount"=> 3,
+        //         "description" => $faker->paragraph(),
+        //         "fee"=>$faker->randomFloat(2,0,100),
+        //     ]);
 
-            $organisator = $this->getReference("user$i");
+        //     $organisator = $this->getReference("user$i");
             
-            $event->setEventType(EventType::cases()[rand(0,4)]);
+        //     $event->setEventType(EventType::cases()[rand(0,4)]);
             
-            $event->setRecurrenceType(RecurrenceType::cases()[rand(0,4)]);
-            $event->setUserOrganisator($organisator);
+        //     $event->setRecurrenceType(RecurrenceType::cases()[rand(0,4)]);
+        //     $event->setUserOrganisator($organisator);
             
-            $manager->persist($event);
+        //     $manager->persist($event);
 
-            // Références
-            $this->addReference("event$i", $event);
-        }
+        //     // Références
+        //     $this->addReference("event$i", $event);
+        // }
 
         $manager->flush();
     }

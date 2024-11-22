@@ -43,18 +43,18 @@ class GamingPlaceFixture extends Fixture implements DependentFixtureInterface
             $this->addReference($placeData["name"],$gamingPlace);
         }
 
-        for ($i=30; $i < 40; $i++) { 
-            $gamingPlace = new GamingPlace([
-                "name" => $faker->company(),
-                "type" => $faker->word(),
-                "description" => $faker->paragraph(),
-                "placeMax"=>$faker->randomNumber(3, false),
-            ]);
-            $manager->persist($gamingPlace);
-            $gamingPlace->setAddress($this->getReference("address$i"));
-            // References
-            $this->addReference("gamingPlace$i", $gamingPlace);
-        }
+        // for ($i=30; $i < 40; $i++) { 
+        //     $gamingPlace = new GamingPlace([
+        //         "name" => $faker->company(),
+        //         "type" => $faker->word(),
+        //         "description" => $faker->paragraph(),
+        //         "placeMax"=>$faker->randomNumber(3, false),
+        //     ]);
+        //     $manager->persist($gamingPlace);
+        //     $gamingPlace->setAddress($this->getReference("address$i"));
+        //     // References
+        //     $this->addReference("gamingPlace$i", $gamingPlace);
+        // }
 
         $manager->flush();
     }
