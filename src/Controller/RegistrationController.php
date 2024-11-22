@@ -35,13 +35,13 @@ class RegistrationController extends AbstractController
 
             // Avatar management if no Vich Bundle
             // /** @var UploadedFile $file */
-            // $file = $form->get("avatarFile")->getData();
+            $file = $form->get("avatarFile")->getData();
             // dd($file);
-            // $fileName = "avatar.".$user->getLastname().".".random_int(0,1000).".".$file->getClientOriginalExtension();
-            // // dd($fileName);
-            // // dd($this->getParameter("kernel.project_dir"));
-            // $file->move($this->getParameter("kernel.project_dir")."/public/uploads",$fileName);
-            // $user->setAvatar($fileName);
+            $fileName = "avatar.".$user->getLastname().".".random_int(0,1000).".".$file->getClientOriginalExtension();
+            // dd($fileName);
+            // dd($this->getParameter("kernel.project_dir"));
+            $file->move($this->getParameter("kernel.project_dir")."/public/uploads",$fileName);
+            $user->setAvatar($fileName);
             
             $entityManager->persist($user);
             $entityManager->flush();

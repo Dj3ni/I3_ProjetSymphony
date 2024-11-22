@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -21,8 +22,22 @@ class UserController extends AbstractController
 
         $form = $this->createForm(RegistrationFormType::class,$user);
         $form->handleRequest($req);
+        // dd($form->isSubmitted(), $form->isValid(), $form->getErrors(true, false));
         if($form->isSubmitted() && $form->isValid()){
+            dd($form);
+            // $file = $form->get("avatarFile")->getData();
+            // // dd($file);
+            // $fileName = "avatar.".$user->getLastname().".".random_int(0,1000).".".$file->getClientOriginalExtension();
+            // // dd($fileName);
+            // // dd($this->getParameter("kernel.project_dir"));
+            // $file->move($this->getParameter("kernel.project_dir")."/public/uploads",$fileName);
+            // $user->setAvatar($fileName);
+            if ($user->getAvatarFile() instanceof UploadedFile) {
+                $user->setUpdatedAt(new \DateTimeImmutable());
+            }
             $em->flush();
+            // $user->setAvatarFile(null);
+
             return $this->redirectToRoute("user_profile");
         }
 

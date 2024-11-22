@@ -53,9 +53,9 @@ class RegistrationFormType extends AbstractType
                 // ]
             ])
             ->add("avatarFile", FileType::class,[
-                /* if avatarFile not in Entity these fields are compulsory
+                /* if avatarFile not in Entity these fields are compulsory*/
                 "mapped" => false,
-                */
+                
                 "required"=> false,
                 "constraints"=> [
                     new Image(),

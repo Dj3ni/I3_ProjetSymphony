@@ -26,6 +26,10 @@
                 <div class = "avatar">
                     <label>My avatar</label>
                     <img src=" {{ vich_uploader_asset(app.user,"avatarFile")}}" alt="avatar">
+                    <div>
+                        <label>Change Avatar</label>
+                        {{form_widget (form.avatarFile)}}  
+                    </div>
                 </div>
             {% else %}
                 <div>
@@ -41,8 +45,8 @@
                 <a href="{{ path ("change_password")}}" class = "card-link">Change password</a>
             <div class="div-btn">
                     <button class= "btn btn-primary btn-block" type = "submit">Update</button>
-                
-            </div>{{form_end(form, {"render_rest":false})}}
+                </div>{{form_end(form)}}
+            {# </div>{{form_end(form, {"render_rest":false})}} #}
         </div>
     </div>
     {# <div class="tab-content">

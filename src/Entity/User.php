@@ -58,9 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
-    
     #[Vich\UploadableField(mapping: "uploads", fileNameProperty: "avatar")]
-    // #[SerializedName()]
     // #[Assert\Image()] doesn't work
     private ?File $avatarFile = null;
 
@@ -317,7 +315,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->avatarFile = $avatarFile;
 
         // if(null !== $avatarFile){
-        if($avatarFile instanceof UploadedFile){
+        if($this->avatarFile instanceof UploadedFile){
             $this->updatedAt = new \DateTimeImmutable();
         }
 
