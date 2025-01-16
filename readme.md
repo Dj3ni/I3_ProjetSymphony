@@ -13,10 +13,10 @@ My website is for boardgamers who want to subscribe to a boardgame club. It will
 
 What I want:
 
-MVP1: Events features: crud and subscription to an event
-MVP2: Subscribe a club and members management
-MVP3: Manage boardgame Library
-MVP4: Create and subscribe to a game session
+MVP1: Events features: crud and subscription to an event<br>
+MVP2: Subscribe a club and members management<br>
+MVP3: Manage boardgame Library<br>
+MVP4: Create and subscribe to a game session<br>
 
 ## Dependencies
 
@@ -25,15 +25,14 @@ MVP4: Create and subscribe to a game session
 ### Calendar JS
 Calendar doc: 
 - https://fullcalendar.io/docs/date-display
+- https://jquense.github.io/react-big-calendar/examples/index.html?path=/docs/about-big-calendar--page
 
-https://jquense.github.io/react-big-calendar/examples/index.html?path=/docs/about-big-calendar--page
-
-### Leaflet for openstreetMap
+### Leaflet for OpenStreetMap
 
 - https://leafletjs.com/
 
-with plugins: 
-- MapTiler ( for geocoding)
+With plugins: 
+- MapTiler (for geocoding)
 - Leaflet MarkerCluster (not working for the moment) 
 
 ### Vich uploader
