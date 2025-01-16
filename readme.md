@@ -34,7 +34,7 @@ https://jquense.github.io/react-big-calendar/examples/index.html?path=/docs/abou
 
 with plugins: 
 - MapTiler ( for geocoding)
-- Leflet MarkerCluster (not working for the moment) 
+- Leaflet MarkerCluster (not working for the moment) 
 
 ### Vich uploader
 https://github.com/dustin10/VichUploaderBundle
